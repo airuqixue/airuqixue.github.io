@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="c/c++,移植," />
+  <meta name="keywords" content="作用域 动态作用域 this," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。">
-<meta name="keywords" content="c&#x2F;c++,移植">
+<meta name="description" content="作用域说的差不多了，这里要说的是对于老程序员来说，容易混淆的一些概念。 比如动态作用域，动态作用域，就是一种对于老程序员（c或者java这类）来说容易误解的。下面我们看看javascript属于动态作用域吗？">
+<meta name="keywords" content="作用域 动态作用域 this">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个从32位机器移植到64位机器时的c问题">
-<meta property="og:url" content="http://www.mindincode.com/2017/01/08/一个从32位机器移植到64位机器时的c问题/index.html">
+<meta property="og:title" content="作用域扩展">
+<meta property="og:url" content="http://www.mindincode.com/2018/09/18/作用域扩展/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
-<meta property="og:description" content="在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。">
+<meta property="og:description" content="作用域说的差不多了，这里要说的是对于老程序员来说，容易混淆的一些概念。 比如动态作用域，动态作用域，就是一种对于老程序员（c或者java这类）来说容易误解的。下面我们看看javascript属于动态作用域吗？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-06T09:18:27.682Z">
+<meta property="og:updated_time" content="2018-09-18T09:17:58.063Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个从32位机器移植到64位机器时的c问题">
-<meta name="twitter:description" content="在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。">
+<meta name="twitter:title" content="作用域扩展">
+<meta name="twitter:description" content="作用域说的差不多了，这里要说的是对于老程序员来说，容易混淆的一些概念。 比如动态作用域，动态作用域，就是一种对于老程序员（c或者java这类）来说容易误解的。下面我们看看javascript属于动态作用域吗？">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://www.mindincode.com/2017/01/08/一个从32位机器移植到64位机器时的c问题/"/>
+  <link rel="canonical" href="http://www.mindincode.com/2018/09/18/作用域扩展/"/>
 
 
 
 
 
-  <title>一个从32位机器移植到64位机器时的c问题 | Xin's Blog</title>
+  <title>作用域扩展 | Xin's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2017/01/08/一个从32位机器移植到64位机器时的c问题/">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2018/09/18/作用域扩展/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shaoxin Yin">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">一个从32位机器移植到64位机器时的c问题</h1>
+          <h1 class="post-title" itemprop="name headline">作用域扩展</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-08T15:42:21+08:00">
-                2017-01-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-18T15:36:02+08:00">
+                2018-09-18
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c-c/" itemprop="url" rel="index">
-                    <span itemprop="name">c/c++</span>
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
                   </a>
                 </span>
 
@@ -352,26 +352,23 @@
       
 
       
-        <p>在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。<br>那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。</p>
+        <p>作用域说的差不多了，这里要说的是对于老程序员来说，容易混淆的一些概念。 比如动态作用域，<br>动态作用域，就是一种对于老程序员（c或者java这类）来说容易误解的。下面我们看看javascript属于动态作用域吗？</p>
 <a id="more"></a>
-<p>最近工作中遇到了一个讨厌的问题，在32位机器上运行的好好的，但是在64位机器上，出现了诡异的 Segmental fault。</p>
-<p>于是调试分析，一切似乎都很正常。开始怀疑是否由于使用了变参。因为proc不支持…形式的变参，所以，不得已自己写了一个类似printf这样的变参，和proc程序分开。这个函数如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> * <span class="title">get_fmt_str</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * fmt, ...)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHARE_BUF_STR_LEN 4096  </span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">char</span> str_buf[SHARE_BUF_STR_LEN];  </span><br><span class="line">  </span><br><span class="line">  va_list arg_ptr;  </span><br><span class="line">  va_start(arg_ptr, fmt);  </span><br><span class="line">  vsnprintf(str_buf, SHARE_BUF_STR_LEN, fmt, arg_ptr);  </span><br><span class="line">  va_end(arg_ptr);  </span><br><span class="line">  <span class="keyword">return</span> str_buf;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>调用语句为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get_fmt_str(<span class="string">"%s"</span>, get_last_error());</span><br></pre></td></tr></table></figure>
-<p>使用GDB调试，打印函数get_last_error()，返回正确的错误信息。<br>可是接着运行，Segmentation fault出来了。</p>
-<p>由于怀疑变参，于是找到一些关于x64的机器上变参的一些资料。在x64上的参数入栈，一般是先入寄存器，大概有6个寄存器，顺序为：rdi,rsi,rdx,rcx,r8,r9。如果参数大于6个，那么就使用栈保存。这时的 va_list 不再是一个简单的char *指针，而是一个结构体：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span>  </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> gp_offset;  </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> fp_offset;  </span><br><span class="line">    <span class="keyword">char</span> *overflow_arg_area;  </span><br><span class="line">    <span class="keyword">char</span> *reg_save_area;  </span><br><span class="line">&#125;va_list;</span><br></pre></td></tr></table></figure>
-<p>由于gp_offset不到6*8=48，所以，变参就通过 gp_offset + reg_save_area 获取。<br>根据这些信息，又调试，发现，gp_offset + reg_save_area 根本不对。<br>于是继续调试。也许这时，大家想知道get_last_error()返回什么了。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">get_last_error</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _error_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其实 error就是一个全局变量。一切都很正常。<br>实在是没有什么眉目了，于是只好根据x64位参数的分配方式，查看寄存器了。<br>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">info register</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rax            0x2ba3320526c0   47979918862016  </span><br><span class="line">rbx            0x2ba331e6f5e8   47979916883432  </span><br><span class="line">rcx            0x0      0  </span><br><span class="line">rdx            0x0      0  </span><br><span class="line">rsi             0x320526c0       839198400  </span><br><span class="line">rdi             0x2ba33201c036   47979918639158</span><br></pre></td></tr></table></figure>
-<p>这是在get_last_error()返回以后的寄存器情况。细心的人可能已经发现问题了。</p>
-<p>get_last_error()返回值作为参数，首先放在了rax，然后被放到rsi作为参数，这是gcc x64上的变参调用时参数保存方式。而我们在rsi里看到什么了？</p>
-<p>这个值正好是rax里的低32位，这就是说，返回get_last_error()时，返回的char ，在x64机器上应该为64位的char ，居然变成了32位的值。为什么？为什么？</p>
-<p>我们也可以看到，get_last_error()的返回值，确实是char 啊。<br>这种疑惑，我又做了无数的猜疑，但是突然想到一点， c语言中，如果没有函数原型的声明，那么，返回值会被默认为int型，而int在x64的机器上是32位的！*</p>
-<p>肯定就是这个原因，于是打开get_last_error()这个函数的c文件，果然没有包含一个头文件，而头文件的作用，也就是声明函数原型。当然，调用语句所在的c文件，也没有用到声明get_last_error()的头文件。</p>
-<p>于是加上原型函数声明，再试，好了。纠结了近两天的问题圆满解决！</p>
+<p>词法作用域是一种静态作用域，字面意思就是写出来就决定了作用域。可以在词法分析阶段就确定的。</p>
+<p>来看下面的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">	foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">bar();</span><br></pre></td></tr></table></figure>
+<p>很自然的我们考虑到foo调用的时候似乎a的值是3.但是。。。<br>这是调用的时候，我们定义函数foo的时候，a的值可是全局作用域，这才是词法作用域啊！<br>正确答案，是 输出 2</p>
+<p>我们也可以说javascript并不具备动态作用域。</p>
+<p>但是，我们为了能够写出我们熟悉的代码，这里引入this的概念。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	id: <span class="string">"awesome"</span>,</span><br><span class="line">	cool: <span class="function"><span class="keyword">function</span> <span class="title">coolFn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.id);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> id = <span class="string">"not awesome"</span>;</span><br><span class="line"></span><br><span class="line">obj.cool();  <span class="comment">//awesome</span></span><br><span class="line"></span><br><span class="line">setTimeout(obj.cool, <span class="number">100</span>); <span class="comment">//not awesome</span></span><br></pre></td></tr></table></figure>
+<p>这段代码肯定是忘记了什么，this与函数cool之间的绑定没了。。。来看一个常用的解决办法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	count:<span class="number">0</span>,</span><br><span class="line">	cool: <span class="function"><span class="keyword">function</span> <span class="title">coolFn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">		<span class="keyword">if</span>(self.count &lt; <span class="number">1</span>)&#123;</span><br><span class="line">			setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				self.count++;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"awesome?"</span>);</span><br><span class="line">				&#125;, <span class="number">100</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.cool(); <span class="comment">//awesome</span></span><br></pre></td></tr></table></figure>
+<p>看到 var self = this 了。这就是我们常用的方法。把this绑定到self变量中。</p>
+<p>es6引入了=&gt; ， 帮我们解决了此类问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	count: <span class="number">0</span>,</span><br><span class="line">	cool: <span class="function"><span class="keyword">function</span> <span class="title">coolFn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.count&gt; <span class="number">1</span>)&#123;</span><br><span class="line">			setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">				<span class="keyword">this</span>.count++;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"awesome?"</span>);</span><br><span class="line">				&#125;,<span class="number">100</span> );</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个 =&gt; 让我们想起了lambda表达式。这里要说明的是this的用法，=&gt;下的this， 不再需要绑定。<br>当然我们现在还有一种写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	count: <span class="number">0</span>,</span><br><span class="line">	cool: <span class="function"><span class="keyword">function</span> <span class="title">coolFn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.count&gt; <span class="number">1</span>)&#123;</span><br><span class="line">			setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				<span class="keyword">this</span>.count++;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"awesome?"</span>);</span><br><span class="line">				&#125;.bind(<span class="keyword">this</span>),<span class="number">100</span> );</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.cool();</span><br></pre></td></tr></table></figure>
+<p>使用了bind函数。 bind函数针对每个函数类型都有，用法还很多。这里我们只是考虑了this的词法作用域问题。<br>this是一个特殊的词，这里不做深入，后面继续会讲。通过=&gt;， bind等方法，我们又一次把this与词法作用域联系起来。</p>
 
       
     </div>
@@ -389,9 +386,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c-c/" rel="tag"># c/c++</a>
-          
-            <a href="/tags/移植/" rel="tag"># 移植</a>
+            <a href="/tags/作用域-动态作用域-this/" rel="tag"># 作用域 动态作用域 this</a>
           
         </div>
       
@@ -404,15 +399,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/09/14/闭包/" rel="next" title="闭包">
+                <i class="fa fa-chevron-left"></i> 闭包
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/10/工厂模式与抽象工厂模式/" rel="prev" title="工厂模式与抽象工厂模式">
-                工厂模式与抽象工厂模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
