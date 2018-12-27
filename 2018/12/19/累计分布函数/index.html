@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Xin&#39;s Blog">
 <meta property="og:description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-19T10:22:39.076Z">
+<meta property="og:updated_time" content="2018-12-27T03:38:04.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="累积分布函数CDF">
 <meta name="twitter:description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
@@ -355,24 +355,57 @@
         <p>什么是累计分布函数？他有什么用呢？<br>上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。</p>
 <a id="more"></a>
 <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>对于任意一个随机变量 X ， 我们定义其CDF微函数：</p>
-<p> $$<br> F_x(x)=P(X\leqx)<br> $$</p>
+<p> $$<br> F_X(x)=P(X\leq x)<br> $$</p>
 <p> 这里大写X标识随机变数</p>
 <p> 怎么理解呢， 还是用幸运之轮的例子</p>
-<p> $F_x(0.5) = P(X\leq0.5)=1/2$</p>
-<p> 这样就好理解了吧。也就是随机变量小于0.5的这样一个概率是多少呢？很明显 ，1/2</p>
+<p> $F_X(0.5) = P(X\leq0.5)=1/2$</p>
+<p> 这样就好理解了吧。也就是随机变量小于0.5的这样一个概率是多少呢？很明显 ，1/2<br> （幸运之轮是从0到1的一个圆盘，转到的数值在 [0,1)之间）</p>
 <h1 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h1><p>当我们需要计算 X 落在某个范围内的概率时候，</p>
 <p>$P(-\infty—3=====5—-\infty)$  3-5之间的范围</p>
-<p>$P(3&lt;X\leq5) = P(-\infty&lt;X\leq5) - P(-\infty&lt;X\leq3)$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $= F_x(5)-F_x(3)$</p>
-<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><h2 id="离散随机变数的累积分布函数"><a href="#离散随机变数的累积分布函数" class="headerlink" title="离散随机变数的累积分布函数"></a>离散随机变数的累积分布函数</h2><p>来看掷骰子，一共有6个面。(公平骰子哦)<br>那么 P(X=1) = P(X=2) = P(X=3) = P(X=4)<br>     = P(X=5) = P(X=6)=1/6<br>CDF: $F_x(x)=P(X\leq x)$ </p>
-<p>-|–|—|—|—|—|—|—&gt;x<br>0.2 1   2   3   4   5   6</p>
+<p>$P(3&lt;X\leq5) = P(-\infty&lt;X\leq5) - P(-\infty&lt;X\leq3)$<br>             = $F_X(5)-F_X(3)$</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><h2 id="离散随机变数的累积分布函数"><a href="#离散随机变数的累积分布函数" class="headerlink" title="离散随机变数的累积分布函数"></a>离散随机变数的累积分布函数</h2><p>来看掷骰子，一共有6个面。(公平骰子哦)<br>那么 P(X=1) = P(X=2) = P(X=3) = P(X=4)<br>     = P(X=5) = P(X=6)=1/6<br>CDF: $F_X(x)=P(X\leq x)$ </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-|---|---|---|---|---|---|---&gt;x</span><br><span class="line">0.2  1   2   3   4   5   6</span><br></pre></td></tr></table></figure>
 <p>当x=0.1的时候，不可能有骰子点数小于0.2， 所以 F(0.2)=0<br>当x=1 的时候，骰子为1点的概率是1/6， 所以F(1)=1/6<br>当x=1.5的时候，骰子点数小于1.5的概率也是1/6，只有1，所以F(1.5)=1/6<br>当x=2.5的时候，骰子点数小于2.5的情况可能是1，或者2， 所以 F(2.5)=2/6<br>…<br>当x=6 时候， 骰子点数小于6的概率是1，因为所有的情况都包含了 F(6)=1</p>
 <p>当x&gt;6的时候， F(x)=1<br>这就是离散分布<br>通过a,b把计算公式整理得到</p>
-<p>$P(a&lt;X\leqb)=F_x(b)-F_x(a)$</p>
-<p>计算<br>$P(3&lt;X\leq5)$<br>=$F_x(5)-F_x(3)=5/6-3/6=2/6$</p>
-<p>$P(3&lt;X&lt;5)$<br>=$P(3&lt;X\leq5^-)$<br>=$F_x(5^-)-F_x(3)$<br>=$F_x(5)-P(X=5)-F_x(3)=1/6$</p>
-<p>$P(3\leqX&lt;5)$<br>=$P(3&lt;X\leq5) + P(X=3) - P(X=5)$<br>=$F_x(5)-F_x(3)+P(X=3)-P(X=5)=2/6+3/6-5/6=5/6</p>
-<p>$P(3\leqX\leq5)$</p>
-<h2 id="连续随机变数的累积分布函数"><a href="#连续随机变数的累积分布函数" class="headerlink" title="连续随机变数的累积分布函数"></a>连续随机变数的累积分布函数</h2>
+<p>$P(a&lt;X\leq b)=F_X(b)-F_X(a)$</p>
+<p>计算</p>
+<hr>
+<p>$P(3&lt;X\leq5)$</p>
+<p>=$F_X(5)-F_X(3)=5/6-3/6=2/6$</p>
+<hr>
+<p>$P(3&lt;X&lt;5)$</p>
+<p>=$P(3&lt;X\leq5^-)$</p>
+<p>=$F_X(5^-)-F_X(3)$</p>
+<p>=$F_X(5)-P(X=5)-F_X(3)=1/6$</p>
+<hr>
+<p>$P(3\leq X&lt;5)$</p>
+<p>=$P(3&lt;X\leq5) + P(X=3) - P(X=5)$</p>
+<p>=$F_X(5)-F_X(3)+P(X=3)-P(X=5)=2/6+1/6-1/6=2/6$</p>
+<hr>
+<p>$P(3\leq X\leq5)$</p>
+<p>=$P(3&lt;X\leq5)+P(X=3)$</p>
+<p>=$F_X(5)-F_X(3)+P(X=3)$</p>
+<p>=$5/6-3/6+1/6 = 3/6$</p>
+<h2 id="连续随机变数的累积分布函数"><a href="#连续随机变数的累积分布函数" class="headerlink" title="连续随机变数的累积分布函数"></a>连续随机变数的累积分布函数</h2><p>还是使用幸运之轮的例子 ， X为幸运之轮停下来指向的数字 , X 属于 [0,1)</p>
+<p>-CDF: $F_X(x) = P(X\leq x)$</p>
+<p>$F_X(-0.1) = P(Xleq-0.1) = 0$</p>
+<p>$F_X(0.1) = P(0\leq X\leq0.1) = 0.1$</p>
+<p>$F_X(0.5) = P(0\leq X\leq0.5) = 0.5$</p>
+<p>$F_X(1) = P(0\leq X\leq1)=1$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">           /^-------</span><br><span class="line">          / |</span><br><span class="line">         /  |  </span><br><span class="line">        /   |  1 </span><br><span class="line">       /    | </span><br><span class="line">------/-----v-------&gt;x</span><br><span class="line">      0     1</span><br></pre></td></tr></table></figure>
+<hr>
+<p>$P(0.3&lt;X\leq0.5)$<br>=$F_X(0.5) - F_X(0.3) = 0.5-0.3 = 0.2$</p>
+<hr>
+<p>$P(0.3&lt;X&lt;0.5)$<br>=$P(0.3&lt;X\leq0.5^-)$<br>=$F_X(0.5^-) - FX(0.3) = 0.5-0.3 = 0.2$</p>
+<h1 id="CDF性质"><a href="#CDF性质" class="headerlink" title="CDF性质"></a>CDF性质</h1><h2 id="离散随机变数的CDF"><a href="#离散随机变数的CDF" class="headerlink" title="离散随机变数的CDF"></a>离散随机变数的CDF</h2><p>$F_X(x^+)= F_X(x)$<br>$F_X(x^-)=F_X(x) - P(X=x)$</p>
+<p>这里的x上标可以理解为比x多一点点，离x差一点点</p>
+<h2 id="连续随机变数的CDF"><a href="#连续随机变数的CDF" class="headerlink" title="连续随机变数的CDF"></a>连续随机变数的CDF</h2><p>$F_X(x^-)=F_X(x)=F_X(x^+)$</p>
+<h2 id="共同性质"><a href="#共同性质" class="headerlink" title="共同性质"></a>共同性质</h2><ul>
+<li>$F_X(-\inf) = P(X\leq -\inf) = 0 $</li>
+<li>$F_X(\inf) = P(X\leq\inf)=1$</li>
+<li>$0\leq F_X(x)\leq1$</li>
+</ul>
+
       
     </div>
     
@@ -562,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用途"><span class="nav-number">2.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">3.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散随机变数的累积分布函数"><span class="nav-number">3.1.</span> <span class="nav-text">离散随机变数的累积分布函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续随机变数的累积分布函数"><span class="nav-number">3.2.</span> <span class="nav-text">连续随机变数的累积分布函数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用途"><span class="nav-number">2.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">3.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散随机变数的累积分布函数"><span class="nav-number">3.1.</span> <span class="nav-text">离散随机变数的累积分布函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续随机变数的累积分布函数"><span class="nav-number">3.2.</span> <span class="nav-text">连续随机变数的累积分布函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CDF性质"><span class="nav-number">4.</span> <span class="nav-text">CDF性质</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散随机变数的CDF"><span class="nav-number">4.1.</span> <span class="nav-text">离散随机变数的CDF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续随机变数的CDF"><span class="nav-number">4.2.</span> <span class="nav-text">连续随机变数的CDF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#共同性质"><span class="nav-number">4.3.</span> <span class="nav-text">共同性质</span></a></li></ol></li></ol></div>
             
 
           </div>
