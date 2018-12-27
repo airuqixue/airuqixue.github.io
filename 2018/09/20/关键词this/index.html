@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Xin&#39;s Blog">
 <meta property="og:description" content="上一篇提到this，并且说了一下this与词法作用域的关系。接下来我们要深入了解this， 这个关键词也是我们常见的问题的根源。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-26T04:02:55.263Z">
+<meta property="og:updated_time" content="2018-09-27T07:25:12.396Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关键词this">
 <meta name="twitter:description" content="上一篇提到this，并且说了一下this与词法作用域的关系。接下来我们要深入了解this， 这个关键词也是我们常见的问题的根源。">
@@ -460,7 +460,7 @@
 <h2 id="安全忽略this"><a href="#安全忽略this" class="headerlink" title="安全忽略this"></a>安全忽略this</h2><p>为了把this牢牢拴住，我们可以把她绑定再DMZ中（demilitarized zone，非军事区）让我们看看如何创建这样的“区域”</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"a:"</span>+ a+<span class="string">",b:"</span>+b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//我们创建的DMZ对象</span></span><br><span class="line"><span class="keyword">var</span> φ = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组展开成参数</span></span><br><span class="line">foo.apply(φ, [<span class="number">2</span>,<span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用bind进行科里化</span></span><br><span class="line"><span class="keyword">var</span> bar = foo.bind(φ,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">bar(<span class="number">3</span>); <span class="comment">//a:2,b:3</span></span><br></pre></td></tr></table></figure>
 <h2 id="间接引用"><a href="#间接引用" class="headerlink" title="间接引用"></a>间接引用</h2><p>注意间接引用也是最容易混淆的绑定</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">a</span>:<span class="number">3</span>, <span class="attr">foo</span>:foo&#125;;</span><br><span class="line"><span class="keyword">var</span> p = &#123;<span class="attr">a</span>:<span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line">o.foo();<span class="comment">//3</span></span><br><span class="line">(p.foo = o.foo)(); <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">a</span>:<span class="number">3</span>, <span class="attr">foo</span>:foo&#125;;</span><br><span class="line"><span class="keyword">var</span> p = &#123;<span class="attr">a</span>:<span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line">o.foo();<span class="comment">//3</span></span><br><span class="line">(p.foo = o.foo)(); <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
 <h2 id="软绑定"><a href="#软绑定" class="headerlink" title="软绑定"></a>软绑定</h2><p>硬绑定可以把this绑定到指定的对象（除了使用new），但是问题在于使用了硬绑定，我们就没法改变this。<br>如果我们希望this应用默认绑定时，可以绑定到指定的全局对象（非undefined），这样我们就可以实现和<br>硬绑定相同的结果，同时又保留隐式绑定或者显示绑定修改this的能力。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Function</span>.prototype.softBind)&#123;</span><br><span class="line">	<span class="built_in">Function</span>.prototype.softBind = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> fn = <span class="keyword">this</span>;</span><br><span class="line">		<span class="keyword">var</span> curried = [].slice.call(<span class="built_in">arguments</span>,<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">var</span> bound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			fn.apply(</span><br><span class="line">				(!<span class="keyword">this</span>||<span class="keyword">this</span> === (<span class="built_in">window</span>||gobal))?obj:<span class="keyword">this</span>,</span><br><span class="line">				curried.concat.apply(curried,<span class="built_in">arguments</span>)</span><br><span class="line">				);</span><br><span class="line">		&#125;;</span><br><span class="line">		bound.prototype = <span class="built_in">Object</span>.create(fn.prototype);</span><br><span class="line">		<span class="keyword">return</span> bound;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里没有使用new，而是使用apply，并且在绑定的时候检查this，如果this绑定到全局对象或者undefined，就把指定的默认<br>对象obj绑定到this，否则不修改this。</p>
@@ -519,6 +519,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/19/累计分布函数/" rel="prev" title="累积分布函数CDF">
+                累积分布函数CDF <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -599,7 +603,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -610,7 +614,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -621,7 +625,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -877,6 +881,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

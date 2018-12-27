@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="随机变量 累计分布 CDF RV," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="A programmer&apos;s mind">
-<meta name="keywords" content="java c++ python javascript vue">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Xin&#39;s Blog">
-<meta property="og:url" content="http://www.mindincode.com/categories/c-c-linux/index.html">
+<meta name="description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
+<meta name="keywords" content="随机变量 累计分布 CDF RV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="累积分布函数CDF">
+<meta property="og:url" content="http://www.mindincode.com/2018/12/19/累计分布函数/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
-<meta property="og:description" content="A programmer&apos;s mind">
+<meta property="og:description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-19T10:22:39.076Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xin&#39;s Blog">
-<meta name="twitter:description" content="A programmer&apos;s mind">
+<meta name="twitter:title" content="累积分布函数CDF">
+<meta name="twitter:description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://www.mindincode.com/categories/c-c-linux/"/>
+  <link rel="canonical" href="http://www.mindincode.com/2018/12/19/累计分布函数/"/>
 
 
 
 
 
-  <title>分类: c/c++ linux | Xin's Blog</title>
+  <title>累积分布函数CDF | Xin's Blog</title>
   
 
 
@@ -144,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -248,55 +249,188 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>c/c++ linux<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2018/12/19/累计分布函数/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shaoxin Yin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/09/06/管道pipe/" itemprop="url">
-              
-                <span itemprop="name">管道pipe</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">累积分布函数CDF</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-06T17:36:31+08:00"
-              content="2017-09-06" >
-          09-06
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T20:16:50+08:00">
+                2018-12-19
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/概率/" itemprop="url" rel="index">
+                    <span itemprop="name">概率</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    </div>
+      
 
+      
+        <p>什么是累计分布函数？他有什么用呢？<br>上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。</p>
+<a id="more"></a>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>对于任意一个随机变量 X ， 我们定义其CDF微函数：</p>
+<p> $$<br> F_x(x)=P(X\leqx)<br> $$</p>
+<p> 这里大写X标识随机变数</p>
+<p> 怎么理解呢， 还是用幸运之轮的例子</p>
+<p> $F_x(0.5) = P(X\leq0.5)=1/2$</p>
+<p> 这样就好理解了吧。也就是随机变量小于0.5的这样一个概率是多少呢？很明显 ，1/2</p>
+<h1 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h1><p>当我们需要计算 X 落在某个范围内的概率时候，</p>
+<p>$P(-\infty—3=====5—-\infty)$  3-5之间的范围</p>
+<p>$P(3&lt;X\leq5) = P(-\infty&lt;X\leq5) - P(-\infty&lt;X\leq3)$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $= F_x(5)-F_x(3)$</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><h2 id="离散随机变数的累积分布函数"><a href="#离散随机变数的累积分布函数" class="headerlink" title="离散随机变数的累积分布函数"></a>离散随机变数的累积分布函数</h2><p>来看掷骰子，一共有6个面。(公平骰子哦)<br>那么 P(X=1) = P(X=2) = P(X=3) = P(X=4)<br>     = P(X=5) = P(X=6)=1/6<br>CDF: $F_x(x)=P(X\leq x)$ </p>
+<p>-|–|—|—|—|—|—|—&gt;x<br>0.2 1   2   3   4   5   6</p>
+<p>当x=0.1的时候，不可能有骰子点数小于0.2， 所以 F(0.2)=0<br>当x=1 的时候，骰子为1点的概率是1/6， 所以F(1)=1/6<br>当x=1.5的时候，骰子点数小于1.5的概率也是1/6，只有1，所以F(1.5)=1/6<br>当x=2.5的时候，骰子点数小于2.5的情况可能是1，或者2， 所以 F(2.5)=2/6<br>…<br>当x=6 时候， 骰子点数小于6的概率是1，因为所有的情况都包含了 F(6)=1</p>
+<p>当x&gt;6的时候， F(x)=1<br>这就是离散分布<br>通过a,b把计算公式整理得到</p>
+<p>$P(a&lt;X\leqb)=F_x(b)-F_x(a)$</p>
+<p>计算<br>$P(3&lt;X\leq5)$<br>=$F_x(5)-F_x(3)=5/6-3/6=2/6$</p>
+<p>$P(3&lt;X&lt;5)$<br>=$P(3&lt;X\leq5^-)$<br>=$F_x(5^-)-F_x(3)$<br>=$F_x(5)-P(X=5)-F_x(3)=1/6$</p>
+<p>$P(3\leqX&lt;5)$<br>=$P(3&lt;X\leq5) + P(X=3) - P(X=5)$<br>=$F_x(5)-F_x(3)+P(X=3)-P(X=5)=2/6+3/6-5/6=5/6</p>
+<p>$P(3\leqX\leq5)$</p>
+<h2 id="连续随机变数的累积分布函数"><a href="#连续随机变数的累积分布函数" class="headerlink" title="连续随机变数的累积分布函数"></a>连续随机变数的累积分布函数</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/随机变量-累计分布-CDF-RV/" rel="tag"># 随机变量 累计分布 CDF RV</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/20/关键词this/" rel="next" title="关键词this">
+                <i class="fa fa-chevron-left"></i> 关键词this
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -304,6 +438,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -324,8 +462,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -405,6 +552,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用途"><span class="nav-number">2.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">3.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散随机变数的累积分布函数"><span class="nav-number">3.1.</span> <span class="nav-text">离散随机变数的累积分布函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续随机变数的累积分布函数"><span class="nav-number">3.2.</span> <span class="nav-text">连续随机变数的累积分布函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -545,6 +708,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
