@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="作用域 动态作用域 this," />
+  <meta name="keywords" content="概率 几率 probability," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="作用域说的差不多了，这里要说的是对于老程序员来说，容易混淆的一些概念。 比如动态作用域，动态作用域，就是一种对于老程序员（c或者java这类）来说容易误解的。下面我们看看javascript属于动态作用域吗？">
-<meta name="keywords" content="作用域 动态作用域 this">
+<meta name="description" content="数学的基石是公理，公理是不可证明的。例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a通过公理，我们可以推出很多定理。如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理">
+<meta name="keywords" content="概率 几率 probability">
 <meta property="og:type" content="article">
-<meta property="og:title" content="作用域扩展">
-<meta property="og:url" content="http://www.mindincode.com/2018/09/18/作用域扩展/index.html">
+<meta property="og:title" content="概率-公理性质">
+<meta property="og:url" content="http://www.mindincode.com/2019/04/17/概率-2-公理性质/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
-<meta property="og:description" content="作用域说的差不多了，这里要说的是对于老程序员来说，容易混淆的一些概念。 比如动态作用域，动态作用域，就是一种对于老程序员（c或者java这类）来说容易误解的。下面我们看看javascript属于动态作用域吗？">
+<meta property="og:description" content="数学的基石是公理，公理是不可证明的。例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a通过公理，我们可以推出很多定理。如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-18T09:17:58.063Z">
+<meta property="og:updated_time" content="2019-04-17T07:09:11.364Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="作用域扩展">
-<meta name="twitter:description" content="作用域说的差不多了，这里要说的是对于老程序员来说，容易混淆的一些概念。 比如动态作用域，动态作用域，就是一种对于老程序员（c或者java这类）来说容易误解的。下面我们看看javascript属于动态作用域吗？">
+<meta name="twitter:title" content="概率-公理性质">
+<meta name="twitter:description" content="数学的基石是公理，公理是不可证明的。例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a通过公理，我们可以推出很多定理。如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://www.mindincode.com/2018/09/18/作用域扩展/"/>
+  <link rel="canonical" href="http://www.mindincode.com/2019/04/17/概率-2-公理性质/"/>
 
 
 
 
 
-  <title>作用域扩展 | Xin's Blog</title>
+  <title>概率-公理性质 | Xin's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2018/09/18/作用域扩展/">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/04/17/概率-2-公理性质/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shaoxin Yin">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">作用域扩展</h1>
+          <h1 class="post-title" itemprop="name headline">概率-公理性质</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-18T15:36:02+08:00">
-                2018-09-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-17T11:36:02+08:00">
+                2019-04-17
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
+                  <a href="/categories/概率/" itemprop="url" rel="index">
+                    <span itemprop="name">概率</span>
                   </a>
                 </span>
 
@@ -352,23 +352,36 @@
       
 
       
-        <p>作用域说的差不多了，这里要说的是对于老程序员来说，容易混淆的一些概念。 比如动态作用域，<br>动态作用域，就是一种对于老程序员（c或者java这类）来说容易误解的。下面我们看看javascript属于动态作用域吗？</p>
+        <p>数学的基石是公理，公理是不可证明的。<br>例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a<br>通过公理，我们可以推出很多定理。<br>如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理</p>
 <a id="more"></a>
-<p>词法作用域是一种静态作用域，字面意思就是写出来就决定了作用域。可以在词法分析阶段就确定的。</p>
-<p>来看下面的例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">	foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">bar();</span><br></pre></td></tr></table></figure>
-<p>很自然的我们考虑到foo调用的时候似乎a的值是3.但是。。。<br>这是调用的时候，我们定义函数foo的时候，a的值可是全局作用域，这才是词法作用域啊！<br>正确答案，是 输出 2</p>
-<p>我们也可以说javascript并不具备动态作用域。</p>
-<p>但是，我们为了能够写出我们熟悉的代码，这里引入this的概念。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	id: <span class="string">"awesome"</span>,</span><br><span class="line">	cool: <span class="function"><span class="keyword">function</span> <span class="title">coolFn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.id);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> id = <span class="string">"not awesome"</span>;</span><br><span class="line"></span><br><span class="line">obj.cool();  <span class="comment">//awesome</span></span><br><span class="line"></span><br><span class="line">setTimeout(obj.cool, <span class="number">100</span>); <span class="comment">//not awesome</span></span><br></pre></td></tr></table></figure>
-<p>这段代码肯定是忘记了什么，this与函数cool之间的绑定没了。。。来看一个常用的解决办法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	count:<span class="number">0</span>,</span><br><span class="line">	cool: <span class="function"><span class="keyword">function</span> <span class="title">coolFn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">		<span class="keyword">if</span>(self.count &lt; <span class="number">1</span>)&#123;</span><br><span class="line">			setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				self.count++;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"awesome?"</span>);</span><br><span class="line">				&#125;, <span class="number">100</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.cool(); <span class="comment">//awesome</span></span><br></pre></td></tr></table></figure>
-<p>看到 var self = this 了。这就是我们常用的方法。把this绑定到self变量中。</p>
-<p>es6引入了=&gt; ， 帮我们解决了此类问题</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	count: <span class="number">0</span>,</span><br><span class="line">	cool: <span class="function"><span class="keyword">function</span> <span class="title">coolFn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.count&gt; <span class="number">1</span>)&#123;</span><br><span class="line">			setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">				<span class="keyword">this</span>.count++;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"awesome?"</span>);</span><br><span class="line">				&#125;,<span class="number">100</span> );</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个 =&gt; 让我们想起了lambda表达式。这里要说明的是this的用法，=&gt;下的this， 不再需要绑定。<br>当然我们现在还有一种写法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	count: <span class="number">0</span>,</span><br><span class="line">	cool: <span class="function"><span class="keyword">function</span> <span class="title">coolFn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.count&gt; <span class="number">1</span>)&#123;</span><br><span class="line">			setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				<span class="keyword">this</span>.count++;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"awesome?"</span>);</span><br><span class="line">				&#125;.bind(<span class="keyword">this</span>),<span class="number">100</span> );</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.cool();</span><br></pre></td></tr></table></figure>
-<p>使用了bind函数。 bind函数针对每个函数类型都有，用法还很多。这里我们只是考虑了this的词法作用域问题。<br>this是一个特殊的词，这里不做深入，后面继续会讲。通过=&gt;， bind等方法，我们又一次把this与词法作用域联系起来。</p>
+<h1 id="概率三公理（Axioms-Of-Probability）"><a href="#概率三公理（Axioms-Of-Probability）" class="headerlink" title="概率三公理（Axioms Of Probability）"></a>概率三公理（Axioms Of Probability）</h1><h2 id="三公理"><a href="#三公理" class="headerlink" title="三公理"></a>三公理</h2><ul>
+<li><p>1 公理一:<br><strong> 对于任何事件 A 而言， P(A) $\geq 0 $ </strong></p>
+</li>
+<li><p>2 公理二:<br><strong> P(S) = 1 </strong>  S 表示样本空间集合</p>
+</li>
+<li><p>3 公理三:<br><strong> 事件A1， A2， …… 互斥 $\Rightarrow$ P(A1 U A2 U A3…) = P(A1) + P(A2) + p(A3) + … </strong></p>
+</li>
+</ul>
+<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><p>Ex  从一副52长扑克牌中抽一张，结果为Ace的几率为？</p>
+<p>Ace = {红桃A， 黑桃A，梅花A，方块A}</p>
+<p>根据公理三</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P(Ace) = P&#123;红桃A&#125; + P&#123;黑桃A&#125; + P&#123;梅花A&#125; + P&#123;方块A&#125;</span><br><span class="line"></span><br><span class="line">       = 4/52 = 1/13</span><br></pre></td></tr></table></figure>
+<h3 id="性质一"><a href="#性质一" class="headerlink" title="性质一"></a>性质一</h3><p>若 $ E = {O_1, O_2, O_3 ,…, O_n}$<br>则 $P(E) = P({O_1})+ P({O_2}) + P({O_3}) +…+P({O_n})$</p>
+<pre><code>{O1},{O2},{O3}互斥，实验结果不能即是这个又是那个。
+所以根据公理三可推出
+</code></pre><h3 id="性质二"><a href="#性质二" class="headerlink" title="性质二"></a>性质二</h3><p>$P(\phi) = 0 $</p>
+<p>证明<br>    $ S \cap \phi = \phi \Rightarrow S , \phi $ 互斥<br>    $ S = S \cup \phi $<br>    $ \Rightarrow P(S) = P(S \cup \phi) = P(S) + P(\phi) $<br>    $ \Rightarrow P(\phi) = 0 $</p>
+<h3 id="性质三"><a href="#性质三" class="headerlink" title="性质三"></a>性质三</h3><p>$P(A) = 1 - P(A^c)$</p>
+<p>证明<br>  $$<br>     A \cap A^c = \phi \Rightarrow A, A^c 互斥<br>     S = A \cup A^c<br>     P(S) = P(A) + P(A^c)<br>     1 = P(A) + P(A^c)<br>     P(A) = 1 - P(A^c)<br>  $$</p>
+<h3 id="性质四"><a href="#性质四" class="headerlink" title="性质四"></a>性质四</h3><p>$P(A) = P(A-B) + P(A \cap B)$</p>
+<h3 id="性质五"><a href="#性质五" class="headerlink" title="性质五"></a>性质五</h3><p>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</p>
+<p>性质四和五可以用集合图解来很好的证明。</p>
+<h3 id="性质六"><a href="#性质六" class="headerlink" title="性质六"></a>性质六</h3><p>“切面包”</p>
+<p>若 $C_1, C_2, …, C_n $ 互斥 切 $C_1 \cup C_2 \cup…\cup C_n = S $<br>则对任何事件 A： $P(A) = P(A\cap C_1) + P(A\cap C_2)+…+P(A\cap C_n)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">|______________________________________________________|</span><br><span class="line">|  C1         |   C2    |    ...    |     Cn           |</span><br><span class="line">|             |         |           |                  |</span><br><span class="line">| |-----------|---------|-----------|-----------|      |</span><br><span class="line">| |A n C1     |A n C2   |  ...      |A n Cn     |      |</span><br><span class="line">| |-----------|---------|-----------|-----------|      |</span><br><span class="line">|             |         |           |                  | </span><br><span class="line">|_____________|_________|___________|__________________|</span><br></pre></td></tr></table></figure>
+<p>S 就是一个面包，A这个事件的概率就等于A与每一个面包块交集的概率相加。很形象。之后用的很多。</p>
+<p>这是一个很有意思的性质。来看叶老师的例子（简化）。<br>Ex ： 通过对女店员的态度与店里的生意好坏的统计发现一定规律。店里的生意分为满客(F)，普(C)，惨淡(P)， 店员的态度有笑(L)怒(A)<br>根据统计</p>
+<p>$$<br>  S = \begin{Bmatrix}<br>  (F \cap L) -&gt; 1/20 &amp; (F \cap A) -&gt; 2/20 \<br>  (C \cap L) -&gt; 5/20 &amp; (C \cap A) -&gt; 4/20 \<br>  (P \cap L) -&gt; 5/20 &amp; (P \cap A) -&gt; 3/20<br>  \end{Bmatrix}<br>$$</p>
 
       
     </div>
@@ -386,7 +399,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/作用域-动态作用域-this/" rel="tag"># 作用域 动态作用域 this</a>
+            <a href="/tags/概率-几率-probability/" rel="tag"># 概率 几率 probability</a>
           
         </div>
       
@@ -399,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/14/闭包/" rel="next" title="闭包">
-                <i class="fa fa-chevron-left"></i> 闭包
+              <a href="/2019/04/16/概率-1/" rel="next" title="概率-概念">
+                <i class="fa fa-chevron-left"></i> 概率-概念
               </a>
             
           </div>
@@ -408,10 +421,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/20/关键词this/" rel="prev" title="关键词this">
-                关键词this <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -463,8 +472,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -544,6 +562,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率三公理（Axioms-Of-Probability）"><span class="nav-number">1.</span> <span class="nav-text">概率三公理（Axioms Of Probability）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三公理"><span class="nav-number">1.1.</span> <span class="nav-text">三公理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性质"><span class="nav-number">1.2.</span> <span class="nav-text">性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质一"><span class="nav-number">1.2.1.</span> <span class="nav-text">性质一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质二"><span class="nav-number">1.2.2.</span> <span class="nav-text">性质二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质三"><span class="nav-number">1.2.3.</span> <span class="nav-text">性质三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质四"><span class="nav-number">1.2.4.</span> <span class="nav-text">性质四</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质五"><span class="nav-number">1.2.5.</span> <span class="nav-text">性质五</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质六"><span class="nav-number">1.2.6.</span> <span class="nav-text">性质六</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
