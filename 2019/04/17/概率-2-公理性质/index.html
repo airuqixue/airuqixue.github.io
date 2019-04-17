@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Xin&#39;s Blog">
 <meta property="og:description" content="数学的基石是公理，公理是不可证明的。例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a通过公理，我们可以推出很多定理。如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-17T07:09:11.364Z">
+<meta property="og:updated_time" content="2019-04-17T09:11:39.915Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="概率-公理性质">
 <meta name="twitter:description" content="数学的基石是公理，公理是不可证明的。例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a通过公理，我们可以推出很多定理。如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理">
@@ -366,22 +366,33 @@
 <p>Ace = {红桃A， 黑桃A，梅花A，方块A}</p>
 <p>根据公理三</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P(Ace) = P&#123;红桃A&#125; + P&#123;黑桃A&#125; + P&#123;梅花A&#125; + P&#123;方块A&#125;</span><br><span class="line"></span><br><span class="line">       = 4/52 = 1/13</span><br></pre></td></tr></table></figure>
-<h3 id="性质一"><a href="#性质一" class="headerlink" title="性质一"></a>性质一</h3><p>若 $ E = {O_1, O_2, O_3 ,…, O_n}$<br>则 $P(E) = P({O_1})+ P({O_2}) + P({O_3}) +…+P({O_n})$</p>
+<h3 id="性质一-互斥集合拆分"><a href="#性质一-互斥集合拆分" class="headerlink" title="性质一 互斥集合拆分"></a>性质一 互斥集合拆分</h3><p>若 $ E = {O_1, O_2, O_3 ,…, O_n}$<br>则 $P(E) = P({O_1})+ P({O_2}) + P({O_3}) +…+P({O_n})$</p>
 <pre><code>{O1},{O2},{O3}互斥，实验结果不能即是这个又是那个。
 所以根据公理三可推出
-</code></pre><h3 id="性质二"><a href="#性质二" class="headerlink" title="性质二"></a>性质二</h3><p>$P(\phi) = 0 $</p>
+</code></pre><h3 id="性质二-空集概率为0"><a href="#性质二-空集概率为0" class="headerlink" title="性质二 空集概率为0"></a>性质二 空集概率为0</h3><p>$P(\phi) = 0 $</p>
 <p>证明<br>    $ S \cap \phi = \phi \Rightarrow S , \phi $ 互斥<br>    $ S = S \cup \phi $<br>    $ \Rightarrow P(S) = P(S \cup \phi) = P(S) + P(\phi) $<br>    $ \Rightarrow P(\phi) = 0 $</p>
-<h3 id="性质三"><a href="#性质三" class="headerlink" title="性质三"></a>性质三</h3><p>$P(A) = 1 - P(A^c)$</p>
-<p>证明<br>  $$<br>     A \cap A^c = \phi \Rightarrow A, A^c 互斥<br>     S = A \cup A^c<br>     P(S) = P(A) + P(A^c)<br>     1 = P(A) + P(A^c)<br>     P(A) = 1 - P(A^c)<br>  $$</p>
-<h3 id="性质四"><a href="#性质四" class="headerlink" title="性质四"></a>性质四</h3><p>$P(A) = P(A-B) + P(A \cap B)$</p>
-<h3 id="性质五"><a href="#性质五" class="headerlink" title="性质五"></a>性质五</h3><p>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</p>
+<h3 id="性质三-补集概率"><a href="#性质三-补集概率" class="headerlink" title="性质三 补集概率"></a>性质三 补集概率</h3><p>$P(A) = 1 - P(A^c)$</p>
+<p>证明<br>    $ A \cap A^c = \phi \Rightarrow A, A^c $ 互斥<br>    $ S = A \cup A^c  $<br>    $ P(S) = P(A) + P(A^c)  $<br>    $ 1 = P(A) + P(A^c)  $<br>    $ P(A) = 1 - P(A^c)  $</p>
+<h3 id="性质四-差集概率"><a href="#性质四-差集概率" class="headerlink" title="性质四 差集概率"></a>性质四 差集概率</h3><p>$P(A) = P(A-B) + P(A \cap B)$</p>
+<h3 id="性质五-交集概率"><a href="#性质五-交集概率" class="headerlink" title="性质五 交集概率"></a>性质五 交集概率</h3><p>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</p>
 <p>性质四和五可以用集合图解来很好的证明。</p>
-<h3 id="性质六"><a href="#性质六" class="headerlink" title="性质六"></a>性质六</h3><p>“切面包”</p>
-<p>若 $C_1, C_2, …, C_n $ 互斥 切 $C_1 \cup C_2 \cup…\cup C_n = S $<br>则对任何事件 A： $P(A) = P(A\cap C_1) + P(A\cap C_2)+…+P(A\cap C_n)</p>
+<h3 id="性质六-并集概率"><a href="#性质六-并集概率" class="headerlink" title="性质六 并集概率"></a>性质六 并集概率</h3><p>“切面包”</p>
+<p>若 $C_1, C_2, …, C_n $ 互斥 切 $C_1 \cup C_2 \cup…\cup C_n = S $<br>则对任何事件 A： $P(A) = P(A\cap C_1) + P(A\cap C_2)+…+P(A\cap C_n)$</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">|______________________________________________________|</span><br><span class="line">|  C1         |   C2    |    ...    |     Cn           |</span><br><span class="line">|             |         |           |                  |</span><br><span class="line">| |-----------|---------|-----------|-----------|      |</span><br><span class="line">| |A n C1     |A n C2   |  ...      |A n Cn     |      |</span><br><span class="line">| |-----------|---------|-----------|-----------|      |</span><br><span class="line">|             |         |           |                  | </span><br><span class="line">|_____________|_________|___________|__________________|</span><br></pre></td></tr></table></figure>
 <p>S 就是一个面包，A这个事件的概率就等于A与每一个面包块交集的概率相加。很形象。之后用的很多。</p>
 <p>这是一个很有意思的性质。来看叶老师的例子（简化）。<br>Ex ： 通过对女店员的态度与店里的生意好坏的统计发现一定规律。店里的生意分为满客(F)，普(C)，惨淡(P)， 店员的态度有笑(L)怒(A)<br>根据统计</p>
-<p>$$<br>  S = \begin{Bmatrix}<br>  (F \cap L) -&gt; 1/20 &amp; (F \cap A) -&gt; 2/20 \<br>  (C \cap L) -&gt; 5/20 &amp; (C \cap A) -&gt; 4/20 \<br>  (P \cap L) -&gt; 5/20 &amp; (P \cap A) -&gt; 3/20<br>  \end{Bmatrix}<br>$$</p>
+<p>$$<br>  S=<br>  \begin{Bmatrix}<br>  (满 \cap 笑)\rightarrow 1/20 &amp; (满 \cap 怒)\rightarrow 2/20 &amp;\\<br>  (普 \cap 笑)\rightarrow 5/20 &amp; (普 \cap 怒)\rightarrow 4/20 &amp;\\<br>  (惨 \cap 笑)\rightarrow 5/20 &amp; (惨 \cap 怒)\rightarrow 3/20 &amp;<br>  \end{Bmatrix}<br>  $$</p>
+<p>现在我们要知道店员笑的概率。 这里运用“切面包”定理来看， 店铺的生意分为 满，普，惨三种，他们的概率加起来应该是1，也就是以上矩阵中所有的可能加起来。<br>说明店铺生意可以被分成三种（切割成3块）<br>而店员笑这个事件的概率，就是她与这几种店铺状态的集合交集。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">|_____________________________________________________|</span><br><span class="line">|     满      |        普          |     惨            |</span><br><span class="line">|             |                    |                  |</span><br><span class="line">| |-----------|--------------------|-----------|      |</span><br><span class="line">| |  满 n 笑      普 n 笑             惨 n 笑   |      |</span><br><span class="line">| |-----------|--------------------|-----------|      |</span><br><span class="line">|             |                    |                  | </span><br><span class="line">|_____________|____________________|__________________|</span><br></pre></td></tr></table></figure>
+<p>$P(笑)=\frac{1}{20} + \frac{5}{20} + \frac{5}{20} = \frac{11}{20}$</p>
+<h3 id="性质七-子集概率"><a href="#性质七-子集概率" class="headerlink" title="性质七 子集概率"></a>性质七 子集概率</h3><p>若 $ A\subset B$ ， 则 $P(A) &lt; P(B)$ </p>
+<p>证明</p>
+<p>$ \because A\subset B  $<br>$ \therefore A\cap B = A , P(B-A) &gt; 0 $<br>$ \because P(B) = P(B-A) + P(A \cap B) $  性质4变形<br>$ \therefore P(B) = P(A) + P(B-A) $<br>$ \because P(B-A) &gt; 0 $<br>$ \therefore P(A) &lt; P(B) $</p>
+<h3 id="性质八-Boole’s-不等式"><a href="#性质八-Boole’s-不等式" class="headerlink" title="性质八 Boole’s 不等式"></a>性质八 Boole’s 不等式</h3><p>对于任意 n 个事件  $A_1, A_2,…,A_n$</p>
+<p>$P(\bigcup_{i=1}^n A_i)\le \sum_{i=1}^n P(A_i)$</p>
+<p>$\bigcup$ 是连续并集的符号</p>
+<h3 id="性质九-Bonferroni’s-不等式"><a href="#性质九-Bonferroni’s-不等式" class="headerlink" title="性质九  Bonferroni’s 不等式"></a>性质九  Bonferroni’s 不等式</h3><p>对于任意 n 个事件 $A_1, A_2, …, A_n$</p>
+<p>  $P(\bigcap_{i=1}^n A_i) \ge \sum_{i=1}^n P(A_i^c)$</p>
 
       
     </div>
@@ -572,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率三公理（Axioms-Of-Probability）"><span class="nav-number">1.</span> <span class="nav-text">概率三公理（Axioms Of Probability）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三公理"><span class="nav-number">1.1.</span> <span class="nav-text">三公理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性质"><span class="nav-number">1.2.</span> <span class="nav-text">性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质一"><span class="nav-number">1.2.1.</span> <span class="nav-text">性质一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质二"><span class="nav-number">1.2.2.</span> <span class="nav-text">性质二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质三"><span class="nav-number">1.2.3.</span> <span class="nav-text">性质三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质四"><span class="nav-number">1.2.4.</span> <span class="nav-text">性质四</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质五"><span class="nav-number">1.2.5.</span> <span class="nav-text">性质五</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质六"><span class="nav-number">1.2.6.</span> <span class="nav-text">性质六</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率三公理（Axioms-Of-Probability）"><span class="nav-number">1.</span> <span class="nav-text">概率三公理（Axioms Of Probability）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三公理"><span class="nav-number">1.1.</span> <span class="nav-text">三公理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性质"><span class="nav-number">1.2.</span> <span class="nav-text">性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质一-互斥集合拆分"><span class="nav-number">1.2.1.</span> <span class="nav-text">性质一 互斥集合拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质二-空集概率为0"><span class="nav-number">1.2.2.</span> <span class="nav-text">性质二 空集概率为0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质三-补集概率"><span class="nav-number">1.2.3.</span> <span class="nav-text">性质三 补集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质四-差集概率"><span class="nav-number">1.2.4.</span> <span class="nav-text">性质四 差集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质五-交集概率"><span class="nav-number">1.2.5.</span> <span class="nav-text">性质五 交集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质六-并集概率"><span class="nav-number">1.2.6.</span> <span class="nav-text">性质六 并集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质七-子集概率"><span class="nav-number">1.2.7.</span> <span class="nav-text">性质七 子集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质八-Boole’s-不等式"><span class="nav-number">1.2.8.</span> <span class="nav-text">性质八 Boole’s 不等式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质九-Bonferroni’s-不等式"><span class="nav-number">1.2.9.</span> <span class="nav-text">性质九  Bonferroni’s 不等式</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
