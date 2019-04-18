@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Xin&#39;s Blog">
 <meta property="og:description" content="生活中常常遇到很多事情已经发生，那么这些发生的事情对我们的决策有多少影响呢？我们引入了条件概率。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-18T08:23:09.798Z">
+<meta property="og:updated_time" content="2019-04-18T10:18:16.958Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="概率-条件概率">
 <meta name="twitter:description" content="生活中常常遇到很多事情已经发生，那么这些发生的事情对我们的决策有多少影响呢？我们引入了条件概率。">
@@ -363,7 +363,7 @@
 <p>扩展： 若某条件事件Y包含的实验结果为</p>
 <p>$Y = {O_1,O_2,…,O_n}$</p>
 <p>$P(O_i|Y) = \frac {P(O_i)}{P(O_1)+P(O_2)+ … +P(O_n)} = \frac {P(O_i)}{P(Y)}$</p>
-<p>Ex: 考虑某事件 $ X = {O_1, O_2, q_1, q_2} $, 已知条件事件 $ Y={O_1, O_2,O_3} $ 发生了，则</p>
+<p>Ex: 考虑某事件 $ X = \lbrace O_1, O_2, q_1, q_2 \rbrace $, 已知条件事件 $ Y=\lbrace O_1, O_2,O_3 \rbrace $ 发生了，则</p>
 <p>$ P(X|Y) = P(O_1|Y) + P(O_2|Y) = \frac{P(O_1)}{P(Y)} + \frac {P(O_2)}{P(Y)} = \frac {P({O_1, O_2})}{P(Y)} = \frac {P(X\cap Y)}{P(Y)}$</p>
 <p>Final :  若已知某条件事件Y发生了， 则对于任何事件X， 我们可以计算其条件概率如下</p>
 <p>$P(X|Y) = \frac {P(X\cap Y)}{P(Y)}$</p>
@@ -382,14 +382,34 @@
 <p>Ex 店员笑和生意有一定关系，我们之前的例子，对于老板来说他关心的是店铺生意，如果店员笑，那么他的生意如何？</p>
 <p>已知 P(满) = 1/4  , p(普) = 1/4,  P(惨)=1/2<br>P(笑|满)=1/6, P(笑|普)=2/6 ， P(笑|惨)=3/6 </p>
 <p>$P(满|笑)=\frac{P(笑\cap 满)}{P(笑)}$<br>$        =\frac{P(笑|满)P(满)}{P(笑|满)P(满) + P(笑|普)P(普) + P(笑|惨)P(惨)} $<br>$        = \frac{\frac{1}{6}.\frac{1}{4}}{\frac{1}{6}.\frac{1}{4} + \frac{2}{6}.\frac{1}{4} + \frac{3}{6}.\frac{1}{2}} = \frac{1}{9}$   </p>
-<p>在举例子<br>一个学校里有60%男生，40%的女生。男生都穿长裤， 女生一半长裤，一半裙子。现在有以下问题<br><em>1 随机遇到一个学生，穿长裤的概率？
-</em>2 随机遇到一个学生，穿裙女子的概率？<br>*3 随机遇到一个穿长裤的学生，他是男生的概率？  </p>
-<p>我们先来看1题，这个很简单Total Probability定理可知<br>，<br> P(长裤) = P(长裤|男)<em>P(男) + P(长裤|女)</em>P(女) =  1<em>0.6 + 0.5</em>0.4 = 0.8</p>
-<p> 第2题，这个其实也可以用Total Probability定理，不穿裙子就穿长裤，所以也可以这样<br> p(裙子) = 1 - P(长裤) = 0.2<br> P(裙子) = P(裙子|男)<em>P(男) + P(裙子|女)</em>P(女) = 0<em>1 + 0.5</em>0.4 = 0.2<br> 是一样的。</p>
+<p>在举例子<br>一个学校里有60%男生，40%的女生。男生都穿长裤， 女生一半长裤，一半裙子。现在有以下问题</p>
+<ul>
+<li>1 随机遇到一个学生，穿长裤的概率？</li>
+<li>2 随机遇到一个学生，穿裙女子的概率？</li>
+<li>3 随机遇到一个穿长裤的学生，他是男生的概率？  </li>
+</ul>
+<p>我们先来看1题，这个很简单Total Probability定理可知</p>
+<p>P(长裤) = P(长裤|男)<em>P(男) + P(长裤|女)</em>P(女) =  1*0.6 + 0.5*0.4 = 0.8</p>
+<p>第2题，这个其实也可以用Total Probability定理，不穿裙子就穿长裤，所以也可以这样</p>
+<p> p(裙子) = 1 - P(长裤) = 0.2<br> P(裙子) = P(裙子|男)<em>P(男) + P(裙子|女)</em>P(女) = 0*1 + 0.5*0.4 = 0.2 是一样的。</p>
 <p>第3题，这个问题正好与前面的反过来了，我们先看到了长裤，再来反推是男女的概率。这里可以用贝叶斯定理</p>
-<p>P(男|长裤) = P(长裤|男)<em>P(男) / (P(长裤|男)p(男) + P(长裤|女)p(女))<br>           = 1</em>0.6/(1<em>0.6 + 0.5</em>0.4) = 0.75</p>
+<p>P(男|长裤) = P(长裤|男)*P(男) / (P(长裤|男)p(男) + P(长裤|女)p(女))<br>           = 1*0.6/(1*0.6 + 0.5*0.4) = 0.75</p>
 <p>贝叶斯解决的是后验概率的计算，怎么说呢，之前人们从一个已知比例的黑白球袋子里抓出球来，可以计算出抓出黑或白球的几率。<br>但是，如果我们不知道黑白球的比例，只是闭着眼睛摸出几个球后，对这个黑白球的比例做一个估计。这就是似然估计。</p>
 <p>贝叶斯的应用非常广泛，这里理解有限，不再多说。</p>
+<h2 id="概率独立性"><a href="#概率独立性" class="headerlink" title="概率独立性"></a>概率独立性</h2><h3 id="定义一"><a href="#定义一" class="headerlink" title="定义一"></a>定义一</h3><p>若两事件A，B之概率满足</p>
+<p> $P(A\cap B) = P(A)\cdot P(B)$</p>
+<p>则A，B两事件称为概率上的独立事件</p>
+<h3 id="定义二"><a href="#定义二" class="headerlink" title="定义二"></a>定义二</h3><p>若两事件A，B之概率满足</p>
+<p>$P(A|B) = P(A)$</p>
+<p>则A，B两事件称为概率上的独立事件</p>
+<p>概率上的独立事件，可以通过观察，统计的数据，分析两事件是否独立。</p>
+<h3 id="引申-多事件的独立"><a href="#引申-多事件的独立" class="headerlink" title="引申-多事件的独立"></a>引申-多事件的独立</h3><p>若 事件$A_1, A_2,…,A_n$  满足下列条件，则称此 n 事件独立 (n &gt; 2)</p>
+<p>   从中任选 m 事件 $ A_{i_1}, A_{i_2}, …,A_{i_m} $ 均满足</p>
+<p>   $P(A_{i_1}\cap A_{i_2}\cap … \cap A_{i_m}) = P(A_{i_1})P(A_{i_2})…P(A_{i_m}), m = 2, 3,…,n$</p>
+<p> Ex: n = 5, $A_1, A_2,…,A_5$</p>
+<p> 如果5个事件要独立，需要判断的情况有</p>
+<p> m=2 时候，$P(A_1\cap A_2) = P(A_1)P(A_2) P(A_1\cap A_3)=P(A_1)P(A_3) … $<br> m=3 时候, $P(A_1]cap A_2\cap A_3) = P(A_1)P(A_2)P(A_3) … $<br> m=4 时候, …<br> m=5 时候, …</p>
+<p> 必须全部成立。 等式个数组合 为  $\tbinom{n}{2} + \tbinom{n}{3} + … + \tbinom{n}{n}$</p>
 
       
     </div>
@@ -580,7 +600,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率-Conditional-Probability"><span class="nav-number">1.</span> <span class="nav-text">条件概率( Conditional Probability)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率性质"><span class="nav-number">2.</span> <span class="nav-text">条件概率性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质1"><span class="nav-number">2.1.</span> <span class="nav-text">性质1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质2"><span class="nav-number">2.2.</span> <span class="nav-text">性质2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质3"><span class="nav-number">2.3.</span> <span class="nav-text">性质3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理"><span class="nav-number">3.</span> <span class="nav-text">定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Total-Probability-定理"><span class="nav-number">3.1.</span> <span class="nav-text">Total Probability 定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bayes’s-Rule-贝叶斯定理"><span class="nav-number">3.2.</span> <span class="nav-text">Bayes’s Rule (贝叶斯定理)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率-Conditional-Probability"><span class="nav-number">1.</span> <span class="nav-text">条件概率( Conditional Probability)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率性质"><span class="nav-number">2.</span> <span class="nav-text">条件概率性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质1"><span class="nav-number">2.1.</span> <span class="nav-text">性质1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质2"><span class="nav-number">2.2.</span> <span class="nav-text">性质2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质3"><span class="nav-number">2.3.</span> <span class="nav-text">性质3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理"><span class="nav-number">3.</span> <span class="nav-text">定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Total-Probability-定理"><span class="nav-number">3.1.</span> <span class="nav-text">Total Probability 定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bayes’s-Rule-贝叶斯定理"><span class="nav-number">3.2.</span> <span class="nav-text">Bayes’s Rule (贝叶斯定理)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率独立性"><span class="nav-number">4.</span> <span class="nav-text">概率独立性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义一"><span class="nav-number">4.1.</span> <span class="nav-text">定义一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义二"><span class="nav-number">4.2.</span> <span class="nav-text">定义二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引申-多事件的独立"><span class="nav-number">4.3.</span> <span class="nav-text">引申-多事件的独立</span></a></li></ol></li></ol></div>
             
 
           </div>
