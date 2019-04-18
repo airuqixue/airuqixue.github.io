@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="概率 几率 Conditional Probability," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="A programmer&apos;s mind">
-<meta name="keywords" content="java c++ python javascript vue">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Xin&#39;s Blog">
-<meta property="og:url" content="http://www.mindincode.com/page/2/index.html">
+<meta name="description" content="生活中常常遇到很多事情已经发生，那么这些发生的事情对我们的决策有多少影响呢？我们引入了条件概率。">
+<meta name="keywords" content="概率 几率 Conditional Probability">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率-条件概率">
+<meta property="og:url" content="http://www.mindincode.com/2019/04/18/概率-3-条件概率/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
-<meta property="og:description" content="A programmer&apos;s mind">
+<meta property="og:description" content="生活中常常遇到很多事情已经发生，那么这些发生的事情对我们的决策有多少影响呢？我们引入了条件概率。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-18T08:23:09.798Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xin&#39;s Blog">
-<meta name="twitter:description" content="A programmer&apos;s mind">
+<meta name="twitter:title" content="概率-条件概率">
+<meta name="twitter:description" content="生活中常常遇到很多事情已经发生，那么这些发生的事情对我们的决策有多少影响呢？我们引入了条件概率。">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://www.mindincode.com/page/2/"/>
+  <link rel="canonical" href="http://www.mindincode.com/2019/04/18/概率-3-条件概率/"/>
 
 
 
 
 
-  <title>Xin's Blog</title>
+  <title>概率-条件概率 | Xin's Blog</title>
   
 
 
@@ -144,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -248,9 +248,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2017/01/26/也说美国加州购物/">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/04/18/概率-3-条件概率/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shaoxin Yin">
@@ -280,9 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/26/也说美国加州购物/" itemprop="url">也说美国加州购物</a></h1>
+          <h1 class="post-title" itemprop="name headline">概率-条件概率</h1>
         
 
         <div class="post-meta">
@@ -294,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-26T17:08:05+08:00">
-                2017-01-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-18T14:36:02+08:00">
+                2019-04-18
               </time>
             
 
@@ -317,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活/" itemprop="url" rel="index">
-                    <span itemprop="name">生活</span>
+                  <a href="/categories/概率/" itemprop="url" rel="index">
+                    <span itemprop="name">概率</span>
                   </a>
                 </span>
 
@@ -354,16 +352,45 @@
       
 
       
-        
-          <p>美国加州西邻太平洋，硅谷和好莱坞都坐落在此，虽然本文不关乎IT和电影，但是也正是由于IT和电影，使得这里富甲一方，据说全世界大部分的富豪都居住在旧金山。本文以一个来自中国的屌丝视角，给那些有幸到此购物的朋友们一些建议，如有不对，就当做一番经历，一笑了之。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/26/也说美国加州购物/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>生活中常常遇到很多事情已经发生，那么这些发生的事情对我们的决策有多少影响呢？<br>我们引入了条件概率。</p>
+<a id="more"></a>
+<h2 id="条件概率-Conditional-Probability"><a href="#条件概率-Conditional-Probability" class="headerlink" title="条件概率( Conditional Probability)"></a>条件概率( Conditional Probability)</h2><p>表示为 P(X|Y)</p>
+<p>X: 所关心的事件<br>Y: 条件（观察到的，已经发生的事件)</p>
+<p>叶老师的例子，“卷哥漏曲”很有意思，观察到的事件，改变了样本空间可能性。所以在这个条件下，概率也不一样了。</p>
+<p>扩展： 若某个实验结果 Oi 与某条件Y不相交， 则</p>
+<p>   P(Oi|Y) = 0</p>
+<p>这也说明，条件被观察到已经发生，而Oi结果已经被排除，所以为0</p>
+<p>扩展： 若某条件事件Y包含的实验结果为</p>
+<p>$Y = {O_1,O_2,…,O_n}$</p>
+<p>$P(O_i|Y) = \frac {P(O_i)}{P(O_1)+P(O_2)+ … +P(O_n)} = \frac {P(O_i)}{P(Y)}$</p>
+<p>Ex: 考虑某事件 $ X = {O_1, O_2, q_1, q_2} $, 已知条件事件 $ Y={O_1, O_2,O_3} $ 发生了，则</p>
+<p>$ P(X|Y) = P(O_1|Y) + P(O_2|Y) = \frac{P(O_1)}{P(Y)} + \frac {P(O_2)}{P(Y)} = \frac {P({O_1, O_2})}{P(Y)} = \frac {P(X\cap Y)}{P(Y)}$</p>
+<p>Final :  若已知某条件事件Y发生了， 则对于任何事件X， 我们可以计算其条件概率如下</p>
+<p>$P(X|Y) = \frac {P(X\cap Y)}{P(Y)}$</p>
+<p>如果遇到 condition on, suppose, if, assuming, given that 这些单词，多半就是条件概率了。（考试党福利）</p>
+<h2 id="条件概率性质"><a href="#条件概率性质" class="headerlink" title="条件概率性质"></a>条件概率性质</h2><h3 id="性质1"><a href="#性质1" class="headerlink" title="性质1"></a>性质1</h3><p>  $P(X|Y)=\frac{P(X\cap Y)\ge 0}{P(Y)\ge 0} \ge 0$</p>
+<h3 id="性质2"><a href="#性质2" class="headerlink" title="性质2"></a>性质2</h3><p>  $P(Y|Y) = \frac{P(Y\cap Y)}{P(Y)}=\frac{P(Y)}{P(Y)} = 1$</p>
+<h3 id="性质3"><a href="#性质3" class="headerlink" title="性质3"></a>性质3</h3><p>  $A,B 互斥 \Rightarrow P(A\cup B|Y) = \frac{P(A)}{P(Y)} + \frac{P(B)}{P(Y)} = P(A|Y) + P(B|Y)$</p>
+<h2 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h2><h3 id="Total-Probability-定理"><a href="#Total-Probability-定理" class="headerlink" title="Total Probability 定理"></a>Total Probability 定理</h3><p>若 $C_1, C_2, … , C_n 互斥且 C_1\cup C_2\cup … \cup C_n = S $<br>则对任意事件A，我们有</p>
+<p> $P(A) = P(A|C_1)P(C_1) + P(A|C_2)P(C_2) + … + P(A|C_n)P(C_n)$</p>
+<p>这个和切面包那个很像哦，我们用条件概率的公式看</p>
+<p>$P(A|C) = \frac{P(A\cap C)}{P(C)}$</p>
+<p>带入公式，这就是切面包那个定理嘛！ 只是用条件概率代替交集概率！</p>
+<h3 id="Bayes’s-Rule-贝叶斯定理"><a href="#Bayes’s-Rule-贝叶斯定理" class="headerlink" title="Bayes’s Rule (贝叶斯定理)"></a>Bayes’s Rule (贝叶斯定理)</h3><p>若$C_1, C2,…,C_n 互斥且C_1\cup C_2\cup … \cup C_n = S$<br>则对任意事件A，我们有</p>
+<p>$P(C_j|A) = \frac{P(A|C_j)P(C_j)}{P(A|C_1)P(C_1) + P(A|C_2)P(C_2)+ … + P(A|C_n)P(C_n)}$</p>
+<p>A 从关心的事件，变成了条件 ！！<br>这就是平时关心的事件突然发生了，我们想知道他的条件发生的概率，这就很有用了。</p>
+<p>Ex 店员笑和生意有一定关系，我们之前的例子，对于老板来说他关心的是店铺生意，如果店员笑，那么他的生意如何？</p>
+<p>已知 P(满) = 1/4  , p(普) = 1/4,  P(惨)=1/2<br>P(笑|满)=1/6, P(笑|普)=2/6 ， P(笑|惨)=3/6 </p>
+<p>$P(满|笑)=\frac{P(笑\cap 满)}{P(笑)}$<br>$        =\frac{P(笑|满)P(满)}{P(笑|满)P(满) + P(笑|普)P(普) + P(笑|惨)P(惨)} $<br>$        = \frac{\frac{1}{6}.\frac{1}{4}}{\frac{1}{6}.\frac{1}{4} + \frac{2}{6}.\frac{1}{4} + \frac{3}{6}.\frac{1}{2}} = \frac{1}{9}$   </p>
+<p>在举例子<br>一个学校里有60%男生，40%的女生。男生都穿长裤， 女生一半长裤，一半裙子。现在有以下问题<br><em>1 随机遇到一个学生，穿长裤的概率？
+</em>2 随机遇到一个学生，穿裙女子的概率？<br>*3 随机遇到一个穿长裤的学生，他是男生的概率？  </p>
+<p>我们先来看1题，这个很简单Total Probability定理可知<br>，<br> P(长裤) = P(长裤|男)<em>P(男) + P(长裤|女)</em>P(女) =  1<em>0.6 + 0.5</em>0.4 = 0.8</p>
+<p> 第2题，这个其实也可以用Total Probability定理，不穿裙子就穿长裤，所以也可以这样<br> p(裙子) = 1 - P(长裤) = 0.2<br> P(裙子) = P(裙子|男)<em>P(男) + P(裙子|女)</em>P(女) = 0<em>1 + 0.5</em>0.4 = 0.2<br> 是一样的。</p>
+<p>第3题，这个问题正好与前面的反过来了，我们先看到了长裤，再来反推是男女的概率。这里可以用贝叶斯定理</p>
+<p>P(男|长裤) = P(长裤|男)<em>P(男) / (P(长裤|男)p(男) + P(长裤|女)p(女))<br>           = 1</em>0.6/(1<em>0.6 + 0.5</em>0.4) = 0.75</p>
+<p>贝叶斯解决的是后验概率的计算，怎么说呢，之前人们从一个已知比例的黑白球袋子里抓出球来，可以计算出抓出黑或白球的几率。<br>但是，如果我们不知道黑白球的比例，只是闭着眼睛摸出几个球后，对这个黑白球的比例做一个估计。这就是似然估计。</p>
+<p>贝叶斯的应用非常广泛，这里理解有限，不再多说。</p>
+
       
     </div>
     
@@ -378,306 +405,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2017/01/10/工厂模式与抽象工厂模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shaoxin Yin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/10/工厂模式与抽象工厂模式/" itemprop="url">工厂模式与抽象工厂模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-10T16:44:55+08:00">
-                2017-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/概率-几率-Conditional-Probability/" rel="tag"># 概率 几率 Conditional Probability</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>工厂模式，属于创建型模式，我们不在自己创建对象，而是交由工厂来创建。<br>这样的好处是，我们使用工厂来封装对对象的需求，否则，你可能写一大堆if else来判断，然后新增一个对象的话，又得改这段代码。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/10/工厂模式与抽象工厂模式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/17/概率-2-公理性质/" rel="next" title="概率-公理性质">
+                <i class="fa fa-chevron-left"></i> 概率-公理性质
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2017/01/08/一个从32位机器移植到64位机器时的c问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shaoxin Yin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/08/一个从32位机器移植到64位机器时的c问题/" itemprop="url">一个从32位机器移植到64位机器时的c问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-08T15:42:21+08:00">
-                2017-01-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c-c/" itemprop="url" rel="index">
-                    <span itemprop="name">c/c++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。<br>那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/08/一个从32位机器移植到64位机器时的c问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -687,14 +444,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -702,6 +456,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -722,8 +480,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -803,6 +570,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率-Conditional-Probability"><span class="nav-number">1.</span> <span class="nav-text">条件概率( Conditional Probability)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率性质"><span class="nav-number">2.</span> <span class="nav-text">条件概率性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质1"><span class="nav-number">2.1.</span> <span class="nav-text">性质1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质2"><span class="nav-number">2.2.</span> <span class="nav-text">性质2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质3"><span class="nav-number">2.3.</span> <span class="nav-text">性质3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理"><span class="nav-number">3.</span> <span class="nav-text">定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Total-Probability-定理"><span class="nav-number">3.1.</span> <span class="nav-text">Total Probability 定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bayes’s-Rule-贝叶斯定理"><span class="nav-number">3.2.</span> <span class="nav-text">Bayes’s Rule (贝叶斯定理)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -943,6 +726,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
