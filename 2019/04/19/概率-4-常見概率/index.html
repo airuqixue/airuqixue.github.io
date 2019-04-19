@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="c/c++,移植," />
+  <meta name="keywords" content="古典概率 几率  Probability," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。">
-<meta name="keywords" content="c&#x2F;c++,移植">
+<meta name="description" content="生活中的一些例子，可以归纳出一些概率求取方法。叶老师的“数数算几率”">
+<meta name="keywords" content="古典概率 几率  Probability">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个从32位机器移植到64位机器时的c问题">
-<meta property="og:url" content="http://www.mindincode.com/2017/01/08/一个从32位机器移植到64位机器时的c问题/index.html">
+<meta property="og:title" content="概率-古典概率">
+<meta property="og:url" content="http://www.mindincode.com/2019/04/19/概率-4-常見概率/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
-<meta property="og:description" content="在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。">
+<meta property="og:description" content="生活中的一些例子，可以归纳出一些概率求取方法。叶老师的“数数算几率”">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-06T09:18:27.682Z">
+<meta property="og:updated_time" content="2019-04-19T08:16:13.410Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个从32位机器移植到64位机器时的c问题">
-<meta name="twitter:description" content="在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。">
+<meta name="twitter:title" content="概率-古典概率">
+<meta name="twitter:description" content="生活中的一些例子，可以归纳出一些概率求取方法。叶老师的“数数算几率”">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://www.mindincode.com/2017/01/08/一个从32位机器移植到64位机器时的c问题/"/>
+  <link rel="canonical" href="http://www.mindincode.com/2019/04/19/概率-4-常見概率/"/>
 
 
 
 
 
-  <title>一个从32位机器移植到64位机器时的c问题 | Xin's Blog</title>
+  <title>概率-古典概率 | Xin's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2017/01/08/一个从32位机器移植到64位机器时的c问题/">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/04/19/概率-4-常見概率/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shaoxin Yin">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">一个从32位机器移植到64位机器时的c问题</h1>
+          <h1 class="post-title" itemprop="name headline">概率-古典概率</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-08T15:42:21+08:00">
-                2017-01-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T17:36:02+08:00">
+                2019-04-19
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c-c/" itemprop="url" rel="index">
-                    <span itemprop="name">c/c++</span>
+                  <a href="/categories/概率/" itemprop="url" rel="index">
+                    <span itemprop="name">概率</span>
                   </a>
                 </span>
 
@@ -352,26 +352,76 @@
       
 
       
-        <p>在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。<br>那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。</p>
+        <p>生活中的一些例子，可以归纳出一些概率求取方法。<br>叶老师的“数数算几率”</p>
 <a id="more"></a>
-<p>最近工作中遇到了一个讨厌的问题，在32位机器上运行的好好的，但是在64位机器上，出现了诡异的 Segmental fault。</p>
-<p>于是调试分析，一切似乎都很正常。开始怀疑是否由于使用了变参。因为proc不支持…形式的变参，所以，不得已自己写了一个类似printf这样的变参，和proc程序分开。这个函数如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> * <span class="title">get_fmt_str</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * fmt, ...)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHARE_BUF_STR_LEN 4096  </span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">char</span> str_buf[SHARE_BUF_STR_LEN];  </span><br><span class="line">  </span><br><span class="line">  va_list arg_ptr;  </span><br><span class="line">  va_start(arg_ptr, fmt);  </span><br><span class="line">  vsnprintf(str_buf, SHARE_BUF_STR_LEN, fmt, arg_ptr);  </span><br><span class="line">  va_end(arg_ptr);  </span><br><span class="line">  <span class="keyword">return</span> str_buf;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>调用语句为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get_fmt_str(<span class="string">"%s"</span>, get_last_error());</span><br></pre></td></tr></table></figure>
-<p>使用GDB调试，打印函数get_last_error()，返回正确的错误信息。<br>可是接着运行，Segmentation fault出来了。</p>
-<p>由于怀疑变参，于是找到一些关于x64的机器上变参的一些资料。在x64上的参数入栈，一般是先入寄存器，大概有6个寄存器，顺序为：rdi,rsi,rdx,rcx,r8,r9。如果参数大于6个，那么就使用栈保存。这时的 va_list 不再是一个简单的char *指针，而是一个结构体：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span>  </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> gp_offset;  </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> fp_offset;  </span><br><span class="line">    <span class="keyword">char</span> *overflow_arg_area;  </span><br><span class="line">    <span class="keyword">char</span> *reg_save_area;  </span><br><span class="line">&#125;va_list;</span><br></pre></td></tr></table></figure>
-<p>由于gp_offset不到6*8=48，所以，变参就通过 gp_offset + reg_save_area 获取。<br>根据这些信息，又调试，发现，gp_offset + reg_save_area 根本不对。<br>于是继续调试。也许这时，大家想知道get_last_error()返回什么了。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">get_last_error</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _error_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其实 error就是一个全局变量。一切都很正常。<br>实在是没有什么眉目了，于是只好根据x64位参数的分配方式，查看寄存器了。<br>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">info register</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rax            0x2ba3320526c0   47979918862016  </span><br><span class="line">rbx            0x2ba331e6f5e8   47979916883432  </span><br><span class="line">rcx            0x0      0  </span><br><span class="line">rdx            0x0      0  </span><br><span class="line">rsi             0x320526c0       839198400  </span><br><span class="line">rdi             0x2ba33201c036   47979918639158</span><br></pre></td></tr></table></figure>
-<p>这是在get_last_error()返回以后的寄存器情况。细心的人可能已经发现问题了。</p>
-<p>get_last_error()返回值作为参数，首先放在了rax，然后被放到rsi作为参数，这是gcc x64上的变参调用时参数保存方式。而我们在rsi里看到什么了？</p>
-<p>这个值正好是rax里的低32位，这就是说，返回get_last_error()时，返回的char ，在x64机器上应该为64位的char ，居然变成了32位的值。为什么？为什么？</p>
-<p>我们也可以看到，get_last_error()的返回值，确实是char 啊。<br>这种疑惑，我又做了无数的猜疑，但是突然想到一点， c语言中，如果没有函数原型的声明，那么，返回值会被默认为int型，而int在x64的机器上是32位的！*</p>
-<p>肯定就是这个原因，于是打开get_last_error()这个函数的c文件，果然没有包含一个头文件，而头文件的作用，也就是声明函数原型。当然，调用语句所在的c文件，也没有用到声明get_last_error()的头文件。</p>
-<p>于是加上原型函数声明，再试，好了。纠结了近两天的问题圆满解决！</p>
+<h2 id="古典概率"><a href="#古典概率" class="headerlink" title="古典概率"></a>古典概率</h2><p>古典概率假设每个实验结果发生概率相同。</p>
+<p>Ex 包子摊肉包，菜包，豆沙包产量相同，外表一致。</p>
+<p>P(买到咸包子) = 1/3 * 2</p>
+<p>计算某事件概率的问题，等同于计算次事件包含了多少实验结果。<br>所以把计算概率问题转换成了数数问题。</p>
+<h2 id="数数基本原则-Fundamental-Principle-of-Counting"><a href="#数数基本原则-Fundamental-Principle-of-Counting" class="headerlink" title="数数基本原则(Fundamental Principle of Counting)"></a>数数基本原则(Fundamental Principle of Counting)</h2><p>若某种实验有n种不同结果， 而另外一种实验有m种不同结果。 若操作此两实验将有nm种不同结果。</p>
+<p>Ex  下午茶有 5 中甜点可选，10 种饮料可选，一共有多少种下午茶组合？<br>    5 x 10 = 50<br>    n   m    nm</p>
+<h3 id="所有物件是否可区分-Distinguishable"><a href="#所有物件是否可区分-Distinguishable" class="headerlink" title="所有物件是否可区分 (Distinguishable?)"></a>所有物件是否可区分 (Distinguishable?)</h3><h3 id="实验中选取的物件是否可放回共下次抽选-With-Without-Replacement"><a href="#实验中选取的物件是否可放回共下次抽选-With-Without-Replacement" class="headerlink" title="实验中选取的物件是否可放回共下次抽选(With/Without Replacement?)"></a>实验中选取的物件是否可放回共下次抽选(With/Without Replacement?)</h3><h3 id="实验中被选取的东西，是否顺序相关-？-Order-matter-or-not"><a href="#实验中被选取的东西，是否顺序相关-？-Order-matter-or-not" class="headerlink" title="实验中被选取的东西，是否顺序相关 ？(Order matter or not)"></a>实验中被选取的东西，是否顺序相关 ？(Order matter or not)</h3><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><h4 id="排列-Permutation"><a href="#排列-Permutation" class="headerlink" title="排列(Permutation)"></a>排列(Permutation)</h4><p>EX 小美周日购物，从小明，小华，小袁三兄弟接送。若这两日司机不可重复，问有多少种结果？</p>
+<ul>
+<li>可区分？ 是</li>
+<li>可放回？ 否</li>
+<li>顺序有差异？ 是</li>
+</ul>
+<p>所以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">六  日</span><br><span class="line">3 X 2  = 6</span><br></pre></td></tr></table></figure>
+<p> 一般化,  若有 n 个不同物体,  依次取出 k 个物体共有多少种结果?</p>
+<p> $n \times (n-1)\times (n-2)\times …\times (n-(k-1)) = \frac{n!}{(n-k)!}$</p>
+<h4 id="重复选取-Choose-with-Replacements"><a href="#重复选取-Choose-with-Replacements" class="headerlink" title="重复选取(Choose with Replacements)"></a>重复选取(Choose with Replacements)</h4><p>Ex 小美周日购物，找小明，小华，小袁接送。若不排除连续两天同一个人，请问多种结果</p>
+<ul>
+<li>可区分？ 是</li>
+<li>可放回？ 是</li>
+<li>顺序有差异？ 是</li>
+</ul>
+<p>六  日<br>3 X 3 = 9</p>
+<p>一般化  若有 n 物体，从中选取一个，每次取完放回，依次取k次，共有多少中结果?</p>
+<p>$n \times n \times n \times … \times n = n^k$</p>
+<h4 id="组合-Combination"><a href="#组合-Combination" class="headerlink" title="组合(Combination)"></a>组合(Combination)</h4><p>Ex 小美玩跳棋。从明华袁三兄弟找两人下棋，请问多少种组合对战</p>
+<ul>
+<li>可区分？ 是</li>
+<li>可放回？ 否</li>
+<li>顺序有差异？ 否</li>
+</ul>
+<p>$\frac{3 \times 2}{2!} = \tbinom{3}{2} = 3$</p>
+<p>一般化  若有 n 个物体，从中选取出 k 个， 共有多少重结果</p>
+<p>$n\times (n-1)\times (n-2)\times … \times (n-(k-1))/k! = \frac{n!}{(n-k)k!}$</p>
+<p>$\tbinom{n}{k} (binomial – coefficients) 二项式系数$<br>二项式定理 $(x+y)^n = \sum_{k=0}^n\tbinom{n}{k}x^ky^{n-k}$</p>
+<p>Ex 某个球队有2个篮球队员，问有多少种先发组合？</p>
+<p>   $\tbinom{12}{5} = \frac{12!}{5!7!} = 792 种组合$</p>
+<h4 id="多项组合-Multinomial"><a href="#多项组合-Multinomial" class="headerlink" title="多项组合(Multinomial)"></a>多项组合(Multinomial)</h4><p>Ex  废文兄习惯在网络上发废文（水贴），第一楼回帖常有4类</p>
+<ul>
+<li>1 你妈知道你在发废文吗？</li>
+<li>2 见此ID必嘘</li>
+<li>3 在五楼……</li>
+<li>4 妈！我在这！</li>
+</ul>
+<p>问， 废文兄发10次废文，一楼回帖共有多少中组合？  $4\times 4\times 4\times…\times 4 = $4^{10}$<br>问， 多少组合会看到 4次 【你……】， 3次【见……】，2次【在五楼……】， 1次【妈……】</p>
+<p>—— —— —— —— —— —— —— —— —— —— 第一次10中选4 ，第二次只剩下 6中选3，第三次省3中选2， 第四次1中选1<br>所以</p>
+<p>$\tbinom{10}{4}  \tbinom{6}{3}  \tbinom{3}{2}  \tbinom{1}{1} = \frac{10!}{4!3!2!1!}$</p>
+<p>一般化  若有 m 种不同的物体，每次选取一个放回，依顺序选取n次。 如此共有 $m^n$ 种结果。 其中第 1 种出现 $\lbrace n_1\rbrace$ 次，<br>且第 2 种出现 $\lbrace n_2\rbrace$ 次， 且第 m 种出现 $\lbrace n_m\rbrace$ 次，这样的实验结果有多少种。</p>
+<p>$\tbinom{n}{n_1} \tbinom{n-n_1}{n_2}  \tbinom{n_m}{n_m}  = \frac{n!}{n_1!n_2!…n_m!}$</p>
+<p>$(x_1 + x_2 + .. + x_m)^n $<br>$=\sum_{n_1 =0}^n\sum_{n_2 =0}^n…\sum_{n_m =0}^n\frac{n!}{n_1!n_2!…n_m!}x_1^{n_1}x_2^{n_2}…x_m^{n_m}$</p>
+<p>Multinomial coefficient $\frac{n!}{n_1!n_2!…n_m!}$</p>
+<h2 id="古典概率数数算概率"><a href="#古典概率数数算概率" class="headerlink" title="古典概率数数算概率"></a>古典概率数数算概率</h2><p>若一事件包含数个实验结果，每个实验结果发生的概率一样那么</p>
+<ul>
+<li>1 先计算一个实验结果的概率</li>
+<li>2 再计算该事件共包含多少个实验结果</li>
+</ul>
+<p>费文兄发废文例子，根据统计，费文兄发文的回帖出现概率如下</p>
+<ul>
+<li>P(你妈知道你在发废文吗) = 0.4</li>
+<li>P(见此ID必嘘) = 0.2</li>
+<li>P(在五楼……) = 0.1</li>
+<li>P(妈！我在这！) = 0.3</li>
+</ul>
+<p>Ex 若费文兄发文6次，会在一楼回帖看到 2次 【你……】， 2次【见……】，1次【在五楼……】，1次【妈……】的概率为？</p>
+<p>P(你 你 见  见 五 妈) = 0.4 x 0.4 x 0.2 x 0.2 x 0.1 x 0.3 = 0.000192</p>
+<p>这只是一种组合！！！！！ 所以再算算有多少这样的组合？</p>
+<p>$P(2你，2见，1五，1妈) = \frac{6!}{2!2!1!1!} . 0.000192 = 0.0346$</p>
+<p>这就是古典概率的好处。 </p>
 
       
     </div>
@@ -389,9 +439,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c-c/" rel="tag"># c/c++</a>
-          
-            <a href="/tags/移植/" rel="tag"># 移植</a>
+            <a href="/tags/古典概率-几率-Probability/" rel="tag"># 古典概率 几率  Probability</a>
           
         </div>
       
@@ -404,15 +452,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/04/18/概率-3-条件概率/" rel="next" title="概率-条件概率">
+                <i class="fa fa-chevron-left"></i> 概率-条件概率
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/10/工厂模式与抽象工厂模式/" rel="prev" title="工厂模式与抽象工厂模式">
-                工厂模式与抽象工厂模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -464,8 +512,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -545,6 +602,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#古典概率"><span class="nav-number">1.</span> <span class="nav-text">古典概率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数数基本原则-Fundamental-Principle-of-Counting"><span class="nav-number">2.</span> <span class="nav-text">数数基本原则(Fundamental Principle of Counting)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所有物件是否可区分-Distinguishable"><span class="nav-number">2.1.</span> <span class="nav-text">所有物件是否可区分 (Distinguishable?)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验中选取的物件是否可放回共下次抽选-With-Without-Replacement"><span class="nav-number">2.2.</span> <span class="nav-text">实验中选取的物件是否可放回共下次抽选(With/Without Replacement?)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验中被选取的东西，是否顺序相关-？-Order-matter-or-not"><span class="nav-number">2.3.</span> <span class="nav-text">实验中被选取的东西，是否顺序相关 ？(Order matter or not)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">2.4.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#排列-Permutation"><span class="nav-number">2.4.1.</span> <span class="nav-text">排列(Permutation)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重复选取-Choose-with-Replacements"><span class="nav-number">2.4.2.</span> <span class="nav-text">重复选取(Choose with Replacements)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合-Combination"><span class="nav-number">2.4.3.</span> <span class="nav-text">组合(Combination)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多项组合-Multinomial"><span class="nav-number">2.4.4.</span> <span class="nav-text">多项组合(Multinomial)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#古典概率数数算概率"><span class="nav-number">3.</span> <span class="nav-text">古典概率数数算概率</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
