@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="概率 几率 probability," />
+  <meta name="keywords" content="概率 几率 random variable," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="数学的基石是公理，公理是不可证明的。例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a通过公理，我们可以推出很多定理。如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理">
-<meta name="keywords" content="概率 几率 probability">
+<meta name="description" content="随机变量是什么？ 回忆废文兄发废文，我们要这么写 P(“你妈知道你在发废文吗”)=0.4 P(“见此ID必嘘”) = 0.2 P(“在五楼……”) = 0.1 P(“妈！我在这”) = 0.3   P(“妈！我在这”) = 1 - P(“你妈知道你在发废文吗”) - P(“见此ID必嘘”) - P(“在五楼……”)   有没有觉得有问题？ 那就是太啰嗦了！">
+<meta name="keywords" content="概率 几率 random variable">
 <meta property="og:type" content="article">
-<meta property="og:title" content="概率-公理性质">
-<meta property="og:url" content="http://www.mindincode.com/2019/04/17/概率-2-公理性质/index.html">
+<meta property="og:title" content="概率-随机变量">
+<meta property="og:url" content="http://www.mindincode.com/2019/04/22/概率-5-随机变量/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
-<meta property="og:description" content="数学的基石是公理，公理是不可证明的。例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a通过公理，我们可以推出很多定理。如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理">
+<meta property="og:description" content="随机变量是什么？ 回忆废文兄发废文，我们要这么写 P(“你妈知道你在发废文吗”)=0.4 P(“见此ID必嘘”) = 0.2 P(“在五楼……”) = 0.1 P(“妈！我在这”) = 0.3   P(“妈！我在这”) = 1 - P(“你妈知道你在发废文吗”) - P(“见此ID必嘘”) - P(“在五楼……”)   有没有觉得有问题？ 那就是太啰嗦了！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-17T09:11:39.915Z">
+<meta property="og:updated_time" content="2019-04-22T02:37:19.208Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="概率-公理性质">
-<meta name="twitter:description" content="数学的基石是公理，公理是不可证明的。例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a通过公理，我们可以推出很多定理。如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理">
+<meta name="twitter:title" content="概率-随机变量">
+<meta name="twitter:description" content="随机变量是什么？ 回忆废文兄发废文，我们要这么写 P(“你妈知道你在发废文吗”)=0.4 P(“见此ID必嘘”) = 0.2 P(“在五楼……”) = 0.1 P(“妈！我在这”) = 0.3   P(“妈！我在这”) = 1 - P(“你妈知道你在发废文吗”) - P(“见此ID必嘘”) - P(“在五楼……”)   有没有觉得有问题？ 那就是太啰嗦了！">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://www.mindincode.com/2019/04/17/概率-2-公理性质/"/>
+  <link rel="canonical" href="http://www.mindincode.com/2019/04/22/概率-5-随机变量/"/>
 
 
 
 
 
-  <title>概率-公理性质 | Xin's Blog</title>
+  <title>概率-随机变量 | Xin's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/04/17/概率-2-公理性质/">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/04/22/概率-5-随机变量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shaoxin Yin">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">概率-公理性质</h1>
+          <h1 class="post-title" itemprop="name headline">概率-随机变量</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-17T11:36:02+08:00">
-                2019-04-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T15:20:02+08:00">
+                2019-04-22
               </time>
             
 
@@ -352,47 +352,40 @@
       
 
       
-        <p>数学的基石是公理，公理是不可证明的。<br>例如线性代数的8条公理 Ex  加法交换律  a + b  = b + a<br>通过公理，我们可以推出很多定理。<br>如果其他领域能够符合公理，那么之后的推论都可以应用。所以公理非常牛，我们来看看概率的公理</p>
+        <p>随机变量是什么？ 回忆废文兄发废文，我们要这么写<br> P(“你妈知道你在发废文吗”)=0.4<br> P(“见此ID必嘘”) = 0.2<br> P(“在五楼……”) = 0.1<br> P(“妈！我在这”) = 0.3</p>
+<p>  P(“妈！我在这”) = 1 - P(“你妈知道你在发废文吗”) - P(“见此ID必嘘”) - P(“在五楼……”) </p>
+<p> 有没有觉得有问题？ 那就是太啰嗦了！</p>
 <a id="more"></a>
-<h1 id="概率三公理（Axioms-Of-Probability）"><a href="#概率三公理（Axioms-Of-Probability）" class="headerlink" title="概率三公理（Axioms Of Probability）"></a>概率三公理（Axioms Of Probability）</h1><h2 id="三公理"><a href="#三公理" class="headerlink" title="三公理"></a>三公理</h2><ul>
-<li><p>1 公理一:<br><strong> 对于任何事件 A 而言， P(A) $\geq 0 $ </strong></p>
-</li>
-<li><p>2 公理二:<br><strong> P(S) = 1 </strong>  S 表示样本空间集合</p>
-</li>
-<li><p>3 公理三:<br><strong> 事件A1， A2， …… 互斥 $\Rightarrow$ P(A1 U A2 U A3…) = P(A1) + P(A2) + p(A3) + … </strong></p>
-</li>
+<h1 id="随机变量"><a href="#随机变量" class="headerlink" title="随机变量"></a>随机变量</h1><p> 如果你会编程，那么就太好理解。我们把这几种情况定义为一个变量 X，那么</p>
+<p> X=0 表示 “你妈知道你在发废文吗”<br> X=1 表示 “见此ID比嘘”<br> X=2 表示 “在五楼……”<br> X=3 表示 “妈！我在这！”</p>
+<p> 根据统计 </p>
+<p> P(X=0)=0.4<br> P(X=1)=0.2<br> P(X=2)=0.1<br> P(X=3)=0.3</p>
+<p> P(X=3) = 1 - p(X=0) = p(X=1) - P(X=2)</p>
+<p> 清爽了许多吧。</p>
+<p> 随机变量(Random Variable, R.V.)： 是用来把实验结果数字化的表示方式<br> X就是随机变量， 一般都用大写表示</p>
+<h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><p> 随机变量是一个函数 ？</p>
+<p> X(“你妈知道你在发废吗”) = 0</p>
+<p> 有一个对应关系。 X: S -&gt; R</p>
+<p> 从样本空间到实数的映射</p>
+<h2 id="随机变量的种类"><a href="#随机变量的种类" class="headerlink" title="随机变量的种类"></a>随机变量的种类</h2><ul>
+<li>离散随机变量 (Discrete R.V.)</li>
 </ul>
-<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><p>Ex  从一副52长扑克牌中抽一张，结果为Ace的几率为？</p>
-<p>Ace = {红桃A， 黑桃A，梅花A，方块A}</p>
-<p>根据公理三</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P(Ace) = P&#123;红桃A&#125; + P&#123;黑桃A&#125; + P&#123;梅花A&#125; + P&#123;方块A&#125;</span><br><span class="line"></span><br><span class="line">       = 4/52 = 1/13</span><br></pre></td></tr></table></figure>
-<h3 id="性质一-互斥集合拆分"><a href="#性质一-互斥集合拆分" class="headerlink" title="性质一 互斥集合拆分"></a>性质一 互斥集合拆分</h3><p>若 $ E = {O_1, O_2, O_3 ,…, O_n}$<br>则 $P(E) = P({O_1})+ P({O_2}) + P({O_3}) +…+P({O_n})$</p>
-<pre><code>{O1},{O2},{O3}互斥，实验结果不能即是这个又是那个。
-所以根据公理三可推出
-</code></pre><h3 id="性质二-空集概率为0"><a href="#性质二-空集概率为0" class="headerlink" title="性质二 空集概率为0"></a>性质二 空集概率为0</h3><p>$P(\phi) = 0 $</p>
-<p>证明<br>    $ S \cap \phi = \phi \Rightarrow S , \phi $ 互斥<br>    $ S = S \cup \phi $<br>    $ \Rightarrow P(S) = P(S \cup \phi) = P(S) + P(\phi) $<br>    $ \Rightarrow P(\phi) = 0 $</p>
-<h3 id="性质三-补集概率"><a href="#性质三-补集概率" class="headerlink" title="性质三 补集概率"></a>性质三 补集概率</h3><p>$P(A) = 1 - P(A^c)$</p>
-<p>证明<br>    $ A \cap A^c = \phi \Rightarrow A, A^c $ 互斥<br>    $ S = A \cup A^c  $<br>    $ P(S) = P(A) + P(A^c)  $<br>    $ 1 = P(A) + P(A^c)  $<br>    $ P(A) = 1 - P(A^c)  $</p>
-<h3 id="性质四-差集概率"><a href="#性质四-差集概率" class="headerlink" title="性质四 差集概率"></a>性质四 差集概率</h3><p>$P(A) = P(A-B) + P(A \cap B)$</p>
-<h3 id="性质五-交集概率"><a href="#性质五-交集概率" class="headerlink" title="性质五 交集概率"></a>性质五 交集概率</h3><p>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</p>
-<p>性质四和五可以用集合图解来很好的证明。</p>
-<h3 id="性质六-并集概率"><a href="#性质六-并集概率" class="headerlink" title="性质六 并集概率"></a>性质六 并集概率</h3><p>“切面包”</p>
-<p>若 $C_1, C_2, …, C_n $ 互斥 切 $C_1 \cup C_2 \cup…\cup C_n = S $<br>则对任何事件 A： $P(A) = P(A\cap C_1) + P(A\cap C_2)+…+P(A\cap C_n)$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">|______________________________________________________|</span><br><span class="line">|  C1         |   C2    |    ...    |     Cn           |</span><br><span class="line">|             |         |           |                  |</span><br><span class="line">| |-----------|---------|-----------|-----------|      |</span><br><span class="line">| |A n C1     |A n C2   |  ...      |A n Cn     |      |</span><br><span class="line">| |-----------|---------|-----------|-----------|      |</span><br><span class="line">|             |         |           |                  | </span><br><span class="line">|_____________|_________|___________|__________________|</span><br></pre></td></tr></table></figure>
-<p>S 就是一个面包，A这个事件的概率就等于A与每一个面包块交集的概率相加。很形象。之后用的很多。</p>
-<p>这是一个很有意思的性质。来看叶老师的例子（简化）。<br>Ex ： 通过对女店员的态度与店里的生意好坏的统计发现一定规律。店里的生意分为满客(F)，普(C)，惨淡(P)， 店员的态度有笑(L)怒(A)<br>根据统计</p>
-<p>$$<br>  S=<br>  \begin{Bmatrix}<br>  (满 \cap 笑)\rightarrow 1/20 &amp; (满 \cap 怒)\rightarrow 2/20 &amp;\\<br>  (普 \cap 笑)\rightarrow 5/20 &amp; (普 \cap 怒)\rightarrow 4/20 &amp;\\<br>  (惨 \cap 笑)\rightarrow 5/20 &amp; (惨 \cap 怒)\rightarrow 3/20 &amp;<br>  \end{Bmatrix}<br>  $$</p>
-<p>现在我们要知道店员笑的概率。 这里运用“切面包”定理来看， 店铺的生意分为 满，普，惨三种，他们的概率加起来应该是1，也就是以上矩阵中所有的可能加起来。<br>说明店铺生意可以被分成三种（切割成3块）<br>而店员笑这个事件的概率，就是她与这几种店铺状态的集合交集。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">|_____________________________________________________|</span><br><span class="line">|     满      |        普          |     惨            |</span><br><span class="line">|             |                    |                  |</span><br><span class="line">| |-----------|--------------------|-----------|      |</span><br><span class="line">| |  满 n 笑      普 n 笑             惨 n 笑   |      |</span><br><span class="line">| |-----------|--------------------|-----------|      |</span><br><span class="line">|             |                    |                  | </span><br><span class="line">|_____________|____________________|__________________|</span><br></pre></td></tr></table></figure>
-<p>$P(笑)=\frac{1}{20} + \frac{5}{20} + \frac{5}{20} = \frac{11}{20}$</p>
-<h3 id="性质七-子集概率"><a href="#性质七-子集概率" class="headerlink" title="性质七 子集概率"></a>性质七 子集概率</h3><p>若 $ A\subset B$ ， 则 $P(A) &lt; P(B)$ </p>
-<p>证明</p>
-<p>$ \because A\subset B  $<br>$ \therefore A\cap B = A , P(B-A) &gt; 0 $<br>$ \because P(B) = P(B-A) + P(A \cap B) $  性质4变形<br>$ \therefore P(B) = P(A) + P(B-A) $<br>$ \because P(B-A) &gt; 0 $<br>$ \therefore P(A) &lt; P(B) $</p>
-<h3 id="性质八-Boole’s-不等式"><a href="#性质八-Boole’s-不等式" class="headerlink" title="性质八 Boole’s 不等式"></a>性质八 Boole’s 不等式</h3><p>对于任意 n 个事件  $A_1, A_2,…,A_n$</p>
-<p>$P(\bigcup_{i=1}^n A_i)\le \sum_{i=1}^n P(A_i)$</p>
-<p>$\bigcup$ 是连续并集的符号</p>
-<h3 id="性质九-Bonferroni’s-不等式"><a href="#性质九-Bonferroni’s-不等式" class="headerlink" title="性质九  Bonferroni’s 不等式"></a>性质九  Bonferroni’s 不等式</h3><p>对于任意 n 个事件 $A_1, A_2, …, A_n$</p>
-<p>  $P(\bigcap_{i=1}^n A_i) \ge \sum_{i=1}^n P(A_i^c)$</p>
+<p>Ex - 店员微笑 X(微笑) = 0， X(不笑) = 1<br>     X=0， X=1</p>
+<p>离散R.V.的值是有限个，或者是“可数的” 无穷多个</p>
+<ul>
+<li>连续随机变量(Continuous R.V.)<br>Ex  幸运之轮: X 可以是 0 到 1间内的任意数字</li>
+</ul>
+<p>连续R.V.的值是无穷多个，而且是“不可数”的无穷多个</p>
+<h2 id="可数与不可数"><a href="#可数与不可数" class="headerlink" title="可数与不可数"></a>可数与不可数</h2><h3 id="可数"><a href="#可数" class="headerlink" title="可数"></a>可数</h3><p>Ex 正偶数集合 {2,4,6,8,10,…} 这个是可数的么？</p>
+<p>Yes， 这是一个一个可数的，虽然是无穷多个。 </p>
+<h3 id="不可数"><a href="#不可数" class="headerlink" title="不可数"></a>不可数</h3><p>就算你可以不停地数，也有数不到的数！</p>
+<p>Ex 0 到 1 之间的所有数字的集合是不可数的。</p>
+<p>假设存在一种算法，可以把0到1之间的数字列出来，那么，我们可以这样构造一个数字，不在列出来的数字之中！<br>该算法如下：<br>小数点后第一位数字，等于9减去列出来的小数点后第一位数字<br>小数点后第二位数字，等于9减去列出来的小数点后第二位数字<br>…<br>小数点后第N为数字，等于9减去列出来的小数点后第N为数字</p>
+<p>这个数字与列出来的任何一个数字都不相等，所以可以证明假设不存在！</p>
+<p>有趣的事</p>
+<p>“正整数的集合” 与 “正偶整数的集合” 的集合，那个集合大？ 一样大<br>“长度为一线段上的点” 与 “边长为一的正方形上的点” 这两个集合哪个点数多 ？  一样多</p>
+<p>why ？<br> 一一对应。居然可以找到一一对应的关系！！！</p>
+<p>这些因为是不可数的集合，其实比较多少是无意义的。</p>
 
       
     </div>
@@ -410,7 +403,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/概率-几率-probability/" rel="tag"># 概率 几率 probability</a>
+            <a href="/tags/概率-几率-random-variable/" rel="tag"># 概率 几率 random variable</a>
           
         </div>
       
@@ -423,8 +416,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/16/概率-1/" rel="next" title="概率-概念">
-                <i class="fa fa-chevron-left"></i> 概率-概念
+              <a href="/2019/04/19/概率-4-常見概率/" rel="next" title="概率-古典概率">
+                <i class="fa fa-chevron-left"></i> 概率-古典概率
               </a>
             
           </div>
@@ -433,8 +426,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/18/概率-3-条件概率/" rel="prev" title="概率-条件概率">
-                概率-条件概率 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/22/概率-6-累计分布函数与质量函数/" rel="prev" title="概率-累积分布函数CDF与质量分布函数PMF">
+                概率-累积分布函数CDF与质量分布函数PMF <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -587,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率三公理（Axioms-Of-Probability）"><span class="nav-number">1.</span> <span class="nav-text">概率三公理（Axioms Of Probability）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三公理"><span class="nav-number">1.1.</span> <span class="nav-text">三公理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性质"><span class="nav-number">1.2.</span> <span class="nav-text">性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质一-互斥集合拆分"><span class="nav-number">1.2.1.</span> <span class="nav-text">性质一 互斥集合拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质二-空集概率为0"><span class="nav-number">1.2.2.</span> <span class="nav-text">性质二 空集概率为0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质三-补集概率"><span class="nav-number">1.2.3.</span> <span class="nav-text">性质三 补集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质四-差集概率"><span class="nav-number">1.2.4.</span> <span class="nav-text">性质四 差集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质五-交集概率"><span class="nav-number">1.2.5.</span> <span class="nav-text">性质五 交集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质六-并集概率"><span class="nav-number">1.2.6.</span> <span class="nav-text">性质六 并集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质七-子集概率"><span class="nav-number">1.2.7.</span> <span class="nav-text">性质七 子集概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质八-Boole’s-不等式"><span class="nav-number">1.2.8.</span> <span class="nav-text">性质八 Boole’s 不等式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质九-Bonferroni’s-不等式"><span class="nav-number">1.2.9.</span> <span class="nav-text">性质九  Bonferroni’s 不等式</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#随机变量"><span class="nav-number">1.</span> <span class="nav-text">随机变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本质"><span class="nav-number">1.1.</span> <span class="nav-text">本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机变量的种类"><span class="nav-number">1.2.</span> <span class="nav-text">随机变量的种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可数与不可数"><span class="nav-number">1.3.</span> <span class="nav-text">可数与不可数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可数"><span class="nav-number">1.3.1.</span> <span class="nav-text">可数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不可数"><span class="nav-number">1.3.2.</span> <span class="nav-text">不可数</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

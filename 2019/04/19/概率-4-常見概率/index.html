@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Xin&#39;s Blog">
 <meta property="og:description" content="生活中的一些例子，可以归纳出一些概率求取方法。叶老师的“数数算几率”">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-19T08:16:13.410Z">
+<meta property="og:updated_time" content="2019-04-19T08:20:33.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="概率-古典概率">
 <meta name="twitter:description" content="生活中的一些例子，可以归纳出一些概率求取方法。叶老师的“数数算几率”">
@@ -376,7 +376,7 @@
 <li>可放回？ 是</li>
 <li>顺序有差异？ 是</li>
 </ul>
-<p>六  日<br>3 X 3 = 9</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">六  日</span><br><span class="line">3 X 3 = 9</span><br></pre></td></tr></table></figure>
 <p>一般化  若有 n 物体，从中选取一个，每次取完放回，依次取k次，共有多少中结果?</p>
 <p>$n \times n \times n \times … \times n = n^k$</p>
 <h4 id="组合-Combination"><a href="#组合-Combination" class="headerlink" title="组合(Combination)"></a>组合(Combination)</h4><p>Ex 小美玩跳棋。从明华袁三兄弟找两人下棋，请问多少种组合对战</p>
@@ -398,8 +398,9 @@
 <li>3 在五楼……</li>
 <li>4 妈！我在这！</li>
 </ul>
-<p>问， 废文兄发10次废文，一楼回帖共有多少中组合？  $4\times 4\times 4\times…\times 4 = $4^{10}$<br>问， 多少组合会看到 4次 【你……】， 3次【见……】，2次【在五楼……】， 1次【妈……】</p>
-<p>—— —— —— —— —— —— —— —— —— —— 第一次10中选4 ，第二次只剩下 6中选3，第三次省3中选2， 第四次1中选1<br>所以</p>
+<p>问， 废文兄发10次废文，一楼回帖共有多少中组合？  $4\times 4\times 4\times…\times 4 = 4^{10}$<br>问， 多少组合会看到 4次 【你……】， 3次【见……】，2次【在五楼……】， 1次【妈……】</p>
+<p>—— —— —— —— —— —— —— —— —— —— 第一次10中选4 ，第二次只剩下 6中选3，第三次省3中选2， 第四次1中选1</p>
+<p>所以</p>
 <p>$\tbinom{10}{4}  \tbinom{6}{3}  \tbinom{3}{2}  \tbinom{1}{1} = \frac{10!}{4!3!2!1!}$</p>
 <p>一般化  若有 m 种不同的物体，每次选取一个放回，依顺序选取n次。 如此共有 $m^n$ 种结果。 其中第 1 种出现 $\lbrace n_1\rbrace$ 次，<br>且第 2 种出现 $\lbrace n_2\rbrace$ 次， 且第 m 种出现 $\lbrace n_m\rbrace$ 次，这样的实验结果有多少种。</p>
 <p>$\tbinom{n}{n_1} \tbinom{n-n_1}{n_2}  \tbinom{n_m}{n_m}  = \frac{n!}{n_1!n_2!…n_m!}$</p>
@@ -461,6 +462,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/22/概率-5-随机变量/" rel="prev" title="概率-随机变量">
+                概率-随机变量 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -541,7 +546,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -563,7 +568,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
