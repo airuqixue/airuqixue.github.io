@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="分布式  HASH DHT," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Petar Maymounkov and David Mazieres   &amp;#123;petar, dm&amp;#125;@cs.nyu.eduhttp://kademlia.scs.cs.ny.edu  New York University  Abstract. We describe a peer-to-peer distributed hash table with provable cons">
+<meta name="keywords" content="分布式  HASH DHT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kademlia&amp;#58; A Peer-to-peer Information System Based on the XOR Metric">
+<meta property="og:url" content="http://www.mindincode.com/2019/11/12/dht/index.html">
+<meta property="og:site_name" content="Xin&#39;s Blog">
+<meta property="og:description" content="Petar Maymounkov and David Mazieres   &amp;#123;petar, dm&amp;#125;@cs.nyu.eduhttp://kademlia.scs.cs.ny.edu  New York University  Abstract. We describe a peer-to-peer distributed hash table with provable cons">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.mindincode.com/images/kbt.png">
+<meta property="og:image" content="http://www.mindincode.com/images/rpc.png">
+<meta property="og:image" content="http://www.mindincode.com/images/fraction.png">
+<meta property="og:image" content="http://www.mindincode.com/images/split-k.png">
+<meta property="og:image" content="http://www.mindincode.com/images/rtable.png">
+<meta property="og:updated_time" content="2019-11-20T03:11:37.982Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kademlia&amp;#58; A Peer-to-peer Information System Based on the XOR Metric">
+<meta name="twitter:description" content="Petar Maymounkov and David Mazieres   &amp;#123;petar, dm&amp;#125;@cs.nyu.eduhttp://kademlia.scs.cs.ny.edu  New York University  Abstract. We describe a peer-to-peer distributed hash table with provable cons">
+<meta name="twitter:image" content="http://www.mindincode.com/images/kbt.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.mindincode.com/2019/11/12/dht/"/>
+
+
+
+
+
+  <title>Kademlia&#58; A Peer-to-peer Information System Based on the XOR Metric | Xin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I love youbai</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/11/12/dht/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shaoxin Yin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kademlia&#58; A Peer-to-peer Information System Based on the XOR Metric</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T11:57:26+08:00">
+                2019-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DHT-Peer-to-peer-XOR-Kademlia/" itemprop="url" rel="index">
+                    <span itemprop="name">DHT Peer-to-peer XOR Kademlia</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>Petar Maymounkov and David Mazieres</center>
+
+<center> &#123;petar, dm&#125;@cs.nyu.edu</center><br><center><a href="http://kademlia.scs.cs.nyu.edu" target="_blank" rel="noopener">http://kademlia.scs.cs.ny.edu</a></center>
+
+<center>New York University</center>
+
+<center><br>Abstract. We describe a peer-to-peer distributed hash table with provable consistency and performance in a fault-prone environment. Our system routes queries and locates nodes using a novel XOR-based metric toplogy that simplifies the algorithm and facilitates our proof. The topology has the property that every message exchanged conveys or reinforces useful contact information. The system exploits this information to send parallel, asynchronous query messages that tolerate node failures without imposing timeout delays on Users.<br><center><br><br><center><br> 我们描述了一种点对点的，可在易出错环境可证明，一致性和高性能的点对点的分布式哈希表。我们的系统使用一种新的基于XOR（异或）的拓扑度量来路由查询和定位节点，这种拓扑度量简化了算法并且使得证明更容易。这种拓扑有这样一种属性，每一条交换信息都传达或者增加了有用的连接信息。 系统利用这些信息并行异步的发送查询请求消息，这些消息可以容忍节点失败，而不会把超时延时强加于用户。<br></center>
+
+<a id="more"></a>
+<h2 id="1-Introduction-介绍"><a href="#1-Introduction-介绍" class="headerlink" title="1. Introduction  介绍"></a>1. Introduction  介绍</h2><p align="left"><br>This paper describes Kademlia, a peer-to-peer distrubuted hash table(DHT).<br>Kademlia has a number of desirable features not simultaneously offered by any previous DHT. It minimizes the number of configuration messages nodes must send to learn about each other. Configuration information spreads automatically as a side-effect of key lookups. Nodes have enough knowledge and flexibility to route queries though low-latency paths. Kademlia users parallel, asynchronous queries to avoid timeout delays from failed nodes. The algorithm with which nodes record each other’s existence resists certain basic denial of service attacks. Finally, serveral important properties of Kademlia can be formally proven using only weak assumptions on uptime distributions(assumptions we validate with measurements of existing peer-to-peer systems).<br><br>   本论文描述了 一种点对点的分布式哈希表(DHT)，Kademlia。<br>Kademlia 有许多之前的DHT没有同时提供的令人满意的特性。 他最大限度的减少了节点必须发送以了解彼此的配置消息的数量。配置消息自动的作为关键字查找的边际效应自动散播。节点有足够的知识和灵活性通过低延迟路径进行路由查询。Kademilia用户并行异步的查询可以避免失败节点的超时延时。 这种节点相互记录了其他节点存在的算法可以抵抗基本服务拒绝攻击。最终， Kademlia的多项重要特性可以仅通过在运行时间分布上的弱假设被形式化的证明。（假设我们验证一个存在的点对点系统测量）<br><br>  Kademlia takes the basic approach of many DHTs. Keys are opaque, 160-bit quantities(e.g., the SHA-1 hash of some larger data). Participating computers each have a node ID in the 160-bit key space. &#60;key, value&#62; pairs are stored on nodes with IDs “close” to the key from some notion of closeness. Finally, a node-ID-based routing algorightm lets anyone effeciently locate servers near any given target key.<br><br>Kademlia 采用了大多数的DHT的基本方法， 键是不透明的，有160位之多（例如，一些较大数据的SHA-1哈希算法）。 参与的计算机都有一个160位的键空间作为节点ID. 键值对存在节点中，这些节点的ID是某种概念上的临近的键。 最终，一个基于ID的路由算法能够让任何人高效地定位任何给定的目标键所在的服务器。<br><br>Many of Kademlia’s benefits result from its use of a novel XOR metric for distance between points in the key space. XOR is symmetric, allowing Kademlia participants to receive lookup queries from precisely the same distribution of nodes contained in their routing tables. Without this property, systems such as Chord[5] do not learn useful routing information from queries they receive. Worse yet, asymmetry leads to rigid routing tables. Each entry in a Chord node’s finger table must store the precise node preceding some interval in the ID space. Any node actually in the interval would be too far from nodes preceding it in the same interval. Kademlia, in contrast can send a query to any node within an interval, allowing it to  select routes based on latency or even send parallel, asynchronous querries to serveral equally appropriate nodes.<br><br>  许多Kademlia的优点来源于使用了一种新的基于XOR异或度量来度量键空间中的点的距离。 XOR是对称的，允许Kademlia参与者的路由表中的节点接收查找和查询具有相同的准确分布。 没有这个性质，系统就和Chord一样没有从他们接收到的查询中学到有用的路由信息。更糟糕的是， 非对称导致了刚性路由表。 每一个Chord节点的finger表中的条目 都必须在ID空间中的某个间隔之前存确切的节点。 任何节点实际上 在这个间隔中 会离同一个间隔中他前面的节点太远。 相反的，Kademlia能够在一段时间内发送一个查询到任何一个节点， 允许他根据延迟选择路由或者发送并行异步的查询到一些同样合适的节点上。<br><br>   To locate nodes near a particular ID, Kademlia uses a single routing algorithm from start to finish. In contrast, other systems use one  algorithm to get near the target ID and another for the last few hops. Of existing systems, Kademlia most resembles Pastry’s&#91;1&#93; first phase, which (though not described this way by the authors) successively finds nodes roughly half as far from the target ID by Kademlia’s XOR metric. In a second phase, however, Pastry switches distance metrics to the numeric difference between IDs. It also uses the second, numeric difference metric in replication. Unfortunately, nodes close by the second metric can be quite far by the first, creating discontinuities at particular node ID values, reducing performance, and complicating attempts at formal analysis of worst-case behavior.<br><br>   为了定位特定的ID附近的节点们， Kademlia自始至终都使用了单一路由算法。 相反地，其他的系统使用一种算法来接近目标ID，在最后几跳使用另外一种算法。在现有的系统中， kadmemlia 看起来像Pastry的第一阶段，（尽管作者没有这样描述）它使用XOR异或度量连续地发现离目标ID大约一半距离的节点。然而在第二阶段， Pastry选择ID间的数字差做距离度量。它还在复制中使用第二种数值差异度量。不幸的是， 邻近第二种度量的节点可能与第一种相距甚远，尝试在最坏情况下做正式分析将会在特定ID值创建不连续性 ，降低性能，使得分析更加复杂化。<br></p>
+
+<h2 id="2-System-description-系统描述"><a href="#2-System-description-系统描述" class="headerlink" title="2. System description 系统描述"></a>2. System description 系统描述</h2><p align="left"><br>Our system takes the same general approach as other DHTs. We assign 160-bit opaque IDs to nodes and provide a lookup algorithm that locates successively “closer” nodes to any desired ID, converging to the lookup target in logarithmically many steps.<br><br>  我们的系统也采取和其他DHT一样的通用方法。 我们分配160位不透明的ID到节点中，并且提供一个逐渐把“邻近”的节点定位到所需的ID的查找算法， 并以对数步数收敛到查找目标。<br><br>   Kademlia effectively treats nodes as leaves in a binary tree, with each node’s position determined by the shortest unique prefix of its ID. Figure 1 shows the position of a node with unique prefix 0011 in an example tree. For any given node, we divide the binary tree into a series of successively lower subtrees that don’t contain the node. The highest subtree consists of the half of the binary tree not containing the node. The next subtree consists of the half of the remaining tree not containing the node, and so forth. In the example of node 0011, the subtrees are circled and consist of all nodes with prefixes1, 01, 000, and 0010 respectively.<br><br>  Kademlia 有效地把节点视为一颗二叉树的叶子， 每一个节点的位置都被ID的最短唯一前缀决定。图一显示了一个唯一前缀为0011的节点在一颗示例树中的位置。对于任何给定的节点，我们把一颗二叉树分成一系列连续的较低子树， 这些子树不包含这个节点。 最高的子树包含了一半的不包括本节点的二叉树， 另外一个子树包含了另外一半不包含节点的二叉树。 以此类推。 在节点0011示例中， 子树被圈起来， 由前缀分别为1， 01， 000 和0010 的所有节点组成。<br>    <img src="/images/kbt.png" alt="图1"><br><br>   The Kademlia protocol ensures that every node knows of at least one node in each of its subtrees, if that subtree contains a node. With this guarantee, any node can locate any other node by its ID. Figure 2 shows an example of node 0011 locating node 1110 by successively querying the best node it knows of to find contacts in lower and lower subtrees; finally the ookup converges to the target node.<br>   Kademlia协议保证每一个节点都知道至少一个他的子树中的节点，如果这个子树包含一个节点。有了这个保证，任何节点都能通过ID定位到其他节点。 图2 展示了节点0011通过连续查询他所知道的最佳节点来定位节点1110的情况，最佳节点是通过更低的子树一级级查找的。最终，查找将会收敛到目标节点上。<br>    <img src="/images/rpc.png" alt="图2"><br><br><br>  The remainter of this section fills in the details and markes the lookup algorithm more concrete. We first define a precise notaion of ID closeness, allowing  us to speak of storing and looking up &#60;key, value&#62; pairs on the k closest nodes to the key. We then give a lookup protocol that works even in cases where no node shares a unique prefix with a key or some of the subtrees associated with a given node are empty.<br><br>   本节剩余部分将补充更多细节并更加具体的标记查找算法。我们首先定义一个精确的ID贴近度表示符号，允许我们在距离键最近的k个节点存储和查找键值对。我们然后给出一个查找协议，即使在没有节点与键共享唯一前缀或者一些关联的子树为空节点的情况下也能有效。<br> </p>
+
+<h3 id="2-1-XOR-metric-异或度量"><a href="#2-1-XOR-metric-异或度量" class="headerlink" title="2.1 XOR metric  异或度量"></a>2.1 XOR metric  异或度量</h3><p align="left"><br>Each Kademlia node has a 160-bit node ID. Node Ids are currently just random 160-bit identifiers, though they could equally well be constructed as in Chord. Every message a node transmits includes its node ID, permitting the recipient to record the sender’s existence if necessary.<br><br>每一个Kademlia节点都有160位的ID。 节点ID目前只是随机的160位标识符，尽管他们可以像在Chord中一样地构造出来。每一个节点传递的消息都包含它的节点ID， 允许接收者在必要时记录发送者的存在。<br><br>  Keys, too, are 160-bit identifiers. To assign &#60;key, value&#62; pairs to particular nodes, Kademlia relies on a notion of distance between identifiers. Given two 160-bit identifiers, x and y, Kademlia defines the distance between them as<br>their bitwise exclusive or (XOR) interpreted as an integer, $d(x, y) = x\oplus y$.<br><br>   键也是160位的标识符。 为了把键值对存在特定节点上，Kademlia依赖一个表示两个标识符的距离的符号。 给定两个160位的标识符， x 和y， Kademlia定义这两个标识符之间的距离是把他们按位异或后表示为一个整数 $d(x,y)=x\oplus y$<br><br>  We first note that XOR is a valid, albeit non-Euclidean metric. It is obvious that that $d(x,x)=0, d(x,y)&gt;0 ,if (x\neq y) , and,  \forall x, y:d(x,y)=d(y,x) $. XOR also offers the triangle property: $ d(x,y) + d(y,z) \geq d(x,z) $. The triangle property follows from the fact that $d(x,y) \oplus d(y,z) = d(x,z), and, \forall a\geq 0, b\geq 0: a + b \geq a\oplus b $<br><br>   我们首先注意到XOR是有效的，尽管他是非欧几里得度量。 很明显  $d(x,x)=0, d(x,y)&gt;0 ,if (x\neq y) , and,  \forall x, y:d(x,y)=d(y,x) $. XOR(异或)也提供了三角属性 $ d(x,y) + d(y,z) \geq d(x,z) $。 三角属性遵循这样一个事实：$d(x,y)\oplus d(y,z) = d(x,z), and, \forall a\geq 0, b\geq 0: a + b \geq a\oplus b $<br><br>   We next note that XOR captures the notion of distance implicit in our binary-tree-based sketch of the system. In a fully-populated binary tree of 160-bit IDs, the magnitude of the distance between two IDs is the height of the smallest subtree containing them both. When a tree is not fully poppulated, the closest leaf to an ID x is the leaf whose ID shares the longest common prefix of x,. If there are empty branches in the tree, there might be more than one  leaf with the longest common prefix. In that case the closest leaf to x will be the closest leaf to ID $\tilde{x}$ produced by flipping the bits in x corresponding to the empty branches of the tree.<br><br>  接下来我们注意到异或抓住了隐藏在我们的基于二叉树草图的系统中距离的概念。在一颗完全填充的160位ID的二叉树中，两个ID之间的距离大小是包含了他们的最小子树的高度。当一棵树没有完全填充时，最接近ID x的叶子就是与x共享最大公共前缀的ID。 如果树中有空的分支， 也许就不止一片叶子有相同的最长公共前缀，那样的话，最接近x的叶子将是最接近ID $\tilde{x}$的叶子，该ID 是通过翻转x中对应于树的空分支的位而产生的。<br><br>  Like Chord’s clockwise circle metric, XOR is unidirectional. For  any given point x and distance  $Δ &gt; 0$, there is exactly one point y such that $d(x,y) = Δ$. Unidirectionality ensures that all lookups for the same key converge along the same<br>path, regardless of the originating node. Thus, caching &#60;key, value&#62; pairs along the lookup path alleviates hot spots. Like Pastry and unlike Chord, the XOR topology is also symmetric ($d(x,y)=d(y,x） \forall x, y$)<br><br>   和Chord的顺时针圆形度量一样， XOR也是单向的。对于给定的任意点x 和大于零的Δ， 都有一个点y 使得 $d(x,y)=Δ$。 单向性确保所有对于同一个键的查找都沿着同一个路径收敛，<br>而不管原始的节点，因此，查找路劲上的缓存键值对减少了热点。就像Pastry但不同于Chord， XOR（异或）拓扑也是对称的。$\forall  x, y , d(x,y)=d(y,x)$<br><br></p>
+
+<h3 id="2-2-Node-state-节点状态"><a href="#2-2-Node-state-节点状态" class="headerlink" title="2.2  Node state 节点状态"></a>2.2  Node state 节点状态</h3><p align="left"><br>Kademlia nodes store contact information about each other to route query messages. For each $0 \leq i \le 160$, every node keeps a list of &#60;IP address, UDP port, NodeID&#62; triples for nodes of distance between $2^i$ and $2^(i+1)$ from itself. We call these lists k-buckets. Each k-bucket  is kept stored by time  last seen– least-recently seen node at the head, most-recently seen at the tail. For small value of i, the k-buckets will generally empty( as no appropriate nodes will exist). For large values of i, the lists can grow up to size k, where k is a system-wide replication parameter. k is chosen such that any given k nodes are very unlikely to fail within an hour of each other ( for example k = 20).<br><br>   Kademlia 节点存储了关于相互路由查询的联系信息。 对于$0 \leq i &lt; 160$， 每个节点保存了一个&#60;IP地址，UDP端口，节点ID&#62;这样的三元组列表，从自己到第$2^i$ 到 $2^(i+1)$个节点之间的距离信息。 我们把这些列表叫k-桶。每一个k-桶根据时间保存了最后见到的节点——最近少见节点 在头部，常见节点在尾部。对于较小的i， k-桶一般都是空的（没有存在合适的节点）。对于较大的i，这个列表会增长到k大小， k是一个系统范围的复制参数。 选择k例如任何给定的k个节点在一个小时内都不太可能失效。（例如 k = 20）<br><br>   When  a Kademlia node receives any message(request or reply) from another node, it updates the appropriate k-bucket for the sendor’s node ID. If the sending node already exists in the recipient’s k-butcket, the recipient moves it to the tail fo the list, if the node is not already in the appropriate k-bucket and the bucket has fewer than k entries, then the recipient just inserts the new sender at the tail of the list. If the appropriate k-bucket is full, however, then the recipient pings the k-bucket’s least-recently seen node to decide waht  to do. If the least-recently seen node fails to respond, it is evicted from  the k-bucket and the new sender inserted at the tail. Otherwise, if the least-recently seen node responds, it is moved to the tail of the list, and the new sender’s contact is discardded.<br><br>   当一个Kademlia节点从另一个节点接收到任何消息（请求的，回复的），他会将发送节点ID更新到合适的k-桶。 如果发送者节点已经存在接受者的k-桶中，接受者把他移动到队列尾。如果节点不存在合适的k-桶中，桶中的条目数量少于k，那么接受者只需要在队列尾部插入新的发送者。如果可用的桶满了，那么，接受者ping最近最少见到的节点来决定下一步：如果最近最少见到的节点没有响应，那么它将被从k-桶中移除，然后新的发送者被插入队尾。 否则，最近最少看到的节点移动到队列尾部，新的发送者将会被丢弃。<br><br>   K-buckets effectively implement a  least-recently seen eviction policy, except that live nodes are newver removed from the list. This preference for old contacts is driven by our analysis of Genutella trace data collected by Saroiu et. al.&#91;4&#93;.<br>Figure 3 shows the percentage of Gnutella nodes that stay online another hour as a function of current uptime. The longer a node has been up, the more likely it is to remain up another hour. By keeping the oldest live contacts around, k-buckets maximize the probaility that the nodes they contain will remain online.<br><br>   K-桶有效地实现了一个最近最少出现节点移除策略，除了活动节点永不移除队列。 这个对老的节点联系信息的偏好是根据Saroiu收集的数据，并通过Genutella跟踪分析的出来的。图3 展示了Gnutella节点在当前运行时间的作用下下一个小时持续在线的节点百分比。在线时间越长，下一个小时在线的可能性就越大。通过保持最老的活跃联系信息， k-桶最大限度的提高了他们所包含的节点仍然在线的概率<br>    <img src="/images/fraction.png" alt=""><br><br>  A second benefit of k-buckets is that they provide resistance to certain Dos attacks. One cannot flush nodes’ routing state by flooding the system with new nodes. Kademlia nodes will only insert the new node in the k-buckets when old nodes leave the system.<br><br>  K桶的第二个好处是他可以抵抗某种Dos攻击。 不能通过向系统注入新的节点来刷新节点的路由状态。只有当旧的节点离开后，新的节点才能被插入k桶<br><br></p>
+
+<h3 id="2-3-Kademlia-protocol-Kademlia-协议"><a href="#2-3-Kademlia-protocol-Kademlia-协议" class="headerlink" title="2.3 Kademlia protocol Kademlia 协议"></a>2.3 Kademlia protocol Kademlia 协议</h3><p align="left"><br>The Kademlia protocol consists of four RPCs: PING, STORE, FIND_NODE, and FIND_VALUE. The PING RPC probes a node to see if it is online. STORE instructs a node to store a &#60;key, value&#62; pair for later retrieval.<br><br>  Kademlia 协议由四个RPC组成。PING， STORE，FIND_NODE， FIND_VALUE。 PING RPC 探测一个节点是否在线，STORE指示一个节点存储键值对以供以后检索。<br><br>  FIND_NODE takes a 160-bit ID as an argument. The recipient of a the RPC returns&#60;IP address, UDP port, Node ID&#62; triples for the k nodes it knows about closest to the target ID. These triples can come from a single k-bucket, or they may come from multiple k-buckets if the closest k-bucket is not full. In any case the RPC recipient must return k items (unles there are fewer than k nodes in all its k-buckets combined, in which case it returns every node it knows about).<br><br>   FIND_NODE 把160位的ID作为参数。 RPC接受者返回&#60;IP地址， UDP端口， 节点ID&#62;这样的他所知道距离目标ID最近的的K个节点的三元组。 这些三元组可以来自一个k桶，或者如果距离最近的k桶不满，则是多个k桶的组合。任何情况下RPC接受者都要返回k个元组（除非所有的k桶中都没有k个节点那么多， 这样的话就返回每一个接受者知道的节点）<br><br>   FIND_VALUE behaves like FIND_NODE  returning &#60;IP address, UDP port, Node ID&#62; triples –with one exception . If the RPC recipient has received a STORE RPC for the key, it just return the stored value.<br><br>   FIND_VALUE 的行为和FIND_NODE 一样，返回 &#60;IP address, UDP port, Node ID&#62; 三元组。只有一个例外， 如果RPC接受者接收到一个关于这个键的STORE RPC指令， 他只需返回存储的值。<br><br>  In all RPCs, the recipient must echo a 160-bit random RPC ID, which provides some resistance to address forgery. PINGs can also be piggy-backed on RPC replies for the RPC recipient to obtain additional assurance of the sender’s network address.<br><br>  所有的RPC调用，接受者必须响应一个随机的160位的RPC ID， 它提供了很好的地址伪造能力。PING 也可用于在对RPC接受者的回复中确保获取额外的发送者网络地址。<br><br>   The most important procedure a Kademlia participant must perform is to locate the k closest to some given node ID, We call this procedure a node lookup. Kademlia employs a recursive algorithm for node lookups. The lookup initiator starts by picking α nodes from its closest non-empty k-bucket(or, if that bucket has fewer than α entries, it just takes the α closest nodes it knows of). The initiator then sends parallel, asynchronous FIND_NODE RPCs to the α nodes it has chosen. α is a system-wide concurrency parameter, such as 3.<br><br>   Kademlia最重要的过程是参与者必须实现根据给定的节点ID定位到最近的k个节点。我们把这个过程叫做节点查找。 Kademlia使用一个递归算法来查找节点。 这个查找初始化从他的k桶中选取最近的α个节点（如果桶里不足α个节点，选取他所知道的最近的α个节点）。 初始化程序然后发送并行异步的FIND_NODE RPC请求到这α个节点， α 是一个系统范围的并行参数，例如，3.<br><br>   In the recursive step, the initiator resends the FIND_NODE to nodes it has learned from previous RPCs. (This recursion can begin before all α of the previous RPCs have returned). Of the k nodes the initiator has heard of closest to the target, it picks α that it has not yet queried and resends the FIND_NODE RPC to them. Nodes that fail to respond quickly are removed from consideration until and unless they do respond . If a round of FIND_NODEs fails to return a node any closer than the closest already seen, the initiator resends the FIND_NODE to all of the k closest nodes it has not already queried. The lookup terminates when the initiator has queried and gotten responses from the k closest nodes it has seen. When α = 1, the lookup algorithm resembles Chord’s in terms of message cost and the latency of detecting failed nodes, However, Kademlia can route for lower latency because it has the flexibility of choosing any one of k nodes to forward a request to.<br><br>  在递归过程中， 初始化程序重发FIND_NODE到他之前通过RPC调用了解到的节点。（这个递归可以在所有的向α发出的RPC返回之前开启）。在这k个初始化程序已经了解到的最近节点中， 选择α 个他还没有查询和重发FIND_NODE 请求的节点。响应失败的节点都很快被移除除非他作出响应。如果一轮查询失败，返回的是一个比已知的最近节点更近的节点， 初始化程序会重新发送FIND_NODE调用到所有k个最近的没查询过的节点。 查询在初始化程序从k个出现的最近节点得到响应后结束。当α=1， 查询算法看起来像Chord 根据消息成本和延迟检测节点失效。然后， Kademlia能够更低延迟的路由，因为他有选择任意节点转发请求的灵活性。<br><br>   Most  operations are implemented in terms of the above lookup procedure. To store a &#60;key, value&#62; pair, a participant locates the k closest nodes to the key and sends them STORE RPCs. Additionally , each node re-publishes &#60;key,value&#62;pairs as necessary to keep them alive, as described later in Section 2.5. This ensures persistence(as we show in our proof sketch) of the &#60;key, value&#62; pair with very high probability. For Kademlia’s current application (file sharing), we also require the original publisher of a &#60;key, value&#62; pair to republish it every 24 hours.Otherwise, &#60;key,value&#62; pairs expire 24 hours after publication, so as to limit stale index information in the system. For other applications, such as digital certificates or crytographic hash to value mappings, longer expiration times may be appropriate.<br><br>   大多数操作都是根据上面的查找过程。 要存储一个键值对， 参与者定位到k个关于键的最近节点并且发送给他们STORE 远程调用。除此之外， 没个节点根绝需要重新发布键值对以保持活性，就像之后2.5节描述的那样。 这样确保了键值对的持久化（就像我们在证明草稿里展示的那样）有一个很高的概率。对于当前的Kademlia应用（文件共享），我们同样需要原始的键值对发布者每24小时重发布一次。否则，键值对在发布后24小时过期， 所以以便减少系统中的陈旧索引信息。对于其他的应用。例如数字证书加密哈希值映射， 更长的租期时间也许更合适。<br><br>   To find a &#60;key,value&#62; pair, a node starts by performing a lookup to find the k nodes with IDs closest to the key. However, value lookups use FIND_VALUE rather than FIND_NODE RPCs. Moreover, the procedure halts immediately when any node returns the value. For caching purposes, once a lookup successds, the requesting node stores the &#60;key,value&#62; pair at the closest node it observed to the key that did not return the value.<br><br>   为了找到键值对，一个节点开始通过查找到键与节点ID最近的K个节点。 但是，查找使用的是FIND_VALUE而不是FIND_NODE。此外，当任何节点返回值时，过程立刻终止。 处于缓存目的， 一旦查找成功，请求节点会把键值对存储在它观察到的对于键未返回值的最近节点上。<br><br>   Because of the unidirectionality of the toplogy, future searches for the same key are likely to hit cached entries before querying the closest node. During times of high popularity of a certain key, the system might end up caching it at many nodes. To avoid “over-caching”, we make the expiration time of a &#60;key, value&#62; pair in any node’s database exponentially inversely proportional to the number of nodes between the current node and the node whose ID is closest to the key ID. While simple LRU eviction would result in a simliar lifetime distribution, there is no natural way of choosing the cache size, since nodes have no a priori knowledge of how many values the system will store.<br><br>   由于单向性的拓扑结构，之后的对同一个键的查询很可能命中之前查询的最近节点的缓存条目。在一个特定的键很受欢迎的时候，系统很可能在多个节点缓存它。为了避免“过度缓存”， 我们使得任何节点上的键值对过期时间与当前节点和与键最近的节点之间的节点数量成反比。（k-桶中的列表中的个数）。 简单的最近最少使用移除法不能产生一个相似的键值对生命周期分布，因为没有一个自然地方法选择缓存大小，因为节点是不能预先知道多少个只需要系统存储的。<br><br>   Buckets are generally kept fresh by the traffic of requests traveling through nodes. To handle pathological cases in which there are no lookups for a particular ID range, each node refreshes any bucket to which it has not performed a node lookup in  the past hour. Refreshing means picking a random ID in the bucket’s range and performing a node search for that ID.<br><br>   桶通常通过请求流保持最新的状态。为了处理特殊ID范围内没有查找的病态情况， 每一个节点都刷新他在过去一小时内没有执行节点查找的任何桶。刷新就是在桶的范围内随机选择一个ID并对此ID进行查找。<br><br>   To join the network, a node v must have a contact to any already participating node w. v inserts w into the appropriate k-bucket. v then performs a node lookup for its own node ID. Finally, v refreshes all k-buckets further away than its closest neighbor. During the refreshes, v both populates its own k-buckets and inserts itself into other nodes’ k-buckets as necessary.<br><br>   为了加入网络，一个节点v必须连接任何一个已经加入的节点w， v 插入 w到合适的k-桶。 v 然后对自己的节点ID执行一次节点查找。最后，v刷新所有的比他最近的邻居更远的k-桶，在刷新期间，v 也同时填充自己的k-桶 并且根据需要把自己加到其他的节点的k-桶<br><br> </p>
+
+<h3 id="2-4-Routing-table-路由表"><a href="#2-4-Routing-table-路由表" class="headerlink" title="2.4 Routing table 路由表"></a>2.4 Routing table 路由表</h3><p align="left"><br>   Kademlia’s basic routing table structure is fairly straight-forward given the protocol, though a slight subtlety is needed to handle highly unbalanced trees.  The routing table is a binary tree whose leaves are k-buckets. Each k-bucket contains nodes with some common prefix of their IDs. The prefix is the k-bucket’s position in the binary tree. Thus, each k-bucket covers some range of the ID space, and together the k-buckets cover the entire 160-bit ID space with no overlap.<br><br>   考虑到协议，Kademlia的基本路由表结构是相当直接的， 不过要处理高度不平衡的树需要稍微微妙些。 路由表就是一颗二叉树，他的叶子就是k-桶， 每一个k-桶包含了ID是相同前缀的节点。 前缀是k-桶的在二叉树中的位置。因此，每一个k-桶都覆盖了一部分ID空间的范围， 并且所有的k-桶覆盖了整个的160位ID空间而没有重叠。<br><br>   Nodes in the routing tree are allocated dynamically, as needed. Figure 4 illustrates the process. Initially, a node u’s routing tree has a single node– one k-bucket convering the entire ID space. When u learns of a new contact, it attempts to insert the contact in the appropriate k-bucket. If that bucket is not full, the new contact is imply inserted. Otherwise, if the k-bucket’s range includes v’s own node ID, then the bucket is split into two new buckets, the old contents divided between the two, and the insertion attempt repeated. If a k-bucket with a different range is full, the new contact is simply dropped.<br><br>   在路由树中的节点按需要动态分配。图4描述了这个处理过程。开始，一个节点u的路由树里只有一个节点。一个覆盖了整个ID空间的k-桶，当节点u接收到一个新的连接，他会尝试插入把这个新的节点信息插入合适的k-桶。如果这个k-桶没有满，那么直接插入，否则后如果k-桶的范围包含了u自己的节点ID，那么桶就被分裂成两个，旧的内容在两个桶之间，尝试重复插入到新的桶。如果不同范围的k-桶已经满了，那么新的连接点信息将被简单地丢弃。<br>     <img src="/images/split-k.png" alt="图4"><br><br>   One complication arises in highly unbalanced trees. Suppose node u joins the system and is the lonly node whose ID begins 000. Suppose further that the system already has more than k nodes with prefix 001. Every node with prefix 001 would have an empty k-bucket into which u should be inserted, yet u’s bucket refresh would only notify k of the nodes. To avoid this problem, Kademlia nodes keep all valid contacts in a subtree of size at least k nodes, even if this rquires splitting buckets in which the node’s own ID does not reside. Figure 5 illustrates thes additional splits. When u refreshes the split buckets, all nodes with prefix 001 will lean about it.<br><br>  一个复杂的问题出现在高度不平衡的树上。 假设节点u加入一个系统，并且这个节点是唯一一个ID开始于000的节点。再进一步假设系统已经有了多余k个ID前缀为001的节点。每一个前缀为001的节点将会有一个空的k-桶，这些空桶原本应该插入u， 但是u的桶更新最多通知到k个节点。为了避免这个问题，Kademlia节点保持所有的子树中至少k个节点的有效联系信息，甚至需要分裂那些节点自己的ID不在其中的桶。<br>  图5 描述了这种额外的分裂方式。当节点u更新自己的分裂桶时，所有的前缀为001的节点都知道了。<br>  译者注： 确保子树（桶）中的节点不会多于k个。这样就不会出现描述的问题。出现的时候就会分裂桶。<br>    <img src="/images/rtable.png" alt="图5"><br><br></p>
+
+<h3 id="2-5-Efficient-key-re-publishing-有效的键重发布"><a href="#2-5-Efficient-key-re-publishing-有效的键重发布" class="headerlink" title="2.5 Efficient key re-publishing  有效的键重发布"></a>2.5 Efficient key re-publishing  有效的键重发布</h3><p align="left"><br>To ensure the persistence of key-value pairs, nodes must periodically republish keys. Otherwise, twe phenomena may cause lookups for valid keys to fail. First, some of the k nodes that initially get a key-value pair when it is published may leave the network. Second, new nodes may join the network with IDs closer to some published key than the nodes on which the key-value piar was originally published. In both cases, the nodes with a key-value pair must republish it so as once again to ensure it is available on the k nodes closest to the key.<br><br>  为了持久化键值对，节点必须周期性的发布键。否者，两个情况都会引起有效的键查找失败。首先，最初存储键值对的k个节点中的一些可能离开了网络。其次，新的节点可能加入了网络，而他们比原先发布的键值对更加接近发布的键。两种情况，节点的键值对都必须重发布，才能够再一次的确保k个节点是最接近查找键的。<br><br>  To compensate for nodes leaving the network, Kademlia republishes each key-value pair once an hour. A naive implementation of this strategy would require many messages – each of up to k nodes storing a key-value pair would perform a node lookup followed by k-1 STORE RPCs every hour. Fortunately,  the republishing process can be heavily optimized. First , when a node receives a STORE RPC for a given key-value pair, it assumes the RPC was also issued to the other k-1 closest nodes, and thus the recipient will not republish the key-value pair in the next hour. This ensures that as long as republication intervals are not exactly synchronized, only one node will republish a given key-value pair every hour.<br><br>   为了补偿离节点离开网络的情况，Kademlia每小时就重发布每一个键值对。 这种策略的简单实现需要很多消息——每一个到达k个节点的键值对存储每小时都会执行一次节点查找，伴随着k-1次STORE 远程调用。幸运的是，重发布可以被大量优化。首先，当一个节点接收到指定的键值对STORE远程调用请求时，他假设远程调用也被发布到其他k-1个最近节点，因此接收者在接下来的一个小时内不会重新发布键值对。这就保证了只要重发布间隔时间不是完全同步的，每小时只有一个节点会对给定的键值对进行重发布。<br><br>   A second optimization avoids performing node lookups before republishing keys. As described in Section 2.4, to handle unbalanced trees, nodes split k-buckets are required to ensure they have complete knowledge of a surrounding subtree with at least k nodes. If, before republishing key-value pairs, a node u refreshes all k-buckets in this subtree of k nodes, it will automatically be able to figure out the k closest nodes to a given key. These bucket refreshs can be amortized over the republication of many keys.<br><br>   第二个优化是在重发布键之前避免执行节点查找。 就像在2.4节描述的那样， 为了处理不平衡树， 节点分裂桶需要确保他们完全知道周围一颗有至少有k个节点的子树。如果， 在发布键值对之前，一个节点u刷新了子树中k个节点的所有的k-桶， 他将会自动的找到给定的键最近的k个节点。这些桶的刷新可以分摊在多个键的发布中完成。<br><br>   To see why a node lookup is unnecessary after u refreshes buckets in the subtree of size &gt;= k, it is necessary to consider two cases. If the key being published falls in the ID range of the subtree, then since the subtree is of size at least k and u has complete knowledge of the subtree, clearly u must know the k closest nodes to the key . If , on the other hand, the key lies outside the subtree, yet u was one of the k closest nodes to the key, it must follow that u’s k-buckets for intervals closer to the key than the subtree all have fewer than k entries. Hence, u will know all nodes in these k-buckets, which together with knowledge of the subtree will include the k closest nodes to the key.<br><br>   要了解为什么在u节点刷新子树中数量大于k的桶之后节点查找是不必要的， 需要考虑两种情况。如果要发布的键落在子树的ID范围内， 那么由于子树的大小至少为k，并且u节点完全了解子树，很明显u节点必须知道距离键最近的k个节点。另一方面，如果键落在子树外，而u节点是键的最近节点之一， 他必须遵循这样的事实，比起所有节点少于k的子树， u节点间隔内的k-桶是距离键最近的。因此， u节点知道这些k-桶中的所有节点，结合子树的了解情况将包含对于键最近的k个节点。<br><br>   When  a new node joins the system, it must store any key-value pair to which it is one of the k closest. Existing nodes, by simliarly explloiting complete knowledge of their surrounding subtrees, will know which key-value pairs the new node should sotre. Any node learning of a new node therefore issues STORE RPCs to transfer relevant key-value pairs to the new node. To avoid redundant STORE RPCs, however, a node only transfers a key-value pair if it’s own ID is closer to the key than are the IDs of other nodes.<br><br>  当一个新节点加入到戏中的时候，他必须存储任何的键值对，对于这些键值对，他是其中一个最近k节点之一。通过相似的<br>利用周围子树的完整信息来发现存在的节点， 就能知道新节点要存储哪些键值对。任何了解新节点的节点因此发送关于相关的键值对的STORE远程调用请求到新的节点。 然而，为了避免冗余的STORE远程调用请求，节点仅仅传输他自身的ID距离键比其他任何节点的ID更近的一个键值对。<br></p>
+
+<h2 id="3-Sketch-of-proof-证明草稿"><a href="#3-Sketch-of-proof-证明草稿" class="headerlink" title="3. Sketch of proof 证明草稿"></a>3. Sketch of proof 证明草稿</h2><p align="left"><br>To  demonstrate proper function of our system, we need to prove that most operations take $\log n + c $ tie for small<br>constant c, and that a &#60;key, value&#62; lookup returns a key stored in the system with overwhelming probability.<br><br>   为了证明我们系统功能的正确， 我们需要证明大多数的操作都花费$\log n + c$的时间，c是一个很小的常数。并且一个键值对查找返回一个存储再系统中的键的概率巨大。<br><br>  We start with some definitions. For a k-bucket convering the distance range $[2^i, 2^(i+1))$, define the index of the bucket to be i, Define the depth , h, of a node to be 160-i, where  is the smallest index of a non-empty bucket. Define node y’s bucket height in node x to be the index of the bucket into which x would insert y minus the index of x’s least significant empty bucket. Becausse node IDs are randomly chosen, it follows that highly non-uniform distributions are unlikely. Thus with overwhelming probability the height of a any given node will be within a constant of log n for a system with n nodes. Moreover, the bucket height of the closest node to an ID in the kth-closest node wil likely be within a constant of logk.<br><br>   我们先来看一些定义。 把k-桶变成一个距离范围$ [2^i, 2^(i+1)) $， k-桶的索引定位为i, 定义h 是节点高度 160-i ， 其中i是非空桶的最小索引。 在节点x中定义节点y的桶高为 x 插入y的桶的索引减去 x 的最小有效空桶索引。因为节点ID是随机选择的，它高度非均匀分布是不可能的。因此，很大概率对于一个有n个节点的系统，任何给定节点的高度将会在一个log n 的常数内。此外，最近的节点的桶高到第k个接近ID的节点的桶高将会在一个常量$\log k$内<br><br>  Our next step will be to assume the invariant that every k-bucket of every node constains at least one contact if a node exists in the appropriate range. Given this assumption, we show that the node lookup procedure is correct and takes logarithmic time. Suppose the closest node to the target ID has depth h, If none of this node’s h most significant k-buckets is empty, the lookup procedure will find a node half as close(or rather whose distance is none bit shorter) in each step, and thus turn up the node in $h - \log k$ steps. If one of the node’s k-buckets is empty, it could be the case that the target node resides in the range of the empty bucket. In this case, the final steps will not decrease the distance by half. However, the search will proceed exactly as though the bit in the key corresponding to the empty bucket had been flipped. Thus , the lookup algorithm will always return the closest node in h - log k steps. Moreover, once the closest node is found , the concurrency switches from α to k. The number of steps to find the remaining k - 1 closest nodes can be no more than the bucket height of the closest node in the kth-closest node, whch is unlikely to be more than a constant plus logk.<br><br>   下一步我们将会做一个不变的假设， 每个节点的每个k桶包含至少一个连接信息，如果这个节点存在合适的范围。通过这个假设，我们展示了节点查找流程是正确的，并在log时间内。 假设最近节点到目标ID有h高度， 如果该节点的h个最重要的k-桶都不是空的， 那么查找流程将会在每个步骤中找到一个接近（更切确的说，其距离短一位）一半的节点， 从而在h-logk步骤中找到节点。如果其中一个节点的k-桶是空的，那就是目标节点不在空桶范围内的情况。这样的话， 最终步数不会减少一半的距离。然而， 尽管对于那些空桶中的键位已经被翻转，查询还是将会准确进行。因此，查找算法将会总是在$h-\log k$步返回最近的节点。此外，一旦最近的节点被找到，并发就被从α切换到k。 找到剩余k-1个最近节点的步数可能比第k个最近节点内的最近节点的桶高要少得多， 很可能不会多于常数logk<br><br>   To prove the correctness of the invariant, first consider the effects of bucket refreshing if the invariant holds. After being refreshed, a bucket will either contain k valid nodes or else contain every node in its range if fewer than k exist.<br>(this follows from the correctness of the node lookup procedure.) New nodes that join will also be  inserted into any buckets that are not full. Thus, the only way to violate the invariant is for there to exist k+1 or more nodes in the range of a particluar bucket, and for the k actually contained in the bucket all to fail with no intervening lookups or refreshes. However, k was preceisely chosen for the probability of simultaneous failure within an hour(the maximum refresh time) to be small.<br><br>   为了证明不变性的正确， 首先考虑桶更新的影响，如果不变性保持住。被刷新后，一个桶内依然包含k个有效节点，或者如果只有比k少的节点存在的时候包含每一个在他范围内的节点。（这源于节点查找的正确性）。新节点的加入将被插入到任何未满的桶内，因此，唯一违反不变性的方法是在特定的桶范围内 存在 k + 1 或更多个节点， 并且所有它包含的k个都失败了，没有中间查找或者更新。然而， k 是精心挑选的使得同时在一个小时内（最大刷新时间）失败的可能性最的值。<br><br>   In practice, the probability of failure is much smaller than the probability of k nodes leaving within an hour, as every incoming or outgoing request updates nodes’ buckets. This results from the symmetry of the XOR metric, because the IDs of the nodes with which a given node communicates during an incoming or outgoing request are distributed exactly compatibly with the node’s bucket ranges.<br><br>  实际上，当传入传出的请求对节点桶的更新时，失败的可能性比k个节点在一个小时内离开还小。这是XOR异或度量的对称性结果，因为一个给定节点在传入和传出的请求期间与之通信的节点的ID和节点的桶的范围分布完全的兼容<br><br>  Moreover, even if the invariant does fail for  a single bucket in a single node, this will only affect runing time (by adding a hop to some lookups), not correctness of node lookups. For a lookup to fail, k nodes on a lookup path must each lose k nodes in the same bucket with no intervening lookups or refreshes. If  the different nodes’ buckets have no overlap, this happens with probability $2^(-k^2)$. Otherwise, nodes appearing in multiple other nodes’ buckets will likely have longer uptimes and thus lower probability of failure.<br><br>   此外，即使不变性对于一个节点的一个桶失败了，这也只会影响（整个系统的）运行（对于某些查找只是增加了一跳），而不是节点查找的正确性。要使查找失败， 查找路劲上的k个节点每个都必须失去在同一个桶中的k个节点而没有任何的中间查找或者更新。如果不同节点的桶没有重叠，发生的概率是 $2^(-k^2)$。 否则， 节点出现在多个其他节点的桶中则很可能长时间运行并且失败的几率很小。<br><br>  Now we can consider a &#60;key, value&#62; pair’s recovery. When a &#60;key, value&#62; pair is published, it is populated at the k nodes, closest to the key. It is also re-published every hour. Since even new nodes (the least reliable) have probability 1/2 of  lasting one hour, after one hour the &#60;key, value&#62; pair will still be present on one of the k nodes. closest to the key with probability $1-2^(-k)$。 This property is not violated by the insertion of new nodes that are close to the key, because as soon as such nodes are inserted, they contact their closest nodes in order to fill their buckets and thereby receive any nearby &#60;key, value&#62; pairs they should store. Of course, if the k closest nodes to a key fail and the &#60;key, value&#62; pair has not been cached elsewhere, Kademlia will fial to store the pair and therefore lose the key.<br><br>  现在，我们可以考虑一个键值对的恢复。 当一个键值对被发布， 他被存储到距离键最近的k个节点。它每个小时被重发布。因为即使是新的节点（最不稳定）也有1/2的机会持续一个小时，一个小时之后键值对会出现在距离键最近的k个节点中的一个上的概率是 $1-2^(-k)$ 。 插入靠近键的新节点并不违反这个属性， 因为只要这样的节点们尽快的插入，他们与最近的节点通讯，以便填充他们的桶，因此接收任何的附近他们必须存储的键值。当然，如果 k个最近节点对于某个key失效了，并且键值对并没有缓存在别处，那么Kademlia无法存储键值对并因此失去这个键。<br></p>
+
+<h2 id="4-Implementation-notes-实现注意事项"><a href="#4-Implementation-notes-实现注意事项" class="headerlink" title="4. Implementation notes 实现注意事项"></a>4. Implementation notes 实现注意事项</h2><p align="left"><br>   In this section, we describe two important techniques we used to improve the performance of the Kademlia implementation<br><br>  本节中，我们将描述两种用于提高Kademlia实现性能的重要技术。<br></p>
+
+<h3 id="4-1-Optimized-contact-accounting-通信记录优化"><a href="#4-1-Optimized-contact-accounting-通信记录优化" class="headerlink" title="4.1  Optimized contact accounting 通信记录优化"></a>4.1  Optimized contact accounting 通信记录优化</h3><p align="left"><br>The basic desired property of k-buckets is to provide LRU checking and eviction of invalid contacts without dropping any valid contacts. As described in Section 2.2,  if  a k-bucket is full, it requires sending a PING RPC every time a message is received from an unknown node in the bucket’s range. The PING checks to see if the least-recently used contact in the k-bucket is still valid. If it isn’t, the new contact replaces the old one. Unfortunately, the algorithm as described would require a large number of network message for these PINGs.<br><br>   k桶最需要的基本属性是提供LRU检查并且删除失效的连接信息而不丢弃有效的连接信息。正如2.2节描述的那样，如果一个k桶是满的，每次接收到在桶范围内的未知节点消息时，都需要发送PING远程调用请求。这个PING检查在k桶中是否最近最少使用的信息是否还有效， 如果没有，新的连接信息将取代老的。不幸的是，正如描述所示的这个算法需要大量的这样的PING网络消息。<br><br>   To reduce traffic, Kademlia delays probing contacts until it has useful messages to send them. When a Kademlia node receives an RPC from an unknown contact and the k-bucket for that contact is already full with k entries, the node places the new contact in a replacement cache of nodes eligible to replace stale k-bucket entries. The next time the node queries contacts in the k-bucket, any unresponseive ones can be evicted and replaced with entires in the replacement cache. The replacement cache is kept sorted by time last seen, with the most recently seen entry having the higest priority as a replacement candidate.<br><br>   为了减少通信量，Kademlia 延迟探测连接信息，直到有有用的信息发给他们。当一个Kademlia节点接收到一个未知的连接信息并且k桶对那个信息已经满了，那么节点将把新的连接信息放到一个有资格替换陈旧k桶条目的节点替换缓存中。下次节点在k桶中查询连接信息时，任何未响应的节点都被移除，并使用存在替换缓存中的条目替代。 替换缓存根据最后一次访问时间存储，最常见的条目作为候选者拥有最高的权限。<br><br>  A related problem is that because Kademlia uses UDP, valid contacts will sometimes fail to respond when network packets are dropped. Since packet loss offen indicates network congestion, Kademlia locks unresponsive contacts and avoid sending them any further RPCs for an exponentially increasing backoff interval. Because at most stages Kademlia’s lookup only needs to hear from one  of k nodes, the system typically does not retransmit dropped RPCs to the same node.<br><br>   一个相关的问题是因为Kademlia使用UDP协议，当网络包被丢弃时，有效的连接信息有时候会失去响应。因此经常丢包意味着网络拥塞。Kademlia锁定未响应联系人并且避免发送任何的更多的远程调用，以便减少指数型增长的退避间隔（网络术语，为了避免多个节点碰撞，每个节点发送前都会等待一个随机时间间隔), 因为Kademlia的查找大多数阶段只需要从k个节点中的其中一个信息， 系统通常不会将丢弃的RPC重传到同一个节点。<br><br>   When a contact fails to respond to 5 RPCs in a row, it is considered stale. If a k-bucket is not full or its replacement cache is emtpy, Kademlia merely flags stale contacts rather than remove them. This ensures, among other this, that if a node’s own network connection goes down teporarily, thenode won’t completely void all of its k-buckets.<br><br>  当一个链接连续5次没有响应RPC，他被认为是过时的。如果一个K桶没有满，或者他的替换缓存是空的，Kademlia只是标记过时链接信息而不是移除他。这确保了，除此之外，如果一个节点自己的网络链接暂时断开了，节点不会完全清空他的K桶。<br></p>
+
+<h3 id="4-2-Accelerated-lookups-加速查找"><a href="#4-2-Accelerated-lookups-加速查找" class="headerlink" title="4.2 Accelerated lookups 加速查找"></a>4.2 Accelerated lookups 加速查找</h3><p align="left"><br>Another optimization in the implementation is to achieve fewer hops per lookup by increasing the routing table size. Conceptually, this is done by considering IDs b bits at a time instead of just one bit at a time. As previously described, the expectd number of hops per lookup  is $\log_2(n)$, By increasing the routing table’s size to an expected $2^b\log_(2^b)n$ k-buckets, we can reduce the nubmer of expected hops to $log_(2^b)n$.<br><br>   实现中的另一个优化是通过增加路由表大小来达到更少的跳数。从概念上，这是通过同时考虑b位ID而非1位来完成的。如前所述，每次查询期望的跳数是$\log_2(n)$, 通过增加路由表的大小到 $2^b\log_(2^b)n$ 个k-桶， 我们能够将跳数减少到期望的$log_(2^b)n$<br><br>Section 2.4 describes how a Kadmelia node splits a k-bucket when the bucket is full and its range includes the node’s own ID. The implementation, however, also splits ranges not contaiing the node’s ID, up to b - 1 levels. If b = 2, for instance, the half of the ID space not containing the node’s ID gets split once (into two ranges); if b = 3, it gets split at two levels into a maximum of four ranges, etc. The general splitting rule is that a node splits a full k-bucket if the bucket’s range contains the node’s ownID or the depth d of the k-bucket in the routing tree statisfies d !=0(modb).(The depth is just the length of the prefix shared by all nodes in the k-bucket’s range) The current implementation uses b = 5;<br><br>   2.4 节描述了当桶满了后并且它的范围包含了节点自己的ID时Kademlia节点如何分裂一个K桶。 然而实现起来也可以在不包含自己节点ID范围时分裂， 而是到达 b-1 层。 如果b=2， 例如，不包含节点ID的一半的ID空间要分裂一次（分到两个范围内）；如果 b=3， 他在第二层分裂到最大4个范围，等等。普遍的分裂规则是，如果桶的范围包含了节点自己的ID或者k桶的高度d在路由树中满足 d!=0(mod b) (高度d不被b层整除)，那么节点分裂K桶。（高度正好是所有k桶的范围内的节点共享的前缀长度）当前的实现，b=5.<br><br>   Though XOR-based routing resembles the first stage routing algorithms of Pastry&#91;1&#93;, Tapestry&#91;2&#93;, and Plaxton’s distributed search algorithm&#91;3&#93;, all three become more complicated when generalized to b &gt; 1, without the XOR toplogy, there is a need for an additional algorithmic structure for discovering the target within the nodes that share the same prefix but differ in the  next b-bit digit. All three algorithms resolve this problem in different ways, each with its own drawbacks; they all require secondary routing tables of size $O(2^b)$ in addition to the main tables of size $O(2^b \log_2^b)$. This increases the cost of bootstrapping and maintance, complicates the protocols, and for Pastry and Tapestry complicates or prevents a formal analysis of correctness and consistency. Plaxton has a proof, but the system is less geared for highly fault-prone environments like peer-to-peer networks.<br><br>  尽管基于XOR的路由算法类似 Pastry  ，Tapestry和Plaxton路由分布式查询算法。当泛化到b&gt;1时这三个都更加复杂。没有XOR异或拓扑， 就需要一个额外的算法结构去发现拥有共同前缀但是接下来b位不相同的目标。所有的这三个算法都以不同的方式来解决这个问题，每一个都有自己的缺点，他们都需要大小$O(2^b)$ 的辅助路由表，以及大小为$(2^b\log_2^b)$的主路由表。这在启动和维护的时候都增加了成本，使得协议更复杂。对于Pastry和Tapstry来说，使得对一致性和正确性的形式化分析更加复杂化或者受阻。Plaxton有一个证明，但是系统不太适合例如在P2P网络这样的高故障易发性网络环境。<br></p>
+
+<h2 id="5-Summary"><a href="#5-Summary" class="headerlink" title="5. Summary"></a>5. Summary</h2><p align="left"><br>With its novel XOR-based metric toplogy, Kademlia is the first peer-to-peer system to combine provable consistency and performance, latency-minimizing routing, and a symmetric, unidirectional toplogy. Kademlia further more introduces a concurrency parameter, α,  that lets people trade a constant factor in bandwidth for asynchronous lowest-latency hop selection and delay-free fault recovery. Finally , Kademlia is the first peer-to-peer system to exploit the fact that  node failures are inversely releated to uptime.<br><br>凭借新颖的基于异或的度量拓扑， Kademlia是第一个结合了可证明性，一致性，高性能，延迟最小化路由，对称性，单向拓扑结合起来的P2P系统。Kademlia将进一步 引入一个并发参数 α ， 它允许人们利用带宽中的一个常数因子来交换异步最低延迟跳数选择和无延迟故障恢复。 最后， Kademlia是第一个利用节点故障与正常运行时间成反比这一事实的P2P系统。<br><br></p><br>References<br><br><p align="left"><br>1. A. Rowstron and P. Druschel. Pastry: Scalable, distributed object location and routing for large-scale peer-to-peer systems. Accepted for Middleware, 2001, 2001.<br>   <a href="http://research.microsoft.com/~antr/pastry/" target="_blank" rel="noopener">http://research.microsoft.com/~antr/pastry/</a>.<br>2. Ben Y. Zhao, John Kubiatowicz, and Anthony Joseph. Tapestry: an infrastructure for fault-tolerant wide-area location and routing. Technical Report UCB/CSD-01-1141, U.C.Berkeley, April 2001.<br>3. Andrea W. Richa C. Greg Plaxton, Rajmohan Rajaraman. Accessing nearby copies of replicated objects in a distributed environment. In Proceedings of the ACM SPAA, pages 3110320, June 1997<br>4. Stefan Saroiu, P. Krishna Gummadi and Steven D.Gribble. A measurement Study of Peer-to-Peer File Sharing Systems. Technical Report UW-CSE-01-06-02, University of Washington, Department of Computer Science and Engineering, July 2001.<br>5. Ion Stoica, Robert Morris, David Karger, M. Frans Kaashoek, and Hari Balakrish-nan. Chord: A scalable peer-to-peer lookup service for internet applications. In Proceedings of the ACM SIGCOMM ‘01 Conference, San Diego, California, August 2001.<br> </p>
+</center></center>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分布式-HASH-DHT/" rel="tag"># 分布式  HASH DHT</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/22/概率-6-累计分布函数与质量函数/" rel="next" title="概率-累积分布函数CDF与质量分布函数PMF">
+                <i class="fa fa-chevron-left"></i> 概率-累积分布函数CDF与质量分布函数PMF
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/09/深度学习-理论/" rel="prev" title="深度学习 Step By Step (一，理论篇)">
+                深度学习 Step By Step (一，理论篇) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shaoxin Yin" />
+            
+              <p class="site-author-name" itemprop="name">Shaoxin Yin</p>
+              <p class="site-description motion-element" itemprop="description">A programmer's mind</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/airuqixue" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://douban.com/people/airuqixue" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-globe"></i>豆瓣</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-介绍"><span class="nav-number">1.</span> <span class="nav-text">1. Introduction  介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-System-description-系统描述"><span class="nav-number">2.</span> <span class="nav-text">2. System description 系统描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-XOR-metric-异或度量"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 XOR metric  异或度量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Node-state-节点状态"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  Node state 节点状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Kademlia-protocol-Kademlia-协议"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Kademlia protocol Kademlia 协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Routing-table-路由表"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Routing table 路由表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Efficient-key-re-publishing-有效的键重发布"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 Efficient key re-publishing  有效的键重发布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Sketch-of-proof-证明草稿"><span class="nav-number">3.</span> <span class="nav-text">3. Sketch of proof 证明草稿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Implementation-notes-实现注意事项"><span class="nav-number">4.</span> <span class="nav-text">4. Implementation notes 实现注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Optimized-contact-accounting-通信记录优化"><span class="nav-number">4.1.</span> <span class="nav-text">4.1  Optimized contact accounting 通信记录优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Accelerated-lookups-加速查找"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Accelerated lookups 加速查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Summary"><span class="nav-number">5.</span> <span class="nav-text">5. Summary</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaoxin Yin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

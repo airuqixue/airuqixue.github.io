@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习 梯度下降 反向传播 正则化  特征缩放," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一步一步理解深度学习，并通过编程语言实现。从模型到算法推导，深刻理解深度学习的思想。">
+<meta name="keywords" content="深度学习 梯度下降 反向传播 正则化  特征缩放">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习 Step By Step (一，理论篇)">
+<meta property="og:url" content="http://www.mindincode.com/2020/12/09/深度学习-理论/index.html">
+<meta property="og:site_name" content="Xin&#39;s Blog">
+<meta property="og:description" content="一步一步理解深度学习，并通过编程语言实现。从模型到算法推导，深刻理解深度学习的思想。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.mindincode.com/images/neuron.png">
+<meta property="og:image" content="http://www.mindincode.com/images/sigmoid.png">
+<meta property="og:image" content="http://www.mindincode.com/images/nueralnetwork.png">
+<meta property="og:image" content="http://www.mindincode.com/images/mlog.png">
+<meta property="og:image" content="http://www.mindincode.com/images/mlogx.png">
+<meta property="og:updated_time" content="2020-12-18T02:36:15.646Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习 Step By Step (一，理论篇)">
+<meta name="twitter:description" content="一步一步理解深度学习，并通过编程语言实现。从模型到算法推导，深刻理解深度学习的思想。">
+<meta name="twitter:image" content="http://www.mindincode.com/images/neuron.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.mindincode.com/2020/12/09/深度学习-理论/"/>
+
+
+
+
+
+  <title>深度学习 Step By Step (一，理论篇) | Xin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I love youbai</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2020/12/09/深度学习-理论/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shaoxin Yin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习 Step By Step (一，理论篇)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-09T15:02:00+08:00">
+                2020-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习-DNN/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习 DNN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一步一步理解深度学习，并通过编程语言实现。从模型到算法推导，深刻理解深度学习的思想。</p>
+<a id="more"></a>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>深度学习已经是一门很重要的机器学习分支。用它来解决很多传统算法无法解决的问题。现在我们要一步一步的走向这个算法，并理解它。这为我们解决问题提供了一种思路，打开了一扇门。接下来便开始深度学习之旅吧。</p>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>深度学习的模型可以说来源于人类神经工作方式的启发。单一的神经元，我们可以认为是感知机，一种接收多个输入，然后输出的东西。我们来设计一个感知机，这个感知机的目的是帮我们做决策，例如是否更换手机。在这个问题上，有很多的因素会导致我们更换手机，可能对不同的人有不同的决策，但是我们大致把主要的原因归结一下：</p>
+<ul>
+<li><p>A 原来的手机坏了 （1，坏了，0 没有）</p>
+</li>
+<li><p>B 原来的手机过时了（速度慢）</p>
+</li>
+<li><p>C 新的手机有新的对自己重要的功能</p>
+</li>
+<li><p>D 新的手机在促销</p>
+</li>
+<li><p>E  发工资了 </p>
+</li>
+</ul>
+<p>我们还可以找到更多的原因，这里暂且只看这些，那么如果是A，我们则必须要换。假设输出1 表示换，输出0表示不换。</p>
+<p>这里做了直接假设，除此之外还可以可以再有一个函数，对输出做最终的解释。称之为核函数（激活函数）。</p>
+<p>于是我们有了这样一个感知机的表达式</p>
+<p>$$O = g(AW(A)+ BW(B) + CW(C) + DW(D) + EW(E))$$</p>
+<p>O 表示输出，g表示激活函数。W(A) 则表示 A的权重， W(B)  则表示B的权重，以此类推。</p>
+<p>一个感知机就类似与一个神经元，如下图所示</p>
+<p><img src="/images/neuron.png" alt="神经元模型"></p>
+<p>只要我们填上权重，那么对于每一次这样的情形，我们只要输入给感知机，他就能通过输出告诉我们是否需要换手机了。</p>
+<p>这样的决策未免过于简单，如果我们把无数个这样的感知机连起来，那么，我们就得到了一张网。有人叫多层感知机，我们可以用人工神经网络来命名，但是这里稍微有些不一样，我们的人工神经网络是一个有层次的单一方向的多神经元系统。称之为前馈神经网络系统。</p>
+<p>几个名称解释</p>
+<ul>
+<li><p>层。第一层输入层，最后一次输出层，中间层次可以多可少，隐藏层</p>
+</li>
+<li><p>神经元。输入层就是原始特征。例如手写数字识别中，一幅28x28的图片，扩展到一列每一个像素就是一个神经元，一共784个神经元。第二次层的神经元，则是第一层所有的神经元通过一个函数后的输出（核函数）也叫逻辑函数，采用s型的核函数，我们也叫sigmoid函数，激活函数等。</p>
+<p>$$ z = w_1a1+w_2a2 +w_3a3 + b ,激活函数 f(z) = \frac{1}{(1+e^{-z})} $$</p>
+<p>sigmoid函数有一个非常漂亮的图形：</p>
+</li>
+<li><p>权重。每一个特征的权重，也是我们学习的最终目的，找到一个可以解决问题的权重。</p>
+</li>
+<li><p>偏置。偏置可以理解为权重的一部分。有了它就好比线性方程不再是必须通过远点。$$ y=ax+b $$ 这里b不为零，则方程不通过原点。偏置并非是必须的，这点可以尝试，但是有了更好。</p>
+</li>
+</ul>
+<h2 id="激活函数的选择"><a href="#激活函数的选择" class="headerlink" title="激活函数的选择"></a>激活函数的选择</h2><p>激活函数考虑的是逻辑回归使用的S型函数，他将值域固定在（0，1）之间，也就是我们得到的值，可以理解为一个概率。</p>
+<p>这个概率是对一个结果的二分，是就接近1，不是就接近0。如下图所示：</p>
+<p><img src="/images/sigmoid.png" alt="sigmoid"></p>
+<p>激活函数公式：</p>
+<p>$$  f(z) = \frac{1}{(1+e^{-z})} $$</p>
+<p>当然我们还可以选择其他的激活函数，例如<br>tanh函数<br>$$ tanh(x)=\frac{sinh(x)}{cosh(x)}=\frac{e^x-e{-x}}{e^x+e^{-x}} $$</p>
+<p>ReLU函数<br>$$ f(x) = max(0,x) $$</p>
+<p>这些不是我们学习中选择的，但是可以在理解以后替换尝试</p>
+<h2 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h2><p>使用符号a表示神经元（activation unit），右上标表示层次，右下标表示所在层第几个</p>
+<p>b 表示偏置</p>
+<p>使用w表示权重，右上标表示连接开始层次，右下标表示jk表示连接下一层的第j个<br>神经元与上一层的第k个神经元。这里是反着的，不必强记。<br>z 作为下一个神经元的输入，这里有必要单独说一下。注意第一层的输出就是输入，所以没有$z^1$<br>g 就是激活函数。一个3层神经元模型如下图所示：</p>
+<p><img src="/images/nueralnetwork.png" alt="nueralnetwork"></p>
+<p>上图中一共有3层，每层的神经元分别是4，3，2个。(w太多所以隐去部分)下面就是他们的关系的表示方法。</p>
+<p>$$ z^2_1 = w_{11}^1a_1^1 + w_{12}^1a_2^1 + w_{13}^1a_3^1 + w_{14}^1a_4^1 + b^1_1 $$</p>
+<p>$$ z^2_2 = w_{21}^1a_1^1 + w_{22}^1a_2^1 + w_{23}^1a_3^1 + w_{24}^1a_4^1 + b^1_2 $$</p>
+<p>$$ z^2_3 = w_{31}^1a_1^1 + w_{32}^1a_2^1 + w_{33}^1a_3^1 + w_{34}^1a_4^1 + b^1_3 $$</p>
+<p>这里我们看到w 其实可以表示成一个矩阵。 3行4列。b为 3行1列的向量  继续计算</p>
+<p>$$g(z) = \frac{1}{(1+e^{-z})}$$</p>
+<p>$$a^2_1 = g(z_1^2)$$</p>
+<p>$$a^2_2 = g(z_2^2)$$</p>
+<p>$$a^2_3 = g(z_3^2)$$</p>
+<p>第二层的权重，看成2行3列的矩阵，偏置b是2行1列的向量。</p>
+<p>$$z^3_1 = w_{11}^2a_1^2 + w_{12}^2a_2^2 + w_{13}^2a_3^2  + b^2_1$$</p>
+<p>$$z^3_2 = w_{21}^2a_1^2 + w_{22}^2a_2^2 + w_{23}^2a_3^2 + b^2_2$$</p>
+<p>$$a_1^3 = g(z_1^3) $$</p>
+<p>$$a_2^3=g(z_2^3)$$</p>
+<p>这里的 $a_1^3$   与  $a_2^3$ 就是输出层的激活单元。</p>
+<p>这里其实可以把偏置看做激活单元值为1的一个新增激活单元。但是这样似乎不太利于理解，我们暂时分开来说。</p>
+<p>通过数学归纳法，我们可以得出模型公式，首先根据输入来看。</p>
+<p>$$z_j^l = \sum_kw_{jk}^la_j^{l-1} + b^l_j $$</p>
+<p>最终公式</p>
+<p>$$a_j^l = g(\sum_kw_{jk}^la_j^{l-1} + b^l_j) $$</p>
+<p>通过循环，我们可以通过输入，得到输出单元。通过矩阵运算，我们可以简化 公式</p>
+<p>$$a^l =g(w^Ta^{l-1} + b^l)$$</p>
+<p>将权重矩阵转置后乘以（矩阵乘法）向量a（这里考虑单个样本，如果多个样本可以a可以看成矩阵，每一列都是一个样本）</p>
+<p>模型出来了，我们的目的是找到一组权重和偏置，使得对于每一个样本，都能得到与预期相符的结果。</p>
+<p>接下来考虑引入成本函数（损失函数）</p>
+<h1 id="成本函数"><a href="#成本函数" class="headerlink" title="成本函数"></a>成本函数</h1><p>成本函数也叫损失函数，他将我们寻找的答案变成一个求最小值的问题。 可以这样考虑，如果根据上面的模型得到的结果，与预期的结果之间的差距很小，就认为这组权重偏置令人满意。如果差距很大，那么意味着权重偏置还需调整。</p>
+<p>很自然的我们考虑到一种方式</p>
+<p>$$ C =  \frac{1}{2m}\sum_x||y(x)-a^L(x)||^2$$</p>
+<p>也就是对于每一个样本x，我们将求得实际值与计算值之间的范数（L2范数, 均方差），m是样本数量</p>
+<p>这个公式是怎么来的呢，其实成本函数的考虑也是有几点的</p>
+<ul>
+<li><p>1  函数值必须大于0   （确保成本不会小于0）</p>
+</li>
+<li><p>2  成本函数可以写为每个训练样本$C_x$的均值形式  $C=\frac{1}{n}\sum_xC_x$</p>
+</li>
+<li><p>3  函数可以用激活的神经元输入输出表示。（确保可以通过改变神经元的权重来调节成本函数最终值的大小）</p>
+</li>
+</ul>
+<p>当然成本函数不仅仅只有一个，可以有各种，比均方差好的也有。实际上，均方差作为成本函数，在神经网络中并不是最好的选择，这一点主要原因是因为在学习时候并不能快速的下降找到最低成本。他是非凸(non-convex)的，不光滑，下降的时候可能有局部最优化。鉴于此，我们可以考虑其他成本函数。</p>
+<p>交叉熵是信息论里的说法。实际上，我们只需要懂一点代数知识，就能构建一个成本函数的雏形。我们的实际值y，假设都用0，或者1来表示，那么有两种情况</p>
+<ul>
+<li>1 当y=1 时， 预测值a越靠近1，成本趋向0； a越靠近0，成本趋向无穷大</li>
+<li>2 当y=0 时， 预测值a越靠近0， 成本趋向于0； a越靠近1， 成本趋向无穷大</li>
+</ul>
+<p>想到这里，在笛卡尔坐标系中画一下，就发现log函数比较符合这种假设。</p>
+<p>观察 $y=-log(x)$ 的图形 实际值等于1的情况：</p>
+<p><img src="/images/mlog.png" alt="y=1"></p>
+<p>如果预测值能够如上图的曲线一样，那么当曲线趋向于x=1时，他的数值逐渐归零，和我们需要的一样。</p>
+<p>再来看 $y=-log(1-x)$的情况，实际值等于0</p>
+<p><img src="/images/mlogx.png" alt="y=0"></p>
+<p>如果预测的曲线y趋向实际值0，那么他的值是一直在减少的。这就是我们要找的函数。所以我们可以定义代价函数C</p>
+<p>$$ C = \begin{cases}<br>-log(a^L(x)),   y=1 \\<br>-log(1-a^L(x)),   y=0 \\<br>\end{cases} $$</p>
+<p>合并到一个公式中(考虑m个样本)：</p>
+<p>$$C = -\frac{1}{m}\sum(ylog(a)+(1-y)log(1-a))$$</p>
+<p>这里有的用log，有的用ln，其实只是底不一样，性质是一样的。</p>
+<p>有了代价函数，那么我们的目标变成了求代价函数最小化了 MinC了。这里就引入了梯度下降算法（Gradient descent）</p>
+<h1 id="梯度下降算法"><a href="#梯度下降算法" class="headerlink" title="梯度下降算法"></a>梯度下降算法</h1><p>顾名思义，梯度下降。 可以这样直观理解，身处山坡上任意一点，我们每一步都朝着下山的方向走，最终就能走到山底。</p>
+<p>这个在三维空间很好理解，对于多维度来说，梯度下降算法也一样。每次朝着最小值方向前行，最终达到一个近似最小值。如何选取最小值呢，这里就是微积分的一点知识。我们求每一个梯度的微分，在由柯西不等式可知选取的梯度将会是改变速度方向最大的向量，这样就能保证最终能得到最小值。当然这里涉及了求导，也就要求成本函数是可导的，而且梯度不能过大，太大偏离导数点，就没有准确性了。</p>
+<p>如果学过微积分，很好理解，就是某一点的斜率，每一个权重组成了一组梯度向量。</p>
+<p>这样来理解：</p>
+<p>假设我们的 $w$  权重产生了很微小的变化 $\triangle w$,  那么代价函数的值会如何变化呢？找到这个关系</p>
+<p>$$ \triangle C(w) \approx \frac{\partial C}{\partial w} \triangle w$$</p>
+<p>这里 $\frac{\partial C}{\partial\theta}$ 就是 代价函数对权重求导，也就是求在这个权重关于代价函数的变化率（还记得切线斜率么）</p>
+<p>由于权重不是一个，很可能是多个，我们这里就看成一个向量， $&lt;\frac{\partial C}{\partial w_1}, \frac{\partial C}{\partial w_2}, \frac{\partial C}{\partial w_3}, … &gt;$</p>
+<p>假设</p>
+<p>$$ \nabla C = (\frac{\partial C}{\partial w_1},\frac{\partial C}{\partial w_2},\frac{\partial C}{\partial w_3},…)$$</p>
+<p>则：</p>
+<p>$$\triangle C \approx \nabla C . \triangle w$$</p>
+<p>$\nabla C$ 就是梯度向量。好了问题来了，如何选择 $\triangle w$  使得我们的 $\triangle C$变化最快呢?  让我们看看柯西斯瓦茨不等式</p>
+<p>(Cauchy-Buniakowsky-Schwarz )</p>
+<p>$|a|.|b|\geq|a.b|$ ,  仅当 a 的每一个分量与b的每一分量相等时，取等号。也就是a.b最大。</p>
+<p>$$<br>||\triangle w|| = \sqrt{\sum(\triangle w)^2} = \epsilon<br>$$</p>
+<p>写成不等式</p>
+<p>$$<br>||\nabla C||.||\triangle w|| \geq ||\triangle C||<br>$$</p>
+<p>根据柯西斯瓦茨不等式，只有取 $\triangle w$ 与 $\nabla C$ 一致(向量中每一个分量都相同)， 可以让 $\triangle C$ 变化最快。这里我们加了一个参数，学习率，也就是令</p>
+<p>$$<br>\triangle w = -k \nabla C<br>$$</p>
+<p>因为是下降，取负号， k表示学习速率。注意取和 梯度一样的向量，是一个变化最快的方向，除了方向还要一定的学习速率。k 这个速率不能太大，也不能太小。太小学习速度慢，太快则偏离严重（已经不再此梯度的范围内）。</p>
+<p>接下来就是梯度下降算法</p>
+<p>迭代到收敛：</p>
+<p>对于每一个 $w$   $b$</p>
+<p>$$<br>w^\prime =w - k\frac{\partial C(w)) }{\partial w}<br>$$</p>
+<p>偏置</p>
+<p>$$<br>b^\prime = b - k\frac{\partial C(b)) }{\partial b}<br>$$</p>
+<p>注意这里是同时更新，也就是每一个参数权重偏置都是同时在上一个的基础上更新的。每一个的更新不影响另外一个。</p>
+<p>根据定义，代价函数是所有样本的一个都参与了，如果我们学习的样本很多，那么速度会非常慢。</p>
+<p>于是想到了批量梯度下降</p>
+<h3 id="随机批量梯度下降算法（stochastic-batch-gradient-descent）"><a href="#随机批量梯度下降算法（stochastic-batch-gradient-descent）" class="headerlink" title="随机批量梯度下降算法（stochastic batch gradient descent）"></a>随机批量梯度下降算法（stochastic batch gradient descent）</h3><p>考虑到我们选取一批数据，他的均值与整体的均值大致相等</p>
+<p>$$<br>\frac{\sum_{j=1}^m\nabla {C_X}_j}{m} \approx \frac{\sum_x \nabla C_x}{n} = \nabla C<br>$$</p>
+<p>那么：</p>
+<p>$$<br>\nabla C \approx \frac{1}{m}\sum_{j=1}^m\nabla {C_X}_j<br>$$</p>
+<p>当我们选取批量数据来做梯度下降时：</p>
+<p>$$<br>w^\prime = w - \frac{k}{m}\sum_j \frac{\partial {C_X}_j}{\partial w}<br>$$</p>
+<p>偏置：</p>
+<p>$$<br>b^\prime = b - \frac{k}{m}\sum_j \frac{\partial {C_X}_j}{\partial b}<br>$$</p>
+<p>在实际编程的时候要特别注意这里。</p>
+<p>好了，现在我们的目标编程求偏导了。</p>
+<h1 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h1><p>针对每一个样本的每一个参数求偏导，这是一个巨大的工作量。考虑到正向传播（模型）一直到输出，如果我们在其中一层的输入变动权重w和b，那么这些改变将会影响到输出值与实际预期的误差（通过代价函数判断，代价函数趋向0，表示误差减少），这种误差我们可以求出来，先求出最后一层，然后再反向求上一层，直到输入层（输入层没有误差），这就是反向传播的思想。好了，让我们上公式。</p>
+<p>先看最后一层的误差怎么来的，很直观</p>
+<p>$$<br>\xi^L_j = \frac{\partial C}{\partial z^L_j}<br>$$</p>
+<p>还记得 $z$ 么 ？ 前面我们一直没有省略了他。这就是最后一层的输入，也就是上一层的神经元与权重，偏置的线性组合的求和，最终经过激活函数，就是我们的的最后一层的神经元activation， 这里回顾一下代价函数的一个假设，那就是 代价函数可以被写成神经网络的输出的函数。只有这样我们才能够直观的表示误差，找到代价函数与权重偏置的关系。</p>
+<p>当然上面的公式只是一个直观的想法，我们还要继续分解。从输入输出再到神经元，因为$z$其实只是一个中间变量，继续：</p>
+<p>$$<br>\xi^L_j = \frac{\partial C}{\partial a^L_j}\frac{\partial a^L_j}{\partial z^L_j}<br>$$</p>
+<p>根据公式 $a^L_j = g(z^L_j)$ 我们可以得到：</p>
+<p>$$<br>\xi^L_j = \frac{\partial C}{\partial a^L_j}g^\prime(z^L_j)<br>$$</p>
+<p>这里的g是激活函数，如果我们使用S型激活函数  $g(x) = \frac{1}{1+e^{-x}}$</p>
+<p>这个函数求导：(利用分数求导)</p>
+<p>$(\frac{u}{v})^\prime=\frac{u^\prime v - uv^\prime}{v^2}$</p>
+<p>$$<br>g^\prime(x) = \frac{-(1+e^{-x})^\prime}{(1+e^{-x})^2}<br>            = \frac{(1+ e^{-x}) -1 }{(1+e^{-x})^2}<br>            = \frac{1}{1+e^{-x}}(1 - \frac{1}{1+e^{-x}})<br>            = g(x)(1-g(x))<br>$$</p>
+<p>对于前半部分，就涉及到我们的代价函数定义。如果是二次代价函数，那么他的单个样本损失函数</p>
+<p>$$<br>C = \frac{1}{2}(a_j-y_j)^2<br>$$</p>
+<p>对二次代价函数求导：</p>
+<p>$$<br>\frac{\partial C}{\partial a^L} = (a-y)<br>$$</p>
+<p>如果代价函数是交叉熵（CrossEntropy）</p>
+<p>$$<br>C = -\frac{1}{m}\sum_j(y\ln a + (1-y)\ln (1-a))<br>$$</p>
+<p>单个训练样本是</p>
+<p>$$<br>C = -(y\ln a + (1-y)\ln(1-a))<br>$$</p>
+<p>那么：</p>
+<p>$$<br>\frac{\partial C(a)}{\partial a} = -(\frac{y}{a} +\frac{(y-1)}{1-a})=\frac{a-y}{a(1-a)}<br>$$</p>
+<p>综上所述，我们的最后一层误差计算分为两个版本：</p>
+<p>二次代价函数(Quadratic cost function)</p>
+<p>$$<br>\xi^L_j = (a-y)\odot a(1-a)<br>$$</p>
+<p>交叉熵函数(CrossEntropy cost function)</p>
+<p>$$<br>\xi^L_j = \frac{y-a}{a(1-a)}\odot a(1-a) = a - y<br>$$</p>
+<p>这里把二次代价函数与交叉熵做了一个对比，我们发现，误差的依赖在二次代价函数需要考虑激活函数的变化，我们也知道激活函数是S型时，如果输入远离0点他的变化就越来越小（变缓，斜率变小），改变输入（权重偏置等）所带来的变化会越来越小，我们把这种情况叫做神经元饱和，此时学习速度会降低</p>
+<p>反观交叉熵，我们发现不需要考虑激活函数了。也就是激活函数不再影响学习效率了。只与误差有关，也就是误差越大，学习速度会越快。</p>
+<p>好了，仅知道最后一层的误差，不是我们的最终目的，我们的最终目的是 $\frac{\partial C}{\partial w}$ 和 $\frac{\partial C}{\partial b}$</p>
+<p>顺藤摸瓜，让我们看看$\frac{\partial C}{\partial w}$</p>
+<p>$$<br>\frac{\partial C}{\partial w} = \frac{\partial C}{\partial a}\frac{\partial a}{\partial z}\frac{\partial z}{\partial w}<br>$$</p>
+<p> 这个很好理解，知道一点复合函数求导就知道了。前面两层就是我们定义的误差  $\xi =\frac{\partial C}{\partial z}$</p>
+<p>$w$  与 $z$ 的关系</p>
+<p>$$<br>z^l_j = \sum_k w^l_{jk}a^{l-1}_k + b<br>$$</p>
+<p>求导可知，$\frac{\partial z^l}{\partial w^l} = a^{l-1}$ </p>
+<p>所以  ：</p>
+<p>$$<br>\frac{\partial C}{\partial w^l_jk} = a^{l-1}_k\xi^l_j<br>$$</p>
+<p>对于偏置同理</p>
+<p>$$<br>\frac{\partial C}{\partial b^l_j} = \xi^l_j<br>$$</p>
+<p>但是还有一个问题，我们现在只知道最后一层的误差，在求 每一层的权重和偏置都需要知道每一层的误差才可以。</p>
+<p>同样，我们利用链式法则，求导. 注意这时候的误差不是最后一层, 我们通过链式法则，将从z的后一层开始再绕到</p>
+<p>$$<br>\xi^l_j = \frac{\partial C}{\partial z^l_j}=\sum_k\frac{\partial C}{z^{l+1}_k}\frac{\partial z^{l+1}_k}{\partial a^l_j}\frac{\partial a^l_j}{\partial z^l_j}<br>$$</p>
+<p>继续</p>
+<p>$$<br>\xi_j^l = \sum_k\xi_k^{l+1}.w_{kj}^{l+1}.g^\prime(z_j^l)<br>$$</p>
+<p>注意w的下标，调换一下kj顺序(转置)就和我们定义的$w$一致, 写成向量模式</p>
+<p>$$<br>\xi^l = ((w^{l+1})^T\xi^{l+1})\odot g^\prime(z^l)<br>$$</p>
+<p>这样就可以计算每一层的误差了。至此，我们可以开始方向传播算法。</p>
+<h1 id="特征缩放（Feature-scaling）"><a href="#特征缩放（Feature-scaling）" class="headerlink" title="特征缩放（Feature scaling）"></a>特征缩放（Feature scaling）</h1><p>万事俱备，如果要继续编码，那就要面对一个实际问题。那么不可避免面对这个问题。特征缩放。</p>
+<p>特征的单位不一致，造成的数值差距较大，这样的问题，会给梯度下降带来很大问题，增加迭代次数。</p>
+<p>例如，我们评估一个房价，那么有面积，房间数， 地理位置，这些数值差距很可能不在一个量级。</p>
+<p>(NG的一个等高图给了一个很清晰的直观感受，特征变量的数值差距过大，等高图画出来就是一个椭圆，要到圆心（最低点）就比一个圆心需要更长的步骤)</p>
+<p>这里提供两种方法</p>
+<ul>
+<li><p>1 (min-max)  把特征值控制在[-1,1] 之间  $x^\prime = \frac{x - mean(x)}{max(x) - min(x))}$</p>
+</li>
+<li><p>2 (z-score)   把特征值控制在[-0.5, 0.5] 之间  $x^\prime = \frac{x-mean(x)}{std(x)}$</p>
+<p>这里std是总体标准差  $std(x)=\sqrt{\frac{\sum_n(x-mean(x))^2}{n}}$</p>
+</li>
+</ul>
+<h1 id="正则化（regularization）"><a href="#正则化（regularization）" class="headerlink" title="正则化（regularization）"></a>正则化（regularization）</h1><p>正则化的问题应该说是在实际应用过程中发现的。 我们对一个问题的过度拟合（overfit）导致我们对样本学习的很好，但是对于测试数据就效果很差。这就需要考虑正则化。</p>
+<p>在代价函数中，加入一个正则化项，防止过拟合。这个问题可以这样理解：</p>
+<p>导致过拟合的原因，应该是某些特征被放大了，我们需要对这些特征做“惩罚”。由于前面我们学到，误差越大，下降越快，同样惩罚也要越大，这就只需对所有的权重进行“惩罚”</p>
+<p>$$<br>C = -\frac{1}{n}\sum_{xj}[y_jlna_j^L + (1-y)ln(1-a^L_j)] + \frac{\lambda}{2n}\sum_ww^2<br>$$</p>
+<p>可以看到我们增加了一项, 这里是当个样本，如果是多个，需要把所有的样本的所有权重的平方相加，注意分子 $\lambda$ 这个参数，如果正则化选取的这个值越大，惩罚力度越大，很可能过了。</p>
+<p>然后对代价函数求偏导，我们得到</p>
+<p>$$<br>\frac{\partial C}{\partial w} = \frac{\partial C_0 }{\partial w} + \frac{\lambda}{n}w<br>$$</p>
+<p>注意偏置不需要正则化</p>
+<p>最终梯度下降算法变成</p>
+<p>$$<br>w^\prime = w - \lambda\frac{\partial C_0}{\partial w} - \frac{k\lambda}{n}w<br>=(1-\frac{k\lambda}{n})w - k\frac{\partial C_0}{\partial w}<br>$$</p>
+<p>可以看到对比之前，w在每次更新的时候先通过一个因子$(1-\frac{k\lambda}{n})$  进行了调整。 对于批量数据m上我们有</p>
+<p>$$<br>w^\prime = (1-\frac{k\lambda}{n})w - \frac{k}{m}\sum_x\frac{\partial C_x}{\partial w}<br>$$</p>
+<p>在实现的时候，注意批量的随机梯度下降算法要注意学习样本数量。</p>
+<p>至此，大部分的理论知识学的差不多了。可以动手了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习-梯度下降-反向传播-正则化-特征缩放/" rel="tag"># 深度学习 梯度下降 反向传播 正则化  特征缩放</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/12/dht/" rel="next" title="Kademlia&#58; A Peer-to-peer Information System Based on the XOR Metric">
+                <i class="fa fa-chevron-left"></i> Kademlia&#58; A Peer-to-peer Information System Based on the XOR Metric
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/18/深度学习-编码/" rel="prev" title="深度学习 Step By Step (二，实战篇)">
+                深度学习 Step By Step (二，实战篇) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shaoxin Yin" />
+            
+              <p class="site-author-name" itemprop="name">Shaoxin Yin</p>
+              <p class="site-description motion-element" itemprop="description">A programmer's mind</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/airuqixue" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://douban.com/people/airuqixue" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-globe"></i>豆瓣</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数的选择"><span class="nav-number">2.1.</span> <span class="nav-text">激活函数的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表示"><span class="nav-number">2.2.</span> <span class="nav-text">表示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#成本函数"><span class="nav-number">3.</span> <span class="nav-text">成本函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#梯度下降算法"><span class="nav-number">4.</span> <span class="nav-text">梯度下降算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#随机批量梯度下降算法（stochastic-batch-gradient-descent）"><span class="nav-number">4.0.1.</span> <span class="nav-text">随机批量梯度下降算法（stochastic batch gradient descent）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反向传播算法"><span class="nav-number">5.</span> <span class="nav-text">反向传播算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征缩放（Feature-scaling）"><span class="nav-number">6.</span> <span class="nav-text">特征缩放（Feature scaling）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则化（regularization）"><span class="nav-number">7.</span> <span class="nav-text">正则化（regularization）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaoxin Yin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
