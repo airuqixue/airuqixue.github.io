@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="概率 几率 random variable," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="随机变量是什么？ 回忆废文兄发废文，我们要这么写 P(“你妈知道你在发废文吗”)=0.4 P(“见此ID必嘘”) = 0.2 P(“在五楼……”) = 0.1 P(“妈！我在这”) = 0.3   P(“妈！我在这”) = 1 - P(“你妈知道你在发废文吗”) - P(“见此ID必嘘”) - P(“在五楼……”)   有没有觉得有问题？ 那就是太啰嗦了！">
+<meta name="keywords" content="概率 几率 random variable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率-随机变量">
+<meta property="og:url" content="http://www.mindincode.com/2019/04/22/概率-5-随机变量/index.html">
+<meta property="og:site_name" content="Xin&#39;s Blog">
+<meta property="og:description" content="随机变量是什么？ 回忆废文兄发废文，我们要这么写 P(“你妈知道你在发废文吗”)=0.4 P(“见此ID必嘘”) = 0.2 P(“在五楼……”) = 0.1 P(“妈！我在这”) = 0.3   P(“妈！我在这”) = 1 - P(“你妈知道你在发废文吗”) - P(“见此ID必嘘”) - P(“在五楼……”)   有没有觉得有问题？ 那就是太啰嗦了！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-25T01:39:42.748Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="概率-随机变量">
+<meta name="twitter:description" content="随机变量是什么？ 回忆废文兄发废文，我们要这么写 P(“你妈知道你在发废文吗”)=0.4 P(“见此ID必嘘”) = 0.2 P(“在五楼……”) = 0.1 P(“妈！我在这”) = 0.3   P(“妈！我在这”) = 1 - P(“你妈知道你在发废文吗”) - P(“见此ID必嘘”) - P(“在五楼……”)   有没有觉得有问题？ 那就是太啰嗦了！">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.mindincode.com/2019/04/22/概率-5-随机变量/"/>
+
+
+
+
+
+  <title>概率-随机变量 | Xin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I love youbai</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/04/22/概率-5-随机变量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shaoxin Yin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">概率-随机变量</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T15:20:02+08:00">
+                2019-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/概率/" itemprop="url" rel="index">
+                    <span itemprop="name">概率</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>随机变量是什么？ 回忆废文兄发废文，我们要这么写<br> P(“你妈知道你在发废文吗”)=0.4<br> P(“见此ID必嘘”) = 0.2<br> P(“在五楼……”) = 0.1<br> P(“妈！我在这”) = 0.3</p>
+<p>  P(“妈！我在这”) = 1 - P(“你妈知道你在发废文吗”) - P(“见此ID必嘘”) - P(“在五楼……”) </p>
+<p> 有没有觉得有问题？ 那就是太啰嗦了！</p>
+<a id="more"></a>
+<h1 id="随机变量"><a href="#随机变量" class="headerlink" title="随机变量"></a>随机变量</h1><p> 如果你会编程，那么就太好理解。我们把这几种情况定义为一个变量 X，那么</p>
+<p> X=0 表示 “你妈知道你在发废文吗”<br> X=1 表示 “见此ID比嘘”<br> X=2 表示 “在五楼……”<br> X=3 表示 “妈！我在这！”</p>
+<p> 根据统计 </p>
+<p> P(X=0)=0.4<br> P(X=1)=0.2<br> P(X=2)=0.1<br> P(X=3)=0.3</p>
+<p> P(X=3) = 1 - p(X=0) = p(X=1) - P(X=2)</p>
+<p> 清爽了许多吧。</p>
+<p> 随机变量(Random Variable, R.V.)： 是用来把实验结果数字化的表示方式<br> X就是随机变量， 一般都用大写表示</p>
+<h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><p> 随机变量是一个函数 ？</p>
+<p> X(“你妈知道你在发废吗”) = 0</p>
+<p> 有一个对应关系。 X: S -&gt; R</p>
+<p> 从样本空间到实数的映射</p>
+<h2 id="随机变量的种类"><a href="#随机变量的种类" class="headerlink" title="随机变量的种类"></a>随机变量的种类</h2><ul>
+<li>离散随机变量 (Discrete R.V.)</li>
+</ul>
+<p>Ex - 店员微笑 X(微笑) = 0， X(不笑) = 1<br>     X=0， X=1</p>
+<p>离散R.V.的值是有限个，或者是“可数的” 无穷多个</p>
+<ul>
+<li>连续随机变量(Continuous R.V.)<br>Ex  幸运之轮: X 可以是 0 到 1间内的任意数字</li>
+</ul>
+<p>连续R.V.的值是无穷多个，而且是“不可数”的无穷多个</p>
+<h2 id="可数与不可数"><a href="#可数与不可数" class="headerlink" title="可数与不可数"></a>可数与不可数</h2><h3 id="可数"><a href="#可数" class="headerlink" title="可数"></a>可数</h3><p>Ex 正偶数集合 {2,4,6,8,10,…} 这个是可数的么？</p>
+<p>Yes， 这是一个一个可数的，虽然是无穷多个。 </p>
+<h3 id="不可数"><a href="#不可数" class="headerlink" title="不可数"></a>不可数</h3><p>就算你可以不停地数，也有数不到的数！</p>
+<p>Ex 0 到 1 之间的所有数字的集合是不可数的。</p>
+<p>假设存在一种算法，可以把0到1之间的数字列出来，那么，我们可以这样构造一个数字，不在列出来的数字之中！<br>该算法如下：<br>小数点后第一位数字，等于9减去列出来的小数点后第一位数字<br>小数点后第二位数字，等于9减去列出来的小数点后第二位数字<br>…<br>小数点后第N为数字，等于9减去列出来的小数点后第N为数字</p>
+<p>这个数字与列出来的任何一个数字都不相等，所以可以证明假设不存在！</p>
+<p>有趣的事</p>
+<p>“正整数的集合” 与 “正偶整数的集合” 的集合，那个集合大？ 一样大<br>“长度为一线段上的点” 与 “边长为一的正方形上的点” 这两个集合哪个点数多 ？  一样多</p>
+<p>why ？<br> 一一对应。居然可以找到一一对应的关系！！！</p>
+<p>这些因为是不可数的集合，其实比较多少是无意义的。</p>
+<h3 id="随机变量函数"><a href="#随机变量函数" class="headerlink" title="随机变量函数"></a>随机变量函数</h3><p>Ex 阿宅看到店员微笑，点$200的套餐，如果店员不笑，就买$15的饮料，请问阿宅消费金额W是随机变量吗？</p>
+<p>X(微笑) = 0, X(不笑)=1<br>W(X(微笑)) = 200, W(X(不笑)) = 15<br>so, W 也是一个随机变量<br>随机变量的函数，也是一个随机变量。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/概率-几率-random-variable/" rel="tag"># 概率 几率 random variable</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/19/概率-4-常見概率/" rel="next" title="概率-古典概率">
+                <i class="fa fa-chevron-left"></i> 概率-古典概率
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/22/概率-7-离散随机分布/" rel="prev" title="概率之离散随机分布">
+                概率之离散随机分布 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shaoxin Yin" />
+            
+              <p class="site-author-name" itemprop="name">Shaoxin Yin</p>
+              <p class="site-description motion-element" itemprop="description">A programmer's mind</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/airuqixue" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://douban.com/people/airuqixue" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-globe"></i>豆瓣</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:shaoxinyin@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#随机变量"><span class="nav-number">1.</span> <span class="nav-text">随机变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本质"><span class="nav-number">1.1.</span> <span class="nav-text">本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机变量的种类"><span class="nav-number">1.2.</span> <span class="nav-text">随机变量的种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可数与不可数"><span class="nav-number">1.3.</span> <span class="nav-text">可数与不可数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可数"><span class="nav-number">1.3.1.</span> <span class="nav-text">可数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不可数"><span class="nav-number">1.3.2.</span> <span class="nav-text">不可数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机变量函数"><span class="nav-number">1.3.3.</span> <span class="nav-text">随机变量函数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaoxin Yin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

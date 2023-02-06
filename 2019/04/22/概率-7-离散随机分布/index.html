@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="离散 概率 分布 Discrete," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="相同的实验模型有相同的概率模型，了解概率分布，就能模拟事件的发生运作方式。 接下来就是几种常见模型的分析。">
+<meta name="keywords" content="离散 概率 分布 Discrete">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率之离散随机分布">
+<meta property="og:url" content="http://www.mindincode.com/2019/04/22/概率-7-离散随机分布/index.html">
+<meta property="og:site_name" content="Xin&#39;s Blog">
+<meta property="og:description" content="相同的实验模型有相同的概率模型，了解概率分布，就能模拟事件的发生运作方式。 接下来就是几种常见模型的分析。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2023-02-06T01:26:07.264Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="概率之离散随机分布">
+<meta name="twitter:description" content="相同的实验模型有相同的概率模型，了解概率分布，就能模拟事件的发生运作方式。 接下来就是几种常见模型的分析。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.mindincode.com/2019/04/22/概率-7-离散随机分布/"/>
+
+
+
+
+
+  <title>概率之离散随机分布 | Xin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I love youbai</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/04/22/概率-7-离散随机分布/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shaoxin Yin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">概率之离散随机分布</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T20:10:12+08:00">
+                2019-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/概率/" itemprop="url" rel="index">
+                    <span itemprop="name">概率</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>相同的实验模型有相同的概率模型，了解概率分布，就能模拟事件的发生运作方式。</p>
+<p>接下来就是几种常见模型的分析。</p>
+<a id="more"></a>
+<h1 id="离散概率分布-Discrete-Probability-Distributions"><a href="#离散概率分布-Discrete-Probability-Distributions" class="headerlink" title="离散概率分布(Discrete Probability Distributions)"></a>离散概率分布(Discrete Probability Distributions)</h1><h2 id="Bernoulli-分布"><a href="#Bernoulli-分布" class="headerlink" title="Bernoulli 分布"></a>Bernoulli 分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1次实验，2种结果,在意某结果是否发生 -&gt; Bernoulli 概率分布</span><br></pre></td></tr></table></figure>
+<ul>
+<li>PMF: 若试验成功概率是 p ,一次实验， X表示成功次数</li>
+</ul>
+<p>$P_X(x): X~Bernoulli(p)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   1-p     p</span><br><span class="line">    |      |</span><br><span class="line">    |      |</span><br><span class="line">----|------|--</span><br><span class="line">    0      1</span><br></pre></td></tr></table></figure>
+<p>$$<br>p_X(x)=\begin{cases}<br>p,  &amp;x=1 \\<br>1-p,  &amp;x=0 \\<br>0,  &amp;otherwise<br>\end{cases}<br>$$</p>
+<ul>
+<li>CDF<br>$<br>F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(x)<br>$</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">                    |-------|---</span><br><span class="line">                    | p     |</span><br><span class="line">             |------|-----  | 1</span><br><span class="line">             |  1-p         |</span><br><span class="line">-------------|------|-------|----</span><br><span class="line">             0      1</span><br></pre></td></tr></table></figure>
+<p>$<br>F_x(x) = \begin{cases}<br>0, &amp;x &lt; 0, \\<br>0.4,  &amp;0\leq x &lt; 1, \\<br>1,  &amp;x\geq 1<br>\end{cases}<br>$</p>
+<h2 id="Binomial-概率分布"><a href="#Binomial-概率分布" class="headerlink" title="Binomial 概率分布"></a>Binomial 概率分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">做N次实验，1个几率， 在意N次实验出现某结果k次的概率 -&gt; Binomial概率分布</span><br></pre></td></tr></table></figure>
+<ul>
+<li>PMF 若试验成功概率为p ,做n次实验，X表示成功次数</li>
+</ul>
+<p>$P_X(x)$:——— X-BIN(n,p)</p>
+<p>$P(X=x) $<br>$=\tbinom{n}{x}P^x(1-p)^{n-x}$</p>
+<p>成功 = x<br>失败 = n-x</p>
+<ul>
+<li>CDF<br>$F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(x)$<br>$=\sum\limits_{m=-\infty}^{|x|}\tbinom{n}{m}\cdot p^m \cdot (1-p)^{n-m}$</li>
+</ul>
+<h2 id="Uniform-概率分布"><a href="#Uniform-概率分布" class="headerlink" title="Uniform 概率分布"></a>Uniform 概率分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 次实验， n 种B结果， 个结果概率均等。</span><br><span class="line">在意某结果发生否 -&gt; Uniform 概率分布</span><br></pre></td></tr></table></figure>
+<p>与Bernoulli分布不一样的是，Bernoulli只有2个结果,并且这些机会是均等的。</p>
+<p>例子： 丢骰子。</p>
+<ul>
+<li>PMF</li>
+</ul>
+<p>如果X等于 a, a+1, …, b的概率均等</p>
+<p>$P_X(x)$        X~UNIF(a,b)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1/(b-a+1) 1/(b-a+1)  1/(b-a+1)</span><br><span class="line">    |      |     |       |</span><br><span class="line">    |      |     |       | </span><br><span class="line">----|------|-----|-------|-</span><br><span class="line">    a     a+1    ...     b</span><br></pre></td></tr></table></figure>
+<p>$p_X(x)=\begin{cases}<br>\frac{1}{b-a+1}, x = a, a+1, … , b \\<br>0, \quad\quad\quad otherwise.<br>\end{cases}<br>$</p>
+<ul>
+<li>CDF</li>
+</ul>
+<p>$F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(x)$</p>
+<p>$F_X(x)=\begin{cases}<br>0, \quad\quad\quad x &lt; a, \\<br>\frac{[x]-a+1}{b-a+1}, \quad a \leq x &lt; b,\\<br>1 , \quad\quad\quad x \geq b<br>\end{cases}<br>$</p>
+<h2 id="Geometric-概率分布"><a href="#Geometric-概率分布" class="headerlink" title="Geometric 概率分布"></a>Geometric 概率分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">实验中出现结果的概率已知，重复试验知道该结果出现为止。</span><br><span class="line">在意某结果第几次实验首次出现 -&gt; Geometric 概率分布</span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<ul>
+<li>阿宅告白成功概率0.3， 不成功誓不休。问第5次告白成功的概率？</li>
+<li>孙文革命成功概率0.1， 不成功誓不秀。问第11次成功的概率？</li>
+<li>段誉打出六脉神剑的概率0.1， 他在10次才打出六脉神剑的概率？</li>
+</ul>
+<p>用最后一个例子来说明。要第10次才成功，那么，前9次失败</p>
+<p>败 败 败 败 败 败 败 败 败 成</p>
+<p>概率 = </p>
+<p>$0.9\times0.9\times0.9\times0.9\times0.9\times0.9\times0.9\times0.9\times0.9\times0.1 = 0.9^9\times 0.1$</p>
+<ul>
+<li>PMF<br>若试验成功概率为p， 尝试成功为止，做了X次尝试</li>
+</ul>
+<p>$p_X(x):$   X–Geometric(p)</p>
+<p>$p_X(x)=\begin{cases}<br>(1-p)^{x-1}\cdot p ,  x = 1,2,3 … \\<br>0 , \quad\quad\quad otherwise<br>\end{cases}<br>$</p>
+<ul>
+<li>CDF<br>$F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(n)$<br>$=\begin{cases}<br>\sum\limits_{n=1}^{|x|}(1-p)^{n-1}p = p\cdot \frac{1-(1-p)^{|x|}}{1-(1-p)},   x \geq 1, \\<br>0, \quad\quad\quad\quad\quad, x&lt;1<br>\end{cases}<br>$</li>
+</ul>
+<p>$=\begin{cases}<br>1-(1-p)^|x| , x\geq1 \\<br>0, \quad\quad otherwise<br>\end{cases}<br>$</p>
+<h2 id="Pascal概率分布"><a href="#Pascal概率分布" class="headerlink" title="Pascal概率分布"></a>Pascal概率分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">实验中出现某结果的概率已知， 重复试验至该结果出现k次为止， </span><br><span class="line">在一到底在第几次试验才结束 -&gt; Pascal 概率分布</span><br></pre></td></tr></table></figure>
+<p>Ex</p>
+<ul>
+<li>段誉的六脉神剑如果成功5次，功力就会耗尽，打出的概率是0.1， 那么他第九次刚好功力耗尽的概率。</li>
+</ul>
+<p>解<br>  可能情况之一  败 成 败 成 败 成 败 成 成<br>            $p = 0.9 \times 0.1 \times 0.9 \times 0.1 \times 0.9 \times 0.1 x\times 0.1$<br>             $=0.9^4 \times 0.1^5$<br>  刚好第9次才成功5次的情况有几种？ $\tbinom{8}{4}\tbinom{1}{1} = \tbinom{8}{4}$</p>
+<ul>
+<li>PMF</li>
+</ul>
+<p>若实验成功概率为p， 成功k次便结束实验，在第X次实验才成功k次的概率？</p>
+<p>$P_X(x)$   X–Pascal(k,p)</p>
+<p>$p_X(x) = \begin{cases}<br>\tbinom{x-1}{k-1}(1-p)^{x-k}p^k, x = k, k+1, …\\<br>0, \quad\quad\quad\quad\quad otherwise<br>\end{cases}<br>$</p>
+<ul>
+<li>CDF</li>
+</ul>
+<p>$F_X(x) = P(X\leq x)$<br>$=P(第k次成功在第x次以前发生)$<br>$=P(在x次实验中 \geq k 次成功)$<br>$=P(Y\geq k), Y–BIN(x,p)$</p>
+<p>Pascal又称作 Negative Binomal<br>Pascal小于k的几率，等于binomal大于等于k的几率。</p>
+<h2 id="Poisson分布"><a href="#Poisson分布" class="headerlink" title="Poisson分布"></a>Poisson分布</h2><p>Ex</p>
+<ul>
+<li><p>夜宵店，晚上平均每小时有10个客人， 问晚上开店5小时，有60人光顾的概率？</p>
+</li>
+<li><p>某医院平均每小时2个婴儿出生，问2小时内出生5个婴儿的概率？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">某结果出现的平均速度(rate：次数/时间)已知。问次序观察某段时间后，</span><br><span class="line">看到结果出现k次的概率-&gt;Poisson概率分布</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PMF<br>已知某事件发生速率为每单位时间 $\lambda$ 次，观察时间 T 为时间单位。 X 为观察时间内发生的事件次数则</p>
+</li>
+</ul>
+<p>$X – POI(\lambda T)$</p>
+<p>$p_X(x) = P(X=x) = e^{-\lambda T}\cdot \frac{(\lambda T)^x}{x!}$</p>
+<p>$\mu = \lambda T, X–POI(\mu)\Rightarrow P_X(x) = e^{-\mu}\cdot\frac{\mu^x}{x!}$</p>
+<ul>
+<li>CDF</li>
+</ul>
+<p>$X-POI(\lambda T)$</p>
+<p>$F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(x)=\begin{cases}<br>\sum\limits_{n=-\infty}^{|x|}e^{-\mu}\cdot\frac{\mu ^n}{n!}, x = 0, 1, 2,…\\<br>0, \quad\quad\quad\quad\quad otherwise<br>\end{cases}<br>$</p>
+<ul>
+<li>Poisson怎么推出的？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">       客人来      客人来      客人来</span><br><span class="line">        |         | |           |</span><br><span class="line">|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|</span><br><span class="line">                T</span><br></pre></td></tr></table></figure>
+<p>將T切成長度為 $\delta T$  个极小段</p>
+<p>$\delta T -&gt; 0 \Rightarrow 共有 n = \frac{T}{\delta_T} -&gt; \infty$ 个小段。<br>若发生速率为 $\lambda$ 次/分 。每个小段会发生的概率为 $p=\lambda\delta_T=\frac{\lambda T}{n}$</p>
+<p>故T时间内发生的次数（客人来） $X-BIN(n,p) = BIN(n, \frac{\lambda T}{n})$</p>
+<p>$\lim\limits_{\delta_T-&gt;0}p_X(x) = \lim\limits_{n-&gt;\infty}\frac{n!}{(n-x)!x!}(\frac{\lambda T}{n})^x(1-\frac{\lambda T}{n})^{n-x}$</p>
+<p>$=\lim\limits_{n-&gt;\infty}\frac{n(n-1)…(n-x+1)}{X!}\frac{(\lambda T)^x}{n^x}(1-\frac{\lambda T}{n})^{n-x}$</p>
+<p>$=\lim\limits_{n-&gt;\infty}\frac{1}{x!}\frac{n}{n}\frac{n-1}{n}…\frac{n-x+1}{n}(\lambda T)^x(1-\frac{\lambda T}{n})^n(1-\frac{\lambda T}{n})^{-x}$</p>
+<p>$=\frac{(\lambda T)^x}{x!}\lim\limits_{n-&gt;\infty}(1-\frac{\lambda T}{n})^n$</p>
+<p>$=\frac{(\lambda T)^x}{x!}e^{-\lambda T}$</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/离散-概率-分布-Discrete/" rel="tag"># 离散 概率 分布 Discrete</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/22/概率-5-随机变量/" rel="next" title="概率-随机变量">
+                <i class="fa fa-chevron-left"></i> 概率-随机变量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/22/概率-6-累计分布函数与质量函数/" rel="prev" title="概率-累积分布函数CDF与质量分布函数PMF">
+                概率-累积分布函数CDF与质量分布函数PMF <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shaoxin Yin" />
+            
+              <p class="site-author-name" itemprop="name">Shaoxin Yin</p>
+              <p class="site-description motion-element" itemprop="description">A programmer's mind</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/airuqixue" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://douban.com/people/airuqixue" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-globe"></i>豆瓣</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:shaoxinyin@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#离散概率分布-Discrete-Probability-Distributions"><span class="nav-number">1.</span> <span class="nav-text">离散概率分布(Discrete Probability Distributions)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bernoulli-分布"><span class="nav-number">1.1.</span> <span class="nav-text">Bernoulli 分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binomial-概率分布"><span class="nav-number">1.2.</span> <span class="nav-text">Binomial 概率分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uniform-概率分布"><span class="nav-number">1.3.</span> <span class="nav-text">Uniform 概率分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Geometric-概率分布"><span class="nav-number">1.4.</span> <span class="nav-text">Geometric 概率分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pascal概率分布"><span class="nav-number">1.5.</span> <span class="nav-text">Pascal概率分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Poisson分布"><span class="nav-number">1.6.</span> <span class="nav-text">Poisson分布</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaoxin Yin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

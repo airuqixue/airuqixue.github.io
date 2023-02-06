@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="随机变量 累计分布 CDF RV PMF," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
+<meta name="keywords" content="随机变量 累计分布 CDF RV PMF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率-累积分布函数CDF与质量分布函数PMF">
+<meta property="og:url" content="http://www.mindincode.com/2019/04/22/概率-6-累计分布函数与质量函数/index.html">
+<meta property="og:site_name" content="Xin&#39;s Blog">
+<meta property="og:description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-11-16T07:19:09.426Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="概率-累积分布函数CDF与质量分布函数PMF">
+<meta name="twitter:description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.mindincode.com/2019/04/22/概率-6-累计分布函数与质量函数/"/>
+
+
+
+
+
+  <title>概率-累积分布函数CDF与质量分布函数PMF | Xin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I love youbai</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/04/22/概率-6-累计分布函数与质量函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shaoxin Yin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">概率-累积分布函数CDF与质量分布函数PMF</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T20:16:50+08:00">
+                2019-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/概率/" itemprop="url" rel="index">
+                    <span itemprop="name">概率</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>什么是累计分布函数？他有什么用呢？<br>上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。</p>
+<a id="more"></a>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>对于任意一个随机变量 X ， 我们定义其CDF为函数：</p>
+<p> $$<br> F_X(x)=P(X\leq x)<br> $$</p>
+<p> 这里大写X标识随机变数</p>
+<p> 怎么理解呢， 还是用幸运之轮的例子</p>
+<p> $F_X(0.5) = P(X\leq0.5)=1/2$</p>
+<p> 这样就好理解了吧。也就是随机变量小于0.5的这样一个概率是多少呢？很明显 ，1/2<br> （幸运之轮是从0到1的一个圆盘，转到的数值在 [0,1)之间）</p>
+<h1 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h1><p>当我们需要计算 X 落在某个范围内的概率时候，</p>
+<p>$P(-\infty—3=====5—-\infty)$  3-5之间的范围</p>
+<p>$P(3&lt;X\leq5) = P(-\infty&lt;X\leq5) - P(-\infty&lt;X\leq3)$<br>             = $F_X(5)-F_X(3)$</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><h2 id="离散随机变数的累积分布函数"><a href="#离散随机变数的累积分布函数" class="headerlink" title="离散随机变数的累积分布函数"></a>离散随机变数的累积分布函数</h2><p>来看掷骰子，一共有6个面。(公平骰子哦)<br>那么 P(X=1) = P(X=2) = P(X=3) = P(X=4)<br>     = P(X=5) = P(X=6)=1/6<br>CDF: $F_X(x)=P(X\leq x)$ </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-|---|---|---|---|---|---|---&gt;x</span><br><span class="line">0.2  1   2   3   4   5   6</span><br></pre></td></tr></table></figure>
+<p>当x=0.1的时候，不可能有骰子点数小于0.2， 所以 F(0.2)=0<br>当x=1 的时候，骰子为1点的概率是1/6， 所以F(1)=1/6<br>当x=1.5的时候，骰子点数小于1.5的概率也是1/6，只有1，所以F(1.5)=1/6<br>当x=2.5的时候，骰子点数小于2.5的情况可能是1，或者2， 所以 F(2.5)=2/6<br>…<br>当x=6 时候， 骰子点数小于6的概率是1，因为所有的情况都包含了 F(6)=1</p>
+<p>当x&gt;6的时候， F(x)=1<br>这就是离散分布<br>通过a,b把计算公式整理得到</p>
+<p>$P(a&lt;X\leq b)=F_X(b)-F_X(a)$</p>
+<p>计算</p>
+<hr>
+<p>$P(3&lt;X\leq5)$</p>
+<p>=$F_X(5)-F_X(3)=5/6-3/6=2/6$</p>
+<hr>
+<p>$P(3&lt;X&lt;5)$</p>
+<p>=$P(3&lt;X\leq5^-)$</p>
+<p>=$F_X(5^-)-F_X(3)$</p>
+<p>=$F_X(5)-P(X=5)-F_X(3)=1/6$</p>
+<hr>
+<p>$P(3\leq X&lt;5)$</p>
+<p>=$P(3&lt;X\leq5) + P(X=3) - P(X=5)$</p>
+<p>=$F_X(5)-F_X(3)+P(X=3)-P(X=5)=2/6+1/6-1/6=2/6$</p>
+<hr>
+<p>$P(3\leq X\leq5)$</p>
+<p>=$P(3&lt;X\leq5)+P(X=3)$</p>
+<p>=$F_X(5)-F_X(3)+P(X=3)$</p>
+<p>=$5/6-3/6+1/6 = 3/6$</p>
+<h2 id="连续随机变数的累积分布函数"><a href="#连续随机变数的累积分布函数" class="headerlink" title="连续随机变数的累积分布函数"></a>连续随机变数的累积分布函数</h2><p>还是使用幸运之轮的例子 ， X为幸运之轮停下来指向的数字 , X 属于 [0,1)</p>
+<p>-CDF: $F_X(x) = P(X\leq x)$</p>
+<p>$F_X(-0.1) = P(Xleq-0.1) = 0$</p>
+<p>$F_X(0.1) = P(0\leq X\leq0.1) = 0.1$</p>
+<p>$F_X(0.5) = P(0\leq X\leq0.5) = 0.5$</p>
+<p>$F_X(1) = P(0\leq X\leq1)=1$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">           /^-------</span><br><span class="line">          / |</span><br><span class="line">         /  |  </span><br><span class="line">        /   |  1 </span><br><span class="line">       /    | </span><br><span class="line">------/-----v-------&gt;x</span><br><span class="line">      0     1</span><br></pre></td></tr></table></figure>
+<hr>
+<p>$P(0.3&lt;X\leq0.5)$<br>=$F_X(0.5) - F_X(0.3) = 0.5-0.3 = 0.2$</p>
+<hr>
+<p>$P(0.3&lt;X&lt;0.5)$<br>=$P(0.3&lt;X\leq0.5^-)$<br>=$F_X(0.5^-) - FX(0.3) = 0.5-0.3 = 0.2$</p>
+<h1 id="CDF性质"><a href="#CDF性质" class="headerlink" title="CDF性质"></a>CDF性质</h1><h2 id="离散随机变数的CDF"><a href="#离散随机变数的CDF" class="headerlink" title="离散随机变数的CDF"></a>离散随机变数的CDF</h2><p>$F_X(x^+)= F_X(x)$<br>$F_X(x^-)=F_X(x) - P(X=x)$</p>
+<p>这里的x上标可以理解为比x多一点点，离x差一点点</p>
+<h2 id="连续随机变数的CDF"><a href="#连续随机变数的CDF" class="headerlink" title="连续随机变数的CDF"></a>连续随机变数的CDF</h2><p>$F_X(x^-)=F_X(x)=F_X(x^+)$</p>
+<h2 id="共同性质"><a href="#共同性质" class="headerlink" title="共同性质"></a>共同性质</h2><ul>
+<li>$F_X(-\infty) = P(X\leq -\infty) = 0 $</li>
+<li>$F_X(\infty) = P(X\leq\infty)=1$</li>
+<li>$0\leq F_X(x)\leq1$</li>
+</ul>
+<h1 id="质量函数-PMF-Probability-Mass-Function"><a href="#质量函数-PMF-Probability-Mass-Function" class="headerlink" title="质量函数 PMF(Probability Mass Function)"></a>质量函数 PMF(Probability Mass Function)</h1><p>只有离散的随机变量才有 PMF</p>
+<p>对任一个整数值的离散随机变量 X ， 我们定义其 PMF 函数为</p>
+<p>$p_X(x)=^def P(X=x)$</p>
+<p>Ex  X 为公平骰子的点数<br> $p_x(3) = P(X=3) = \frac{1}{6}$</p>
+<p> OK , 那么PMF和CDF有啥关系呢？</p>
+<p> $F_x(2.5) = P(X\leq 2.5)$<br> $=P(X=2)+P(X=1)+P(X=0)+…$<br> $=\sum_{n=-\infty}^{2=|2.5|} P(x=n)$</p>
+<p> 对于任何 x</p>
+<p> $F_X(x) = \sum_{x=-\infty}^{|x|}P_X(n)$</p>
+<p>注意 |x|  不是绝对值，而是最靠近X，不大于X的整数</p>
+<p>Ex PMF -&gt;  CDF</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1/4 1/4 1/2</span><br><span class="line">-|---|---|-----&gt;x</span><br><span class="line"> 3   4   5</span><br></pre></td></tr></table></figure>
+<p>$F_X(x) = \sum_{n=-\infty}^{|x|} p_X(x)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">            |------- </span><br><span class="line">            |</span><br><span class="line">      |-----| 1</span><br><span class="line">      | 2/4</span><br><span class="line">|-----|</span><br><span class="line">| 1/4</span><br><span class="line">|-|---------------------------</span><br><span class="line">3 3.2 4     5</span><br></pre></td></tr></table></figure>
+<p>Ex CDF -&gt; PMF</p>
+<p>$p_X(x) = F_X(x^+) - F_X(x^-)$</p>
+<p>跳跃的阶梯高度</p>
+<h1 id="概率分布-Probablility-Distribution"><a href="#概率分布-Probablility-Distribution" class="headerlink" title="概率分布(Probablility Distribution)"></a>概率分布(Probablility Distribution)</h1><p>任何一个PMF或者PDF都是一种概率分布</p>
+<p>将综合为1的概率分布在点上之故</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">p_X(x)     </span><br><span class="line">              1/2</span><br><span class="line">               |   </span><br><span class="line">   1/4  1/4    |</span><br><span class="line">    |    |     |</span><br><span class="line">----|----|-----|---</span><br><span class="line">    3    4     5</span><br></pre></td></tr></table></figure>
+<p>下一节将全面介绍概率分布</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/随机变量-累计分布-CDF-RV-PMF/" rel="tag"># 随机变量 累计分布 CDF RV PMF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/22/概率-7-离散随机分布/" rel="next" title="概率之离散随机分布">
+                <i class="fa fa-chevron-left"></i> 概率之离散随机分布
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/12/dht/" rel="prev" title="Kademlia A Peer-to-peer Information System Based on the XOR Metric">
+                Kademlia A Peer-to-peer Information System Based on the XOR Metric <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shaoxin Yin" />
+            
+              <p class="site-author-name" itemprop="name">Shaoxin Yin</p>
+              <p class="site-description motion-element" itemprop="description">A programmer's mind</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/airuqixue" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://douban.com/people/airuqixue" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-globe"></i>豆瓣</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:shaoxinyin@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用途"><span class="nav-number">2.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">3.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散随机变数的累积分布函数"><span class="nav-number">3.1.</span> <span class="nav-text">离散随机变数的累积分布函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续随机变数的累积分布函数"><span class="nav-number">3.2.</span> <span class="nav-text">连续随机变数的累积分布函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CDF性质"><span class="nav-number">4.</span> <span class="nav-text">CDF性质</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散随机变数的CDF"><span class="nav-number">4.1.</span> <span class="nav-text">离散随机变数的CDF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连续随机变数的CDF"><span class="nav-number">4.2.</span> <span class="nav-text">连续随机变数的CDF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#共同性质"><span class="nav-number">4.3.</span> <span class="nav-text">共同性质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#质量函数-PMF-Probability-Mass-Function"><span class="nav-number">5.</span> <span class="nav-text">质量函数 PMF(Probability Mass Function)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概率分布-Probablility-Distribution"><span class="nav-number">6.</span> <span class="nav-text">概率分布(Probablility Distribution)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaoxin Yin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
