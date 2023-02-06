@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="A programmer&apos;s mind">
-<meta name="keywords" content="java c++ python ecmascript vue react rust">
+<meta name="keywords" content="java c++ python javascript vue">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Xin&#39;s Blog">
 <meta property="og:url" content="http://www.mindincode.com/index.html">
@@ -945,15 +945,115 @@
 
       
         
-          <p>相同的实验模型有相同的概率模型，了解概率分布，就能模拟事件的发生运作方式。</p>
+          
+            <p>相同的实验模型有相同的概率模型，了解概率分布，就能模拟事件的发生运作方式。</p>
 <p>接下来就是几种常见模型的分析。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/22/概率-7-离散随机分布/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+<h1 id="离散概率分布-Discrete-Probability-Distributions"><a href="#离散概率分布-Discrete-Probability-Distributions" class="headerlink" title="离散概率分布(Discrete Probability Distributions)"></a>离散概率分布(Discrete Probability Distributions)</h1><h2 id="Bernoulli-分布"><a href="#Bernoulli-分布" class="headerlink" title="Bernoulli 分布"></a>Bernoulli 分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1次实验，2种结果,在意某结果是否发生 -&gt; Bernoulli 概率分布</span><br></pre></td></tr></table></figure>
+<ul>
+<li>PMF: 若试验成功概率是 p ,一次实验， X表示成功次数</li>
+</ul>
+<p>$P_X(x): X~Bernoulli(p)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   1-p     p</span><br><span class="line">    |      |</span><br><span class="line">    |      |</span><br><span class="line">----|------|--</span><br><span class="line">    0      1</span><br></pre></td></tr></table></figure>
+<p>$$<br>p_X(x)=\begin{cases}<br>p,  &amp;x=1 \\<br>1-p,  &amp;x=0 \\<br>0,  &amp;otherwise<br>\end{cases}<br>$$</p>
+<ul>
+<li>CDF<br>$<br>F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(x)<br>$</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">                    |-------|---</span><br><span class="line">                    | p     |</span><br><span class="line">             |------|-----  | 1</span><br><span class="line">             |  1-p         |</span><br><span class="line">-------------|------|-------|----</span><br><span class="line">             0      1</span><br></pre></td></tr></table></figure>
+<p>$<br>F_x(x) = \begin{cases}<br>0, &amp;x &lt; 0, \\<br>0.4,  &amp;0\leq x &lt; 1, \\<br>1,  &amp;x\geq 1<br>\end{cases}<br>$</p>
+<h2 id="Binomial-概率分布"><a href="#Binomial-概率分布" class="headerlink" title="Binomial 概率分布"></a>Binomial 概率分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">做N次实验，1个几率， 在意N次实验出现某结果k次的概率 -&gt; Binomial概率分布</span><br></pre></td></tr></table></figure>
+<ul>
+<li>PMF 若试验成功概率为p ,做n次实验，X表示成功次数</li>
+</ul>
+<p>$P_X(x)$:——— X-BIN(n,p)</p>
+<p>$P(X=x) $<br>$=\tbinom{n}{x}P^x(1-p)^{n-x}$</p>
+<p>成功 = x<br>失败 = n-x</p>
+<ul>
+<li>CDF<br>$F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(x)$<br>$=\sum\limits_{m=-\infty}^{|x|}\tbinom{n}{m}\cdot p^m \cdot (1-p)^{n-m}$</li>
+</ul>
+<h2 id="Uniform-概率分布"><a href="#Uniform-概率分布" class="headerlink" title="Uniform 概率分布"></a>Uniform 概率分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 次实验， n 种B结果， 个结果概率均等。</span><br><span class="line">在意某结果发生否 -&gt; Uniform 概率分布</span><br></pre></td></tr></table></figure>
+<p>与Bernoulli分布不一样的是，Bernoulli只有2个结果,并且这些机会是均等的。</p>
+<p>例子： 丢骰子。</p>
+<ul>
+<li>PMF</li>
+</ul>
+<p>如果X等于 a, a+1, …, b的概率均等</p>
+<p>$P_X(x)$        X~UNIF(a,b)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1/(b-a+1) 1/(b-a+1)  1/(b-a+1)</span><br><span class="line">    |      |     |       |</span><br><span class="line">    |      |     |       | </span><br><span class="line">----|------|-----|-------|-</span><br><span class="line">    a     a+1    ...     b</span><br></pre></td></tr></table></figure>
+<p>$p_X(x)=\begin{cases}<br>\frac{1}{b-a+1}, x = a, a+1, … , b \\<br>0, \quad\quad\quad otherwise.<br>\end{cases}<br>$</p>
+<ul>
+<li>CDF</li>
+</ul>
+<p>$F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(x)$</p>
+<p>$F_X(x)=\begin{cases}<br>0, \quad\quad\quad x &lt; a, \\<br>\frac{[x]-a+1}{b-a+1}, \quad a \leq x &lt; b,\\<br>1 , \quad\quad\quad x \geq b<br>\end{cases}<br>$</p>
+<h2 id="Geometric-概率分布"><a href="#Geometric-概率分布" class="headerlink" title="Geometric 概率分布"></a>Geometric 概率分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">实验中出现结果的概率已知，重复试验知道该结果出现为止。</span><br><span class="line">在意某结果第几次实验首次出现 -&gt; Geometric 概率分布</span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<ul>
+<li>阿宅告白成功概率0.3， 不成功誓不休。问第5次告白成功的概率？</li>
+<li>孙文革命成功概率0.1， 不成功誓不秀。问第11次成功的概率？</li>
+<li>段誉打出六脉神剑的概率0.1， 他在10次才打出六脉神剑的概率？</li>
+</ul>
+<p>用最后一个例子来说明。要第10次才成功，那么，前9次失败</p>
+<p>败 败 败 败 败 败 败 败 败 成</p>
+<p>概率 = </p>
+<p>$0.9\times0.9\times0.9\times0.9\times0.9\times0.9\times0.9\times0.9\times0.9\times0.1 = 0.9^9\times 0.1$</p>
+<ul>
+<li>PMF<br>若试验成功概率为p， 尝试成功为止，做了X次尝试</li>
+</ul>
+<p>$p_X(x):$   X–Geometric(p)</p>
+<p>$p_X(x)=\begin{cases}<br>(1-p)^{x-1}\cdot p ,  x = 1,2,3 … \\<br>0 , \quad\quad\quad otherwise<br>\end{cases}<br>$</p>
+<ul>
+<li>CDF<br>$F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(n)$<br>$=\begin{cases}<br>\sum\limits_{n=1}^{|x|}(1-p)^{n-1}p = p\cdot \frac{1-(1-p)^{|x|}}{1-(1-p)},   x \geq 1, \\<br>0, \quad\quad\quad\quad\quad, x&lt;1<br>\end{cases}<br>$</li>
+</ul>
+<p>$=\begin{cases}<br>1-(1-p)^|x| , x\geq1 \\<br>0, \quad\quad otherwise<br>\end{cases}<br>$</p>
+<h2 id="Pascal概率分布"><a href="#Pascal概率分布" class="headerlink" title="Pascal概率分布"></a>Pascal概率分布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">实验中出现某结果的概率已知， 重复试验至该结果出现k次为止， </span><br><span class="line">在一到底在第几次试验才结束 -&gt; Pascal 概率分布</span><br></pre></td></tr></table></figure>
+<p>Ex</p>
+<ul>
+<li>段誉的六脉神剑如果成功5次，功力就会耗尽，打出的概率是0.1， 那么他第九次刚好功力耗尽的概率。</li>
+</ul>
+<p>解<br>  可能情况之一  败 成 败 成 败 成 败 成 成<br>            $p = 0.9 \times 0.1 \times 0.9 \times 0.1 \times 0.9 \times 0.1 x\times 0.1$<br>             $=0.9^4 \times 0.1^5$<br>  刚好第9次才成功5次的情况有几种？ $\tbinom{8}{4}\tbinom{1}{1} = \tbinom{8}{4}$</p>
+<ul>
+<li>PMF</li>
+</ul>
+<p>若实验成功概率为p， 成功k次便结束实验，在第X次实验才成功k次的概率？</p>
+<p>$P_X(x)$   X–Pascal(k,p)</p>
+<p>$p_X(x) = \begin{cases}<br>\tbinom{x-1}{k-1}(1-p)^{x-k}p^k, x = k, k+1, …\\<br>0, \quad\quad\quad\quad\quad otherwise<br>\end{cases}<br>$</p>
+<ul>
+<li>CDF</li>
+</ul>
+<p>$F_X(x) = P(X\leq x)$<br>$=P(第k次成功在第x次以前发生)$<br>$=P(在x次实验中 \geq k 次成功)$<br>$=P(Y\geq k), Y–BIN(x,p)$</p>
+<p>Pascal又称作 Negative Binomal<br>Pascal小于k的几率，等于binomal大于等于k的几率。</p>
+<h2 id="Poisson分布"><a href="#Poisson分布" class="headerlink" title="Poisson分布"></a>Poisson分布</h2><p>Ex</p>
+<ul>
+<li><p>夜宵店，晚上平均每小时有10个客人， 问晚上开店5小时，有60人光顾的概率？</p>
+</li>
+<li><p>某医院平均每小时2个婴儿出生，问2小时内出生5个婴儿的概率？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">某结果出现的平均速度(rate：次数/时间)已知。问次序观察某段时间后，</span><br><span class="line">看到结果出现k次的概率-&gt;Poisson概率分布</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PMF<br>已知某事件发生速率为每单位时间 $\lambda$ 次，观察时间 T 为时间单位。 X 为观察时间内发生的事件次数则</p>
+</li>
+</ul>
+<p>$X – POI(\lambda T)$</p>
+<p>$p_X(x) = P(X=x) = e^{-\lambda T}\cdot \frac{(\lambda T)^x}{x!}$</p>
+<p>$\mu = \lambda T, X–POI(\mu)\Rightarrow P_X(x) = e^{-\mu}\cdot\frac{\mu^x}{x!}$</p>
+<ul>
+<li>CDF</li>
+</ul>
+<p>$X-POI(\lambda T)$</p>
+<p>$F_X(x) = \sum\limits_{n=-\infty}^{|x|}p_X(x)=\begin{cases}<br>\sum\limits_{n=-\infty}^{|x|}e^{-\mu}\cdot\frac{\mu ^n}{n!}, x = 0, 1, 2,…\\<br>0, \quad\quad\quad\quad\quad otherwise<br>\end{cases}<br>$</p>
+<ul>
+<li>Poisson怎么推出的？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">       客人来      客人来      客人来</span><br><span class="line">        |         | |           |</span><br><span class="line">|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|</span><br><span class="line">                T</span><br></pre></td></tr></table></figure>
+<p>將T切成長度為 $\delta T$  个极小段</p>
+<p>$\delta T -&gt; 0 \Rightarrow 共有 n = \frac{T}{\delta_T} -&gt; \infty$ 个小段。<br>若发生速率为 $\lambda$ 次/分 。每个小段会发生的概率为 $p=\lambda\delta_T=\frac{\lambda T}{n}$</p>
+<p>故T时间内发生的次数（客人来） $X-BIN(n,p) = BIN(n, \frac{\lambda T}{n})$</p>
+<p>$\lim\limits_{\delta_T-&gt;0}p_X(x) = \lim\limits_{n-&gt;\infty}\frac{n!}{(n-x)!x!}(\frac{\lambda T}{n})^x(1-\frac{\lambda T}{n})^{n-x}$</p>
+<p>$=\lim\limits_{n-&gt;\infty}\frac{n(n-1)…(n-x+1)}{X!}\frac{(\lambda T)^x}{n^x}(1-\frac{\lambda T}{n})^{n-x}$</p>
+<p>$=\lim\limits_{n-&gt;\infty}\frac{1}{x!}\frac{n}{n}\frac{n-1}{n}…\frac{n-x+1}{n}(\lambda T)^x(1-\frac{\lambda T}{n})^n(1-\frac{\lambda T}{n})^{-x}$</p>
+<p>$=\frac{(\lambda T)^x}{x!}\lim\limits_{n-&gt;\infty}(1-\frac{\lambda T}{n})^n$</p>
+<p>$=\frac{(\lambda T)^x}{x!}e^{-\lambda T}$</p>
+
+          
         
       
     </div>
@@ -1820,12 +1920,6 @@
                         <i class="fa fa-fw fa-globe"></i>豆瓣</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="mailto:shaoxinyin@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
             </div>
           
 
@@ -1854,7 +1948,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
