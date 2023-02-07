@@ -1,130 +1,50 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.mindincode.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="分布式  一致性协议," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Paxos 是为了解决分布式一致性的问题而提出来的算法。这个问题在1982年， Leslie Lamport发表论文 “The Byzantine Generals Problem”,通过“拜占庭将军”问题引出。在1990年，Lamport又通过一个场景，描述了解决该问题的算法Paxos:    在一个叫做Paxos的小岛上，议员们通过消息传递达成共识来通过法令。传递消息的人员和议员都是兼职的">
-<meta name="keywords" content="分布式  一致性协议">
+  <meta name="description" content="Paxos 是为了解决分布式一致性的问题而提出来的算法。这个问题在1982年， Leslie Lamport发表论文 “The Byzantine Generals Problem”,通过“拜占庭将军”问题引出。在1990年，Lamport又通过一个场景，描述了解决该问题的算法Paxos:    在一个叫做Paxos的小岛上，议员们通过消息传递达成共识来通过法令。传递消息的人员和议员都是兼职的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="paxos分布式协议解读">
-<meta property="og:url" content="http://www.mindincode.com/2019/01/10/paxos分布式协议解读/index.html">
+<meta property="og:url" content="http://www.mindincode.com/2019/01/10/paxos%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E8%A7%A3%E8%AF%BB/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
 <meta property="og:description" content="Paxos 是为了解决分布式一致性的问题而提出来的算法。这个问题在1982年， Leslie Lamport发表论文 “The Byzantine Generals Problem”,通过“拜占庭将军”问题引出。在1990年，Lamport又通过一个场景，描述了解决该问题的算法Paxos:    在一个叫做Paxos的小岛上，议员们通过消息传递达成共识来通过法令。传递消息的人员和议员都是兼职的">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-18T08:38:18.053Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-10T03:57:26.000Z">
+<meta property="article:modified_time" content="2019-01-18T08:38:18.053Z">
+<meta property="article:author" content="Shaoxin Yin">
+<meta property="article:tag" content="分布式  一致性协议">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="paxos分布式协议解读">
-<meta name="twitter:description" content="Paxos 是为了解决分布式一致性的问题而提出来的算法。这个问题在1982年， Leslie Lamport发表论文 “The Byzantine Generals Problem”,通过“拜占庭将军”问题引出。在1990年，Lamport又通过一个场景，描述了解决该问题的算法Paxos:    在一个叫做Paxos的小岛上，议员们通过消息传递达成共识来通过法令。传递消息的人员和议员都是兼职的">
+
+<link rel="canonical" href="http://www.mindincode.com/2019/01/10/paxos%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E8%A7%A3%E8%AF%BB/">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://www.mindincode.com/2019/01/10/paxos分布式协议解读/"/>
-
-
-
-
 
   <title>paxos分布式协议解读 | Xin's Blog</title>
   
@@ -134,214 +54,165 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Xin's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">I love youbai</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Xin's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">I love youbai</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/01/10/paxos分布式协议解读/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/01/10/paxos%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E8%A7%A3%E8%AF%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shaoxin Yin">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Shaoxin Yin">
+      <meta itemprop="description" content="A programmer's mind">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Xin's Blog">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">paxos分布式协议解读</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          paxos分布式协议解读
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T11:57:26+08:00">
-                2019-01-10
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2019-01-10 11:57:26" itemprop="dateCreated datePublished" datetime="2019-01-10T11:57:26+08:00">2019-01-10</time>
             </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-01-18 16:38:18" itemprop="dateModified" datetime="2019-01-18T16:38:18+08:00">2019-01-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -349,13 +220,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>  Paxos 是为了解决分布式一致性的问题而提出来的算法。这个问题在1982年， <a href="https://www.microsoft.com/en-us/research/people/lamport/" target="_blank" rel="noopener">Leslie Lamport</a>发表论文 “The Byzantine Generals Problem”,通过“拜占庭将军”问题引出。在1990年，Lamport又通过一个场景，描述了解决该问题的算法Paxos:</p>
+        <p>  Paxos 是为了解决分布式一致性的问题而提出来的算法。这个问题在1982年， <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/people/lamport/">Leslie Lamport</a>发表论文 “The Byzantine Generals Problem”,通过“拜占庭将军”问题引出。在1990年，Lamport又通过一个场景，描述了解决该问题的算法Paxos:</p>
 <p>   在一个叫做Paxos的小岛上，议员们通过消息传递达成共识来通过法令。传递消息的人员和议员都是兼职的，<br> 可能随时离开会议厅，更可能不再回来。在这样一种场景下，依然要保证法令<br> 能够正常的产生，并不会有冲突。</p>
-<p> 这个名为<a href="https://www.microsoft.com/en-us/research/publication/part-time-parliament/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fum%2Fpeople%2Flamport%2Fpubs%2Flamport-paxos.pdf" target="_blank" rel="noopener">The Part-Time Parliament</a> 的论文提交给”ACM TOCS”后被主编以必须通过严谨的数据证明方式来描述为理由拒绝了。直到1996年，才被后人发现，1998年后被ACM TOCS接受.<br> 后来2001年，Lamport自己又用通俗易懂的语言重新描述了原文，发表了<a href="https://www.microsoft.com/en-us/research/publication/paxos-made-simple/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fum%2Fpeople%2Flamport%2Fpubs%2Fpaxos-simple.pdf" target="_blank" rel="noopener">Paxos Made Simple</a><br>   现在网络上大多数的文章，对算法的解释分析我也是看的一头雾水，还是因为缺少循序渐进的问题，上来就描述什么校色，术语也很晦涩难懂。</p>
-<a id="more"></a>
+<p> 这个名为<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/publication/part-time-parliament/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fum%2Fpeople%2Flamport%2Fpubs%2Flamport-paxos.pdf">The Part-Time Parliament</a> 的论文提交给”ACM TOCS”后被主编以必须通过严谨的数据证明方式来描述为理由拒绝了。直到1996年，才被后人发现，1998年后被ACM TOCS接受.<br> 后来2001年，Lamport自己又用通俗易懂的语言重新描述了原文，发表了<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/publication/paxos-made-simple/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fum%2Fpeople%2Flamport%2Fpubs%2Fpaxos-simple.pdf">Paxos Made Simple</a><br>   现在网络上大多数的文章，对算法的解释分析我也是看的一头雾水，还是因为缺少循序渐进的问题，上来就描述什么校色，术语也很晦涩难懂。</p>
+<span id="more"></span>
 <h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>  拜占庭将军问题大致是这样的：<br>    拜占庭帝国有许多只军队。不同军队的将军之间要制定统一的作战计划，例如进攻，撤退。由于军队在地域上是独立的，所以只能依靠军队的通讯员来传递信息。<br>  然而，通讯员并非都是可靠的，可能出现叛徒，篡改消息。在这样一个环境里，将军间能否制定统一的作战计划？<br>    这个问题从理论上来说，其实是不可能解决的问题。后来的研究大多假定（实际情况，比如签名校验等）消息是不能被篡改的。由此，可以考虑算法的推理。</p>
 <h1 id="场景演化"><a href="#场景演化" class="headerlink" title="场景演化"></a>场景演化</h1><p>  如果只有一支军队，那么实际上时无需通讯员的，也不存在这样的问题。考虑2只军队的情况。<br>  这里为了方便，我们把军队定义成”节点”, 节点之间通过消息传递达成共识。<br>  2个节点，互发消息就可以了。但是消息可能丢失，所以，增加一个应答机制（Acknowledgements)。 这样的场景有TCP协议。<br>  （实际上，除了消息传递除了成功，失败之外，还有超时。之后在做讨论）<br>   一个简单的算法就出来了，</p>
 <h2 id="算法1-发消息，等待确认消息。"><a href="#算法1-发消息，等待确认消息。" class="headerlink" title="算法1 发消息，等待确认消息。"></a>算法1 发消息，等待确认消息。</h2><p>   由于消息的传递并非都是固定时间，所以，消息的传递时可变的时延。也就是说，消息可能早发晚到，晚发早到。<br>   考虑到拜占庭帝国的皇帝下了两道命令，一前一后，消息传递给每个将军，然而先发的命令很可能被A，B节点收到，而后发的命令先被C， D节点收到了，此时就存在两种状态，作战计划无法统一。</p>
@@ -363,7 +231,7 @@
 <p>   这也是确保一致性的关键。</p>
 <h2 id="算法-2-引入串行中间件，所以命令向这个串行中间件发送，再转发给各个节点。并确保命令依次执行。"><a href="#算法-2-引入串行中间件，所以命令向这个串行中间件发送，再转发给各个节点。并确保命令依次执行。" class="headerlink" title="算法 2 引入串行中间件，所以命令向这个串行中间件发送，再转发给各个节点。并确保命令依次执行。"></a>算法 2 引入串行中间件，所以命令向这个串行中间件发送，再转发给各个节点。并确保命令依次执行。</h2><p>   串行中间件可以看作是个FIFO的队列。这样的场景有 数据库 主从复制（Master-Slave Replication)<br>   咋一看很简单嘛，实际上呢，如果串行中间件挂了呢？这是一个单点故障。</p>
 <p>   这时候，很类似多线程编程，我们考虑用锁。</p>
-<h2 id="算法3-两阶段协议"><a href="#算法3-两阶段协议" class="headerlink" title="算法3 两阶段协议"></a>算法3 两阶段协议</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">阶段1</span><br><span class="line">  客户端向所有服务器请求锁</span><br><span class="line">阶段2</span><br><span class="line">  if 成功获取所有服务器锁</span><br><span class="line">     客户端发送命令，然后释放锁</span><br><span class="line">  else </span><br><span class="line">     客户端释放已经获得的锁（某几个服务器的锁）</span><br><span class="line">     等待一段时间，重新开始阶段1</span><br></pre></td></tr></table></figure>
+<h2 id="算法3-两阶段协议"><a href="#算法3-两阶段协议" class="headerlink" title="算法3 两阶段协议"></a>算法3 两阶段协议</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">阶段1</span><br><span class="line">  客户端向所有服务器请求锁</span><br><span class="line">阶段2</span><br><span class="line">  if 成功获取所有服务器锁</span><br><span class="line">     客户端发送命令，然后释放锁</span><br><span class="line">  else </span><br><span class="line">     客户端释放已经获得的锁（某几个服务器的锁）</span><br><span class="line">     等待一段时间，重新开始阶段1</span><br></pre></td></tr></table></figure>
 <p>  数据库典型场景，在数据库上，使用的2PC(Tow-Phase Commit)，但这个过程的发起者是称为协调者的服务器发起的。<br>  我们再来考虑一个场景，那就是如果第一阶段成功，这时客户端挂了？所有参与者都会被锁定。也就是协调者是一个单点故障。<br>  如果协调者在commit的时候只有部分节点更新了，这时协调者挂了，那么数据是否不一致了？我们发现，任何一个节点出问题，<br>  这个两阶段提交协议就会崩溃。<br>     这时，又有了3PC来改进2PC。第一阶段（CanCommit）， 除了获取锁（询问），还需要询问是否能够执行命令。<br>   第二阶段（PreCommit)，这时候发送预提交命令，各个节点执行完（可回滚的预提交，记录undo）成后反馈。第三阶段（DoCommit）执行真的提交，<br>   释放资源并反馈。第二个阶段如果中断事务，那么协调者会向节点发出abort请求，中断事务。如果在第三阶段中断了事务，那么也是<br>   协调者发出abort，然后参与者回滚undo。中断事务。<br>     无论是2PC还是3PC，我们都发现，如果任何一个节点出问题，我们就无法完成提交（即使保持了一致性）。3PC在脑裂（网络分区）的情况下，还会出现数据不一致的情况。</p>
 <h1 id="Paxos出场"><a href="#Paxos出场" class="headerlink" title="Paxos出场"></a>Paxos出场</h1><p>  Paxos的引入，我们可以从解决以上问题出发，来考虑。</p>
 <ul>
@@ -371,323 +239,226 @@
 <li>2，即使某个节点没响应，也能达成一致？</li>
 <li><p>3，锁的概念是否可以弱化为票(Ticket)</p>
 <p>一个朴素的基于ticket的算法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 阶段1</span><br><span class="line">1 客户端向所有服务器请求一张票</span><br><span class="line">// 阶段2</span><br><span class="line">2 if 收到过半服务器的回复</span><br><span class="line">3     客户端将票与命令一起发给每个服务器</span><br><span class="line">4     服务器检查票的状态，如果票有效，则存储命令并给客户端一个正反馈</span><br><span class="line">5  else </span><br><span class="line">6     客户端等待一段时间，然后重新进入阶段1</span><br><span class="line">// 阶段3</span><br><span class="line">7  if 客户端收到过半服务器的正反馈</span><br><span class="line">8      客户端告诉所有服务器执行之前存储的命令</span><br><span class="line">9   else</span><br><span class="line">10      客户端等待一段时间，然后重新进入阶段 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 阶段1</span><br><span class="line">1 客户端向所有服务器请求一张票</span><br><span class="line">// 阶段2</span><br><span class="line">2 if 收到过半服务器的回复</span><br><span class="line">3     客户端将票与命令一起发给每个服务器</span><br><span class="line">4     服务器检查票的状态，如果票有效，则存储命令并给客户端一个正反馈</span><br><span class="line">5  else </span><br><span class="line">6     客户端等待一段时间，然后重新进入阶段1</span><br><span class="line">// 阶段3</span><br><span class="line">7  if 客户端收到过半服务器的正反馈</span><br><span class="line">8      客户端告诉所有服务器执行之前存储的命令</span><br><span class="line">9   else</span><br><span class="line">10      客户端等待一段时间，然后重新进入阶段 1</span><br></pre></td></tr></table></figure>
 <p>票不需要被释放，票的有效性可以这么理解，每个票都有一个编号，只有当前最大编号的票有效。<br>可以理解为一个计数器。</p>
 <p>这个算法的问题在于，在阶段3，这个客户端（假设为c1，性能比较差）告诉所有服务器执行之前存储的命令时，另外一个客户端c2，已经进入了阶段3，将明令修改了。<br>那么此时，很可能一部分服务器执行老命令，一部分服务器执行新的命令。</p>
 <p>这个问题可以这样来解决，每次客户端提交请求的时候，同时带上命令，服务器每次发票同时也带上自己存储了的命令。<br>这样，如果已经有过半的服务器存储了命令c1，那么c2也必须支持c1, 这时客户端c1告诉服务器执行命令时候，确保c1被执行，而不会被c2替代。</p>
 </li>
 </ul>
 <h1 id="算法详解"><a href="#算法详解" class="headerlink" title="算法详解"></a>算法详解</h1><p>  根据以上的分析，我们可以尝试一个改进的算法，这也是paxos的算法</p>
-<pre><code>客户端                                               服务器
-初始化 ---------------------------------------------------------------------------
-c 等待执行的命令                                     Tmax = 0 当前已发布的最大票号
-t=0 当前尝试的票号                                   C        当前存储的命令（为空）
-                                                    Tstore = 0   用来存储C的票
-阶段1 ----------------------------------------------------------------------------
-1: t = t + 1
-2: 向所有服务器请求得到编号为t的票
-                                                    3: if  t &gt; Tmax then 
-                                                    4:    Tmax = t
-                                                    5:    response: ok(Tstore,C)
-                                                    6: end if
-阶段2-----------------------------------------------------------------------------
-7: if 过半服务器回复 ok then
-8:    选择Tstore值最大的 (Tstore,C)
-9:    if Tstore &gt; 0 then  //处理非首次请求，需要判断是否存在最大的存储命令
-10:       c = C
-11:   end if
-12:   向回复了ok的服务器发送消息 propose(t,c)
-13: end if
-                                                    14: if t=Tmax then
-                                                    15:    C = c
-                                                    16:    Tstore = t
-                                                    17:    response: success
-                                                    18: end if
-阶段3-----------------------------------------------------------------------------
-19: if 过半服务器回复 success then 
-20：   向每个服务器发送消息: execute(c)
-21: end if
+<pre><code>  客户端                                               服务器
+  初始化 ---------------------------------------------------------------------------
+  c 等待执行的命令                                     Tmax = 0 当前已发布的最大票号
+  t=0 当前尝试的票号                                   C        当前存储的命令（为空）
+                                                      Tstore = 0   用来存储C的票
+  阶段1 ----------------------------------------------------------------------------
+  1: t = t + 1
+  2: 向所有服务器请求得到编号为t的票
+                                                      3: if  t &gt; Tmax then 
+                                                      4:    Tmax = t
+                                                      5:    response: ok(Tstore,C)
+                                                      6: end if
+  阶段2-----------------------------------------------------------------------------
+  7: if 过半服务器回复 ok then
+  8:    选择Tstore值最大的 (Tstore,C)
+  9:    if Tstore &gt; 0 then  //处理非首次请求，需要判断是否存在最大的存储命令
+  10:       c = C
+  11:   end if
+  12:   向回复了ok的服务器发送消息 propose(t,c)
+  13: end if
+                                                      14: if t=Tmax then
+                                                      15:    C = c
+                                                      16:    Tstore = t
+                                                      17:    response: success
+                                                      18: end if
+  阶段3-----------------------------------------------------------------------------
+  19: if 过半服务器回复 success then 
+  20：   向每个服务器发送消息: execute(c)
+  21: end if
 </code></pre><p>  以上就是paxos算法的伪代码。<br>  首先，请求票号。这里，我们的票号可以让客户端自己生成。如果不是最大，服务器不会响应。这样就自然成为一个全局的计数器，服务器们维护了一个最大票号。<br>  对于服务器，会存储最大的票号，还有当前命令，以及当前命令对应的票号。<br>  第一阶段完成，第二阶段，客户端如果获得过半的ok回复，ok回复中带着各个服务器存储的命令与对应的票号，客户端要选择最大的一个票号，当然如果没有，则就用自己申请的票号，<br>  然后提交 该票号对应的命令。<br>  第二阶段的服务器收到票号，对比最大票号，如果此刻还是最大票号（没有其他提交者），那么存储当前命令与票号，回复success</p>
 <p>  第三个阶段，客户端收到过半服务器的success的回复，说明命令存储完成，可以发送执行命令。向每回复了success的服务器发送执行命令的消息。</p>
 <h1 id="问题以及解决"><a href="#问题以及解决" class="headerlink" title="问题以及解决"></a>问题以及解决</h1><p>  以上只是解决了一个达成一致的过程算法。实际上，很多文章都提到了Paxos的各个角色，例如 提案者，接收者，学习者。学习者在这里只是从其他节点学习哪个命令被选择了，复制到自身节点</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/分布式-一致性协议/" rel="tag"># 分布式  一致性协议</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/12/19/累计分布函数/" rel="next" title="累积分布函数CDF">
-                <i class="fa fa-chevron-left"></i> 累积分布函数CDF
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F-%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/" rel="tag"># 分布式  一致性协议</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/16/概率-1/" rel="prev" title="概率-概念">
-                概率-概念 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/19/%E7%B4%AF%E8%AE%A1%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0/" rel="prev" title="累积分布函数CDF">
+      <i class="fa fa-chevron-left"></i> 累积分布函数CDF
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/16/%E6%A6%82%E7%8E%87-1/" rel="next" title="概率-概念">
+      概率-概念 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
 
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/header.jpg"
-                alt="Shaoxin Yin" />
-            
-              <p class="site-author-name" itemprop="name">Shaoxin Yin</p>
-              <p class="site-description motion-element" itemprop="description">A programmer's mind</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">20</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">20</span>
-                  <span class="site-state-item-name">标签</span>
-                
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/airuqixue" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="http://douban.com/people/airuqixue" target="_blank" title="豆瓣">
-                      
-                        <i class="fa fa-fw fa-globe"></i>豆瓣</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:shaoxinyin@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题背景"><span class="nav-number">1.</span> <span class="nav-text">问题背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#场景演化"><span class="nav-number">2.</span> <span class="nav-text">场景演化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法1-发消息，等待确认消息。"><span class="nav-number">2.1.</span> <span class="nav-text">算法1 发消息，等待确认消息。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法-2-引入串行中间件，所以命令向这个串行中间件发送，再转发给各个节点。并确保命令依次执行。"><span class="nav-number">2.2.</span> <span class="nav-text">算法 2 引入串行中间件，所以命令向这个串行中间件发送，再转发给各个节点。并确保命令依次执行。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法3-两阶段协议"><span class="nav-number">2.3.</span> <span class="nav-text">算法3 两阶段协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Paxos出场"><span class="nav-number">3.</span> <span class="nav-text">Paxos出场</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法详解"><span class="nav-number">4.</span> <span class="nav-text">算法详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题以及解决"><span class="nav-number">5.</span> <span class="nav-text">问题以及解决</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Shaoxin Yin</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">问题背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E6%BC%94%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">场景演化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%951-%E5%8F%91%E6%B6%88%E6%81%AF%EF%BC%8C%E7%AD%89%E5%BE%85%E7%A1%AE%E8%AE%A4%E6%B6%88%E6%81%AF%E3%80%82"><span class="nav-number">2.1.</span> <span class="nav-text">算法1 发消息，等待确认消息。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95-2-%E5%BC%95%E5%85%A5%E4%B8%B2%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6%EF%BC%8C%E6%89%80%E4%BB%A5%E5%91%BD%E4%BB%A4%E5%90%91%E8%BF%99%E4%B8%AA%E4%B8%B2%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%91%E9%80%81%EF%BC%8C%E5%86%8D%E8%BD%AC%E5%8F%91%E7%BB%99%E5%90%84%E4%B8%AA%E8%8A%82%E7%82%B9%E3%80%82%E5%B9%B6%E7%A1%AE%E4%BF%9D%E5%91%BD%E4%BB%A4%E4%BE%9D%E6%AC%A1%E6%89%A7%E8%A1%8C%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">算法 2 引入串行中间件，所以命令向这个串行中间件发送，再转发给各个节点。并确保命令依次执行。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%953-%E4%B8%A4%E9%98%B6%E6%AE%B5%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.3.</span> <span class="nav-text">算法3 两阶段协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Paxos%E5%87%BA%E5%9C%BA"><span class="nav-number">3.</span> <span class="nav-text">Paxos出场</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">算法详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3"><span class="nav-number">5.</span> <span class="nav-text">问题以及解决</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shaoxin Yin"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Shaoxin Yin</p>
+  <div class="site-description" itemprop="description">A programmer's mind</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/airuqixue" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;airuqixue" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shaoxinyin@gmail.com" title="E-Mail → mailto:shaoxinyin@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2014 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaoxin Yin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
 
 
 
 
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -705,142 +476,65 @@ t=0 当前尝试的票号                                   C        当前存�
 
 
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
 
 
 
   
 
   
+      
 
-  
-
-  
-  
-
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
         }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
         }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
 
-
-  
+    
 
   
 
