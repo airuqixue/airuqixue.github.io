@@ -28,7 +28,7 @@
 <meta property="og:description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-22T12:16:50.000Z">
-<meta property="article:modified_time" content="2022-11-16T07:19:09.426Z">
+<meta property="article:modified_time" content="2023-02-07T02:49:23.079Z">
 <meta property="article:author" content="Shaoxin Yin">
 <meta property="article:tag" content="随机变量 累计分布 CDF RV PMF">
 <meta name="twitter:card" content="summary">
@@ -197,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-16 15:19:09" itemprop="dateModified" datetime="2022-11-16T15:19:09+08:00">2022-11-16</time>
+                <time title="修改时间：2023-02-07 10:49:23" itemprop="dateModified" datetime="2023-02-07T10:49:23+08:00">2023-02-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,14 +278,14 @@
 <p>$p_X(x)=^def P(X=x)$</p>
 <p>Ex  X 为公平骰子的点数<br> $p_x(3) = P(X=3) = \frac{1}{6}$</p>
 <p> OK , 那么PMF和CDF有啥关系呢？</p>
-<p> $F<em>x(2.5) = P(X\leq 2.5)$<br> $=P(X=2)+P(X=1)+P(X=0)+…$<br> $=\sum</em>{n=-\infty}^{2=|2.5|} P(x=n)$</p>
+<p> $F_x(2.5) = P(X\leq 2.5)$</p>
+<p> $=P(X=2)+P(X=1)+P(X=0)+…$</p>
+<p> $=\sum_{n=-\infty}^{2=|2.5|} P(x=n)$</p>
 <p> 对于任何 x</p>
-<p> $F<em>X(x) = \sum</em>{x=-\infty}^{|x|}P_X(n)$</p>
-<p>注意 |x|  不是绝对值，而是最靠近X，不大于X的整数</p>
+<script type="math/tex; mode=display">F_X(x)=\sum_{x=-\infty}^{|x|}P_X(n)</script><p>注意 |x|  不是绝对值，而是最靠近X，不大于X的整数</p>
 <p>Ex PMF -&gt;  CDF</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1/4 1/4 1/2</span><br><span class="line">-|---|---|-----&gt;x</span><br><span class="line"> 3   4   5      </span><br></pre></td></tr></table></figure>
-<p>$F<em>X(x) = \sum</em>{n=-\infty}^{|x|} p_X(x)$</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">            |------- </span><br><span class="line">            |</span><br><span class="line">      |-----| 1</span><br><span class="line">      | 2/4</span><br><span class="line">|-----|</span><br><span class="line">| 1/4</span><br><span class="line">|-|---------------------------</span><br><span class="line">3 3.2 4     5</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">F_X(x) = \sum_{n=-\infty}^{|x|} p_X(x)</script><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">            |------- </span><br><span class="line">            |</span><br><span class="line">      |-----| 1</span><br><span class="line">      | 2/4</span><br><span class="line">|-----|</span><br><span class="line">| 1/4</span><br><span class="line">|-|---------------------------</span><br><span class="line">3 3.2 4     5</span><br></pre></td></tr></table></figure>
 <p>Ex CDF -&gt; PMF</p>
 <p>$p_X(x) = F_X(x^+) - F_X(x^-)$</p>
 <p>跳跃的阶梯高度</p>

@@ -28,7 +28,7 @@
 <meta property="og:description" content="生活中的一些例子，可以归纳出一些概率求取方法。叶老师的“数数算几率”">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-19T09:36:02.000Z">
-<meta property="article:modified_time" content="2019-04-19T08:20:33.408Z">
+<meta property="article:modified_time" content="2023-02-07T03:02:26.956Z">
 <meta property="article:author" content="Shaoxin Yin">
 <meta property="article:tag" content="古典概率 几率  Probability">
 <meta name="twitter:card" content="summary">
@@ -189,10 +189,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-04-19 17:36:02 / 修改时间：16:20:33" itemprop="dateCreated datePublished" datetime="2019-04-19T17:36:02+08:00">2019-04-19</time>
+              <time title="创建时间：2019-04-19 17:36:02" itemprop="dateCreated datePublished" datetime="2019-04-19T17:36:02+08:00">2019-04-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-02-07 11:02:26" itemprop="dateModified" datetime="2023-02-07T11:02:26+08:00">2023-02-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -266,8 +272,7 @@
 <p>$\tbinom{10}{4}  \tbinom{6}{3}  \tbinom{3}{2}  \tbinom{1}{1} = \frac{10!}{4!3!2!1!}$</p>
 <p>一般化  若有 m 种不同的物体，每次选取一个放回，依顺序选取n次。 如此共有 $m^n$ 种结果。 其中第 1 种出现 $\lbrace n_1\rbrace$ 次，<br>且第 2 种出现 $\lbrace n_2\rbrace$ 次， 且第 m 种出现 $\lbrace n_m\rbrace$ 次，这样的实验结果有多少种。</p>
 <p>$\tbinom{n}{n_1} \tbinom{n-n_1}{n_2}  \tbinom{n_m}{n_m}  = \frac{n!}{n_1!n_2!…n_m!}$</p>
-<p>$(x<em>1 + x_2 + .. + x_m)^n $<br>$=\sum</em>{n<em>1 =0}^n\sum</em>{n<em>2 =0}^n…\sum</em>{n_m =0}^n\frac{n!}{n_1!n_2!…n_m!}x_1^{n_1}x_2^{n_2}…x_m^{n_m}$</p>
-<p>Multinomial coefficient $\frac{n!}{n_1!n_2!…n_m!}$</p>
+<script type="math/tex; mode=display">(x_1 + x_2 + .. + x_m)^n</script><script type="math/tex; mode=display">=\sum_{n_1 =0}^n\sum_{n_2 =0}^n...\sum_{n_m =0}^n\frac{n!}{n_1!n_2!...n_m!}x_1^{n_1}x_2^{n_2}...x_m^{n_m}</script><p>Multinomial coefficient $\frac{n!}{n_1!n_2!…n_m!}$</p>
 <h2 id="古典概率数数算概率"><a href="#古典概率数数算概率" class="headerlink" title="古典概率数数算概率"></a>古典概率数数算概率</h2><p>若一事件包含数个实验结果，每个实验结果发生的概率一样那么</p>
 <ul>
 <li>1 先计算一个实验结果的概率</li>

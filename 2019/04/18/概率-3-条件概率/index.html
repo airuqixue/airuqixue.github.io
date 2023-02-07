@@ -28,7 +28,7 @@
 <meta property="og:description" content="生活中常常遇到很多事情已经发生，那么这些发生的事情对我们的决策有多少影响呢？我们引入了条件概率。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-18T06:36:02.000Z">
-<meta property="article:modified_time" content="2019-04-18T10:18:16.958Z">
+<meta property="article:modified_time" content="2023-02-07T03:03:44.209Z">
 <meta property="article:author" content="Shaoxin Yin">
 <meta property="article:tag" content="概率 几率 Conditional Probability">
 <meta name="twitter:card" content="summary">
@@ -189,10 +189,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-04-18 14:36:02 / 修改时间：18:18:16" itemprop="dateCreated datePublished" datetime="2019-04-18T14:36:02+08:00">2019-04-18</time>
+              <time title="创建时间：2019-04-18 14:36:02" itemprop="dateCreated datePublished" datetime="2019-04-18T14:36:02+08:00">2019-04-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-02-07 11:03:44" itemprop="dateModified" datetime="2023-02-07T11:03:44+08:00">2023-02-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -267,8 +273,7 @@
 <p>概率上的独立事件，可以通过观察，统计的数据，分析两事件是否独立。</p>
 <h3 id="引申-多事件的独立"><a href="#引申-多事件的独立" class="headerlink" title="引申-多事件的独立"></a>引申-多事件的独立</h3><p>若 事件$A_1, A_2,…,A_n$  满足下列条件，则称此 n 事件独立 (n &gt; 2)</p>
 <p>   从中任选 m 事件 $ A<em>{i_1}, A</em>{i<em>2}, …,A</em>{i_m} $ 均满足</p>
-<p>   $P(A<em>{i_1}\cap A</em>{i<em>2}\cap … \cap A</em>{i<em>m}) = P(A</em>{i<em>1})P(A</em>{i<em>2})…P(A</em>{i_m}), m = 2, 3,…,n$</p>
-<p> Ex: n = 5, $A_1, A_2,…,A_5$</p>
+<script type="math/tex; mode=display">P(A_{i_1}\cap A_{i_2}\cap ... \cap A_{i_m}) = P(A_{i_1})P(A_{i_2})...P(A_{i_m}), m = 2, 3,...,n</script><p> Ex: n = 5, $A_1, A_2,…,A_5$</p>
 <p> 如果5个事件要独立，需要判断的情况有</p>
 <p> m=2 时候，$P(A_1\cap A_2) = P(A_1)P(A_2) P(A_1\cap A_3)=P(A_1)P(A_3) … $<br> m=3 时候, $P(A_1]cap A_2\cap A_3) = P(A_1)P(A_2)P(A_3) … $<br> m=4 时候, …<br> m=5 时候, …</p>
 <p> 必须全部成立。 等式个数组合 为  $\tbinom{n}{2} + \tbinom{n}{3} + … + \tbinom{n}{n}$</p>
