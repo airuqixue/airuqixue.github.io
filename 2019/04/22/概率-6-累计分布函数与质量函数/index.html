@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.mindincode.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="概率-累积分布函数CDF与质量分布函数PMF">
-<meta property="og:url" content="http://www.mindincode.com/2019/04/22/%E6%A6%82%E7%8E%87-6-%E7%B4%AF%E8%AE%A1%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E4%B8%8E%E8%B4%A8%E9%87%8F%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:url" content="http://example.com/2019/04/22/%E6%A6%82%E7%8E%87-6-%E7%B4%AF%E8%AE%A1%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E4%B8%8E%E8%B4%A8%E9%87%8F%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
 <meta property="og:description" content="什么是累计分布函数？他有什么用呢？上一节讲了随机变量，这里我们继续沿用这个概念来说明累积分布函数。">
 <meta property="og:locale" content="zh_CN">
@@ -33,7 +33,7 @@
 <meta property="article:tag" content="随机变量 累计分布 CDF RV PMF">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.mindincode.com/2019/04/22/%E6%A6%82%E7%8E%87-6-%E7%B4%AF%E8%AE%A1%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E4%B8%8E%E8%B4%A8%E9%87%8F%E5%87%BD%E6%95%B0/">
+<link rel="canonical" href="http://example.com/2019/04/22/%E6%A6%82%E7%8E%87-6-%E7%B4%AF%E8%AE%A1%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E4%B8%8E%E8%B4%A8%E9%87%8F%E5%87%BD%E6%95%B0/">
 
 
 <script id="page-configurations">
@@ -167,7 +167,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/04/22/%E6%A6%82%E7%8E%87-6-%E7%B4%AF%E8%AE%A1%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E4%B8%8E%E8%B4%A8%E9%87%8F%E5%87%BD%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/22/%E6%A6%82%E7%8E%87-6-%E7%B4%AF%E8%AE%A1%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E4%B8%8E%E8%B4%A8%E9%87%8F%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">

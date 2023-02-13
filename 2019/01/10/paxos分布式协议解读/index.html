@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.mindincode.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="Paxos 是为了解决分布式一致性的问题而提出来的算法。这个问题在1982年， Leslie Lamport发表论文 “The Byzantine Generals Problem”,通过“拜占庭将军”问题引出。在1990年，Lamport又通过一个场景，描述了解决该问题的算法Paxos:    在一个叫做Paxos的小岛上，议员们通过消息传递达成共识来通过法令。传递消息的人员和议员都是兼职的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="paxos分布式协议解读">
-<meta property="og:url" content="http://www.mindincode.com/2019/01/10/paxos%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E8%A7%A3%E8%AF%BB/index.html">
+<meta property="og:url" content="http://example.com/2019/01/10/paxos%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E8%A7%A3%E8%AF%BB/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
 <meta property="og:description" content="Paxos 是为了解决分布式一致性的问题而提出来的算法。这个问题在1982年， Leslie Lamport发表论文 “The Byzantine Generals Problem”,通过“拜占庭将军”问题引出。在1990年，Lamport又通过一个场景，描述了解决该问题的算法Paxos:    在一个叫做Paxos的小岛上，议员们通过消息传递达成共识来通过法令。传递消息的人员和议员都是兼职的">
 <meta property="og:locale" content="zh_CN">
@@ -33,7 +33,7 @@
 <meta property="article:tag" content="分布式  一致性协议">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.mindincode.com/2019/01/10/paxos%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E8%A7%A3%E8%AF%BB/">
+<link rel="canonical" href="http://example.com/2019/01/10/paxos%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E8%A7%A3%E8%AF%BB/">
 
 
 <script id="page-configurations">
@@ -167,7 +167,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2019/01/10/paxos%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E8%A7%A3%E8%AF%BB/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/10/paxos%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E8%A7%A3%E8%AF%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">

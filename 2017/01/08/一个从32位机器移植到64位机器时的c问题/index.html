@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.mindincode.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一个从32位机器移植到64位机器时的c问题">
-<meta property="og:url" content="http://www.mindincode.com/2017/01/08/%E4%B8%80%E4%B8%AA%E4%BB%8E32%E4%BD%8D%E6%9C%BA%E5%99%A8%E7%A7%BB%E6%A4%8D%E5%88%B064%E4%BD%8D%E6%9C%BA%E5%99%A8%E6%97%B6%E7%9A%84c%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:url" content="http://example.com/2017/01/08/%E4%B8%80%E4%B8%AA%E4%BB%8E32%E4%BD%8D%E6%9C%BA%E5%99%A8%E7%A7%BB%E6%A4%8D%E5%88%B064%E4%BD%8D%E6%9C%BA%E5%99%A8%E6%97%B6%E7%9A%84c%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Xin&#39;s Blog">
 <meta property="og:description" content="在c语言编程中，我们说int值是32位或64位，是取决于机器的，不像java，int就是32位。那么下面我遇到的问题，正是由于对此理解不够深刻，产生的bug，故记录下来，以便大家参考。编程中的一个小小细节，将会引发一些诡异的坑，这些其实都是学艺不精的体现。">
 <meta property="og:locale" content="zh_CN">
@@ -34,7 +34,7 @@
 <meta property="article:tag" content="移植">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.mindincode.com/2017/01/08/%E4%B8%80%E4%B8%AA%E4%BB%8E32%E4%BD%8D%E6%9C%BA%E5%99%A8%E7%A7%BB%E6%A4%8D%E5%88%B064%E4%BD%8D%E6%9C%BA%E5%99%A8%E6%97%B6%E7%9A%84c%E9%97%AE%E9%A2%98/">
+<link rel="canonical" href="http://example.com/2017/01/08/%E4%B8%80%E4%B8%AA%E4%BB%8E32%E4%BD%8D%E6%9C%BA%E5%99%A8%E7%A7%BB%E6%A4%8D%E5%88%B064%E4%BD%8D%E6%9C%BA%E5%99%A8%E6%97%B6%E7%9A%84c%E9%97%AE%E9%A2%98/">
 
 
 <script id="page-configurations">
@@ -168,7 +168,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.mindincode.com/2017/01/08/%E4%B8%80%E4%B8%AA%E4%BB%8E32%E4%BD%8D%E6%9C%BA%E5%99%A8%E7%A7%BB%E6%A4%8D%E5%88%B064%E4%BD%8D%E6%9C%BA%E5%99%A8%E6%97%B6%E7%9A%84c%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/01/08/%E4%B8%80%E4%B8%AA%E4%BB%8E32%E4%BD%8D%E6%9C%BA%E5%99%A8%E7%A7%BB%E6%A4%8D%E5%88%B064%E4%BD%8D%E6%9C%BA%E5%99%A8%E6%97%B6%E7%9A%84c%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
