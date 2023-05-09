@@ -398,7 +398,7 @@ z^l_j = \sum_k w^l_{jk}a^{l-1}_k + b</script><p>求导可知，$\frac{\partial z
 \frac{\partial C}{\partial b^l_j} = \xi^l_j</script><p>但是还有一个问题，我们现在只知道最后一层的误差，在求 每一层的权重和偏置都需要知道每一层的误差才可以。</p>
 <p>同样，我们利用链式法则，求导. 注意这时候的误差不是最后一层, 我们通过链式法则，将从z的后一层开始再绕到</p>
 <script type="math/tex; mode=display">
-\xi^l_j = \frac{\partial C}{\partial z^l_j}=\sum_k\frac{\partial C}{z^{l+1}_k}\frac{\partial z^{l+1}_k}{\partial a^l_j}\frac{\partial a^l_j}{\partial z^l_j}</script><p>继续</p>
+\xi^l_j = \frac{\partial C}{\partial z^l_j}=\sum_k\frac{\partial C}{\partial z^{l+1}_k}\frac{\partial z^{l+1}_k}{\partial a^l_j}\frac{\partial a^l_j}{\partial z^l_j}</script><p>继续</p>
 <script type="math/tex; mode=display">
 \xi_j^l = \sum_k\xi_k^{l+1}.w_{kj}^{l+1}.g^\prime(z_j^l)</script><p>注意w的下标，调换一下kj顺序(转置)就和我们定义的$w$一致, 写成向量模式</p>
 <script type="math/tex; mode=display">
