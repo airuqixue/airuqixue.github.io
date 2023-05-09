@@ -400,7 +400,7 @@ z^l_j = \sum_k w^l_{jk}a^{l-1}_k + b</script><p>求导可知，$\frac{\partial z
 <script type="math/tex; mode=display">
 \xi^l_j = \frac{\partial C}{\partial z^l_j}=\sum_k\frac{\partial C}{\partial z^{l+1}_k}\frac{\partial z^{l+1}_k}{\partial a^l_j}\frac{\partial a^l_j}{\partial z^l_j}</script><p>继续</p>
 <script type="math/tex; mode=display">
-\xi_j^l = \sum_k\xi_k^{l+1}.w_{kj}^{l+1}.g^\prime(z_j^l)</script><p>注意w的下标，调换一下kj顺序(转置)就和我们定义的$w$一致, 写成向量模式</p>
+\xi_j^l = \sum_k\xi_k^{l+1}.w_{kj}^{l+1}.g^\prime(z_j^l)</script><p>注意w的下标，调换一下kj顺序(转置)就和我们定义的$w$一致,这里是链式模式，之前的w下表jk的层次先后顺序是反的，所以这里要先从k，到j。 写成向量模式</p>
 <script type="math/tex; mode=display">
 \xi^l = ((w^{l+1})^T\xi^{l+1})\odot g^\prime(z^l)</script><p>这样就可以计算每一层的误差了。至此，我们可以开始方向传播算法。</p>
 <h1 id="特征缩放（Feature-scaling）"><a href="#特征缩放（Feature-scaling）" class="headerlink" title="特征缩放（Feature scaling）"></a>特征缩放（Feature scaling）</h1><p>万事俱备，如果要继续编码，那就要面对一个实际问题。那么不可避免面对这个问题。特征缩放。</p>
