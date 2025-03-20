@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文主要讲解一下论文里的一些难理解的地方能够做到编码无碍，也算是一种归纳总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kademlia编码解读">
+<meta property="og:url" content="http://example.com/2023/02/22/kademlia%E7%BC%96%E7%A0%81%E8%A7%A3%E8%AF%BB/index.html">
+<meta property="og:site_name" content="Xin&#39;s Blog">
+<meta property="og:description" content="本文主要讲解一下论文里的一些难理解的地方能够做到编码无碍，也算是一种归纳总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-22T01:28:19.000Z">
+<meta property="article:modified_time" content="2025-02-09T10:00:32.585Z">
+<meta property="article:author" content="Shaoxin Yin">
+<meta property="article:tag" content="p2p kademlia">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/02/22/kademlia%E7%BC%96%E7%A0%81%E8%A7%A3%E8%AF%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>kademlia编码解读 | Xin's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Xin's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">I love youbai</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/22/kademlia%E7%BC%96%E7%A0%81%E8%A7%A3%E8%AF%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Shaoxin Yin">
+      <meta itemprop="description" content="A programmer's mind">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kademlia编码解读
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-02-22 09:28:19" itemprop="dateCreated datePublished" datetime="2023-02-22T09:28:19+08:00">2023-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-02-09 18:00:32" itemprop="dateModified" datetime="2025-02-09T18:00:32+08:00">2025-02-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<p>本文主要讲解一下论文里的一些难理解的地方<br>能够做到编码无碍，也算是一种归纳总结<br><span id="more"></span></p>
+<h1 id="键空间"><a href="#键空间" class="headerlink" title="键空间"></a>键空间</h1><h2 id="容量"><a href="#容量" class="headerlink" title="容量"></a>容量</h2><p>  这里用的是160位。这个如果我们理解模运算，就可以把数值控制在一个范围。这是环状的分布式哈希表经常使用的。而本文使用了异或，也是很精妙。<br>  直接异或，就可以求的一个逻辑上的“距离”。160位理论上可以容纳2^160 个节点。 这些节点的每一位，我们都可以使用树的节点来表示。由于是二进制，这就是一颗二叉树，每个节点其实<br>  就是叶子结点，从根到叶子结点的路径，就是这个节点的二进制编码。<br>  IPFS使用sha256 ，是256位 字节<br>  Ethereum使用的是SHA3 算法，也是256位 32 字节</p>
+<h2 id="子树划分"><a href="#子树划分" class="headerlink" title="子树划分"></a>子树划分</h2><p>  子树其实就是根据“距离”来划分已知节点，这样方便路由。需要根据本节点所在位置划分。划分很简单，从根开始，每次切两半（根的左右子树），如果节点自己不在其中一半，<br>  那么那一半就算完成了，接着再对节点所在一半重复划分操作。</p>
+<p>  问题来了，论文提到一个最短唯一路径，如果我们构建一颗包含了所有节点的树，那么树高达160层。实在不方便展现，而且，现实中，也不可能有那么多的节点。那么最短唯一路径就变成了<br>  一个很好的唯一节点编码。注意这里的最短唯一路径，是针对某一个节点自己而言。也就是如果一个节点只认识另外一个节点，那么的最短唯一路径（二进制编码）可能是 0，1 也可能是 0 01 或者 1 10 等。这取决于这两个节点的公共父节点（公共前缀）长度。这一点是比较难理解的。通过构建一颗二叉树，就能表示出最短唯一路径，这时候，节点不仅是叶子结点。</p>
+<p>  关于公共前缀，我们发现，拥有相同的最长公共前缀(LCP)的节点都在一个子树中。那么LCP这个概念很重要，可以直接成为子树的索引。</p>
+<p>   距离在树中的表示，论文里有说明“两个ID之间的距离大小就是包含了他们的最小子树的高度”。与ID x 最近的就是他的兄弟节点，（不存在没有兄弟节点的情况，这是最短唯一路径，如果兄弟节点不在，那么直接用父节点表示即可，所以不可能说兄弟节点不存在）当然如果兄弟节点有多个（可能是父节点的父节点以上），那么就是对应的最近节点就是x的对应空分枝（下一个不在树中的位翻转后对应层上那个节点的最近节点）太绕脑。其实这个不要紧，遇到长短不一致的路径，短路径补齐就OK，这个补齐主要是往右把未显示（因为是最短唯一路径）的显示就好。</p>
+<p>  子树划分好以后，节点查找就能够通过不断缩小范围，最终找到需要查询的节点（很可能不在，那就是最近的，而且是多个）。证明收敛。</p>
+<h1 id="k-桶"><a href="#k-桶" class="headerlink" title="k-桶"></a>k-桶</h1><p>  这个概念应该把子树看作桶。那么每个桶装的，都是有共同前缀的节点。这里有个全局参数，每个桶 都有限制，我们不需要装太多。那么问题就来了，<br>  有两种方式构建这个桶，动态和静态。论文中是动态的，这样的好处是节省空间，但是带来了复杂性，桶分裂。<br>  ETH这类采用静态，也就是一来就创建好所有的桶。如果是160位的 ID，那么也就是最多160个桶。这样简单不涉及桶分裂。<br>  关于桶的分裂：<br>      一个桶就是一个list，这个list大小是有限制的，如果桶不满，那么无需分裂，直接加入到list。这时就有问题了，如果一个LCP很大的节点来了，那么他的索引很大，超过了桶的索引怎么办？<br>      答案是以桶的索引为准，也就是那些拥有LCP很大，也就是距离很近的节点，全都扔到桶的最大索引的那个桶中，知道这个桶满了，才会进行分裂。<br>  关于桶的更新：<br>    桶存在，那么看是否满了，满了需要检查第一个（这里最后还是最前，搞清楚就行，一半放最后就是表示最新的），通过 PING判断是否可用，如果可用，则放弃添加，并移到最后，如果不可用，就替换<br>    桶不存在，那么放到索引最大的桶，同样检查是否满，满了就要分裂。分裂完再一次加入。避免频繁更新节点。只有不可用才会移出，避免ddos攻击</p>
+<h1 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h1><p>协议是一些节点的动作，这些动作会影响到节点的状态。这些状态包括 k-buckets（路由表） ，存储的节点。实际还要考虑网络通讯的上下文，会话管理等问题<br>协议分为发起，与接收。需要设置超时，不同的状态是否需要更新节点状态。</p>
+<h2 id="PING"><a href="#PING" class="headerlink" title="PING"></a>PING</h2><p>   这是查看指定节点是否在线的协议。</p>
+<h2 id="FIND-NODE"><a href="#FIND-NODE" class="headerlink" title="FIND_NODE"></a>FIND_NODE</h2><p>  论文里说的很抽象。大概意思说到了。但是具体流程我们还是整理下<br>  首先，这里出了桶的最大限制k外， 还有个全局参数，也就是并发数，暂时叫做alpha ， 论文假设为3<br>  参数， 这个协议必须携带一个参数，目标ID，这里叫做Target ID， 简称 TID<br>  流程可以如下：<br>      1，根据TID与当前节点ID的距离，定位到K桶（如果桶是满的，则有k个，如果不足alpha个，就需要从次一级近的桶中寻找）<br>      这里要选择alpha个目标节点，然后，并发的发送FIND_NODE协议<br>      2， 接收到FIND_NODE的节点，只需要尽力返回与TID最近的节点信息就OK， 不足也没关系。<br>      3，当前发送节点在发送的同时，需要等待返回的结果。这里需要判断返回节点信息与TID的距离，如果距离更近，那么我们继续向此节点发送FIND_NODE<br>         这里有比较复杂的地方。首先返回结果不可预期，甚至可能超时，对超时节点需要记录，然后从发送节点的候选节点中删除。其次，返回结果有可能是已经发送过FIND_NODE的节点信息，此时需要过滤掉。最后我们肯定要问，什么时候结束呢？我们已经向k个节点发送了FIND_NODE，并且都得到响应（不响应的不算），<br>         还有就是搜索深度和广度的问题。如果一轮FIND_NODE下来没有找到更近的节点，那么我们就继续从备选节点中发送FIND_NODE，也就是说如果一轮FIND_NODE下来，如果返回<br>         的是更近的节点，那么这些节点将作为最新的备选节点。<br>      4，重复第一步，直到发送K个FIND_NODE协议并得到响应（这里如果备选节点用完，也需要结束，初期节点不够多的情况）</p>
+<h2 id="FIND-VALUE"><a href="#FIND-VALUE" class="headerlink" title="FIND_VALUE"></a>FIND_VALUE</h2><h2 id="STORE-VALUE"><a href="#STORE-VALUE" class="headerlink" title="STORE_VALUE"></a>STORE_VALUE</h2><h1 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h1>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/p2p-kademlia/" rel="tag"># p2p kademlia</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BC%96%E7%A0%81/" rel="prev" title="深度学习 Step By Step (二，实战篇)">
+      <i class="fa fa-chevron-left"></i> 深度学习 Step By Step (二，实战篇)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/04/25/yb-walk/" rel="next" title="徒步雨崩，与神近距离接触">
+      徒步雨崩，与神近距离接触 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%AE%E7%A9%BA%E9%97%B4"><span class="nav-number">1.</span> <span class="nav-text">键空间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">容量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%90%E6%A0%91%E5%88%92%E5%88%86"><span class="nav-number">1.2.</span> <span class="nav-text">子树划分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#k-%E6%A1%B6"><span class="nav-number">2.</span> <span class="nav-text">k-桶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.</span> <span class="nav-text">协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PING"><span class="nav-number">3.1.</span> <span class="nav-text">PING</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FIND-NODE"><span class="nav-number">3.2.</span> <span class="nav-text">FIND_NODE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FIND-VALUE"><span class="nav-number">3.3.</span> <span class="nav-text">FIND_VALUE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STORE-VALUE"><span class="nav-number">3.4.</span> <span class="nav-text">STORE_VALUE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0"><span class="nav-number">4.</span> <span class="nav-text">更新</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shaoxin Yin"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Shaoxin Yin</p>
+  <div class="site-description" itemprop="description">A programmer's mind</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/airuqixue" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;airuqixue" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shaoxinyin@gmail.com" title="E-Mail → mailto:shaoxinyin@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2014 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shaoxin Yin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

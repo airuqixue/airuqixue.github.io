@@ -32,8 +32,9 @@
 <meta property="og:image" content="http://example.com/images/nueralnetwork.png">
 <meta property="og:image" content="http://example.com/images/mlog.png">
 <meta property="og:image" content="http://example.com/images/mlogx.png">
+<meta property="og:image" content="http://example.com/images/bp.jpg">
 <meta property="article:published_time" content="2020-12-09T07:02:00.000Z">
-<meta property="article:modified_time" content="2021-09-03T06:26:12.283Z">
+<meta property="article:modified_time" content="2025-03-20T06:51:24.391Z">
 <meta property="article:author" content="Shaoxin Yin">
 <meta property="article:tag" content="深度学习 梯度下降 反向传播 正则化  特征缩放">
 <meta name="twitter:card" content="summary">
@@ -203,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-03 14:26:12" itemprop="dateModified" datetime="2021-09-03T14:26:12+08:00">2021-09-03</time>
+                <time title="修改时间：2025-03-20 14:51:24" itemprop="dateModified" datetime="2025-03-20T14:51:24+08:00">2025-03-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,8 +280,8 @@
 <script type="math/tex; mode=display">z^3_1 = w_{11}^2a_1^2 + w_{12}^2a_2^2 + w_{13}^2a_3^2  + b^2_1</script><script type="math/tex; mode=display">z^3_2 = w_{21}^2a_1^2 + w_{22}^2a_2^2 + w_{23}^2a_3^2 + b^2_2</script><script type="math/tex; mode=display">a_1^3 = g(z_1^3)</script><script type="math/tex; mode=display">a_2^3=g(z_2^3)</script><p>这里的 $a_1^3$   与  $a_2^3$ 就是输出层的激活单元。</p>
 <p>这里其实可以把偏置看做激活单元值为1的一个新增激活单元。但是这样似乎不太利于理解，我们暂时分开来说。</p>
 <p>通过数学归纳法，我们可以得出模型公式，首先根据输入来看。</p>
-<script type="math/tex; mode=display">z_j^l = \sum_kw_{jk}^la_j^{l-1} + b^l_j</script><p>最终公式</p>
-<script type="math/tex; mode=display">a_j^l = g(\sum_kw_{jk}^la_j^{l-1} + b^l_j)</script><p>通过循环，我们可以通过输入，得到输出单元。通过矩阵运算，我们可以简化 公式</p>
+<script type="math/tex; mode=display">z_j^l = \sum_kw_{jk}^la_k^{l-1} + b^l_j</script><p>最终公式</p>
+<script type="math/tex; mode=display">a_j^l = g(\sum_kw_{jk}^la_k^{l-1} + b^l_j)</script><p>通过循环，我们可以通过输入，得到输出单元。通过矩阵运算，我们可以简化 公式</p>
 <script type="math/tex; mode=display">a^l =g(w^Ta^{l-1} + b^l)</script><p>将权重矩阵转置后乘以（矩阵乘法）向量a（这里考虑单个样本，如果多个样本可以a可以看成矩阵，每一列都是一个样本）</p>
 <p>模型出来了，我们的目的是找到一组权重和偏置，使得对于每一个样本，都能得到与预期相符的结果。</p>
 <p>接下来考虑引入成本函数（损失函数）</p>
@@ -325,12 +326,16 @@
 <p>假设</p>
 <script type="math/tex; mode=display">\nabla C = (\frac{\partial C}{\partial w_1},\frac{\partial C}{\partial w_2},\frac{\partial C}{\partial w_3},...)</script><p>则：</p>
 <script type="math/tex; mode=display">\triangle C \approx \nabla C . \triangle w</script><p>$\nabla C$ 就是梯度向量。好了问题来了，如何选择 $\triangle w$  使得我们的 $\triangle C$变化最快呢?  让我们看看柯西斯瓦茨不等式</p>
-<p>(Cauchy-Buniakowsky-Schwarz )</p>
-<p>$|a|.|b|\geq|a.b|$ ,  仅当 a 的每一个分量与b的每一分量相等时，取等号。也就是a.b最大。</p>
+<p>(Cauchy-Buniakowsky-Schwarz )<br>离散式的变量关系<br>$(a^2+b^2)(c^2+d^2)\geq(ac+bd)^2$  (当且仅当 ad=bc时取等号)</p>
+<p>证明很简单 ：<br>两边展开<br>左边=$a^2c^2+a^2d^2+b^2c^2+b^2d^2$</p>
+<p>右边=$a^2c^2+2abcd+b^2d^2$</p>
+<p>根据均值不等式 $(ad+bc)^2\geq 0$ 可知 左边 $\geq$ 右边</p>
+<p>对于向量看做点积形式，那么两个向量的点积最大，那么他们的方向必须一致，原点箭头表示时重合（长度可以不一样，通过后面学习率来控制）</p>
+<p>$|a|.|b|\geq|a.b|$ ,  仅当 a 的每一个分量与b的每一分量相等(或者等比)时，取等号。也就是a.b最大。</p>
 <script type="math/tex; mode=display">
 ||\triangle w|| = \sqrt{\sum(\triangle w)^2} = \epsilon</script><p>写成不等式</p>
 <script type="math/tex; mode=display">
-||\nabla C||.||\triangle w|| \geq ||\triangle C||</script><p>根据柯西斯瓦茨不等式，只有取 $\triangle w$ 与 $\nabla C$ 一致(向量中每一个分量都相同)， 可以让 $\triangle C$ 变化最快。这里我们加了一个参数，学习率，也就是令</p>
+||\nabla C||.||\triangle w|| \geq ||\triangle C||</script><p>根据柯西斯瓦茨不等式，只有取 $\triangle w$ 与 $\nabla C$ 一致(向量中每一个分量都相同，也就是方向相同）， 可以让 $\triangle C$ 变化最快。这里我们加了一个参数，学习率，也就是令</p>
 <script type="math/tex; mode=display">
 \triangle w = -k \nabla C</script><p>因为是下降，取负号， k表示学习速率。注意取和 梯度一样的向量，是一个变化最快的方向，除了方向还要一定的学习速率。k 这个速率不能太大，也不能太小。太小学习速度慢，太快则偏离严重（已经不再此梯度的范围内）。</p>
 <p>接下来就是梯度下降算法</p>
@@ -393,14 +398,17 @@ C = -(y\ln a + (1-y)\ln(1-a))</script><p>那么：</p>
 z^l_j = \sum_k w^l_{jk}a^{l-1}_k + b</script><p>求导可知，$\frac{\partial z^l}{\partial w^l} = a^{l-1}$ </p>
 <p>所以  ：</p>
 <script type="math/tex; mode=display">
-\frac{\partial C}{\partial w^l_jk} = a^{l-1}_k\xi^l_j</script><p>对于偏置同理</p>
+\frac{\partial C}{\partial w^l_{jk}} = a^{l-1}_k\xi^l_j</script><p>对于偏置同理</p>
 <script type="math/tex; mode=display">
 \frac{\partial C}{\partial b^l_j} = \xi^l_j</script><p>但是还有一个问题，我们现在只知道最后一层的误差，在求 每一层的权重和偏置都需要知道每一层的误差才可以。</p>
 <p>同样，我们利用链式法则，求导. 注意这时候的误差不是最后一层, 我们通过链式法则，将从z的后一层开始再绕到</p>
+<p><img src="/images/bp.jpg" alt="反向传播"></p>
 <script type="math/tex; mode=display">
-\xi^l_j = \frac{\partial C}{\partial z^l_j}=\sum_k\frac{\partial C}{z^{l+1}_k}\frac{\partial z^{l+1}_k}{\partial a^l_j}\frac{\partial a^l_j}{\partial z^l_j}</script><p>继续</p>
+\xi^l_j = \frac{\partial C}{\partial z^l_j}=\sum_k\frac{\partial C}{\partial z^{l+1}_k}\frac{\partial z^{l+1}_k}{\partial a^l_j}\frac{\partial a^l_j}{\partial z^l_j}</script><p>继续</p>
 <script type="math/tex; mode=display">
-\xi_j^l = \sum_k\xi_k^{l+1}.w_{kj}^{l+1}.g^\prime(z_j^l)</script><p>注意w的下标，调换一下kj顺序(转置)就和我们定义的$w$一致, 写成向量模式</p>
+\xi_j^l = \sum_k\xi_k^{l+1}.w_{kj}^{l+1}.g^\prime(z_j^l)</script><p>注意w的下标，调换一下kj顺序(转置)就和我们定义的$w$一致。 </p>
+<p>定义中 l层的第k个神经元链接l+1层的第j个神经元，之前是后先顺序jk，现在是先后顺序kj，注意这里差别。链式法则求从 损失函数到Z的偏导，可以从Z的下一层开始。$Z_k$ 如果是输入，{Z_j} 可以看成输出</p>
+<p>写成向量模式</p>
 <script type="math/tex; mode=display">
 \xi^l = ((w^{l+1})^T\xi^{l+1})\odot g^\prime(z^l)</script><p>这样就可以计算每一层的误差了。至此，我们可以开始方向传播算法。</p>
 <h1 id="特征缩放（Feature-scaling）"><a href="#特征缩放（Feature-scaling）" class="headerlink" title="特征缩放（Feature scaling）"></a>特征缩放（Feature scaling）</h1><p>万事俱备，如果要继续编码，那就要面对一个实际问题。那么不可避免面对这个问题。特征缩放。</p>
@@ -529,7 +537,7 @@ w^\prime = (1-\frac{k\lambda}{n})w - \frac{k}{m}\sum_x\frac{\partial C_x}{\parti
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -540,7 +548,7 @@ w^\prime = (1-\frac{k\lambda}{n})w - \frac{k}{m}\sum_x\frac{\partial C_x}{\parti
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -575,7 +583,7 @@ w^\prime = (1-\frac{k\lambda}{n})w - \frac{k}{m}\sum_x\frac{\partial C_x}{\parti
 <div class="copyright">
   
   &copy; 2014 – 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
