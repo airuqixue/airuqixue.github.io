@@ -164,6 +164,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/01/cnn_backprogagation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Shaoxin Yin">
+      <meta itemprop="description" content="A programmer's mind">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xin's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/05/01/cnn_backprogagation/" class="post-title-link" itemprop="url">深度学习-卷积神经网络中的反向传播 (翻译)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-05-01 12:02:00" itemprop="dateCreated datePublished" datetime="2025-05-01T12:02:00+08:00">2025-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-11 16:54:18" itemprop="dateModified" datetime="2025-06-11T16:54:18+08:00">2025-06-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CNN/" itemprop="url" rel="index"><span itemprop="name">深度学习 CNN</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>卷积神经网络中的反向传播</p>
+<p>Jefkine, 5, September 2016</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>卷积神经网络(CNNs) 是多层感知器(MLP)的一种受生物学启发的变体。与多层感知器中每个神经元都有一个单独的权重不同，卷积神经网络中的神经元共享权重。这种权重共享最终减少了可训练权重的总数，从而引入了稀疏性。</p>
+<p>利用权重共享策略，神经元能够利用由权重构成的卷积滤波器对数据进行卷积运算。随后进行池化操作，这是一种非线性下采样形式，可逐步减小表示的空间尺寸，从而减少网络中的计算量和参数数量。</p>
+<p>卷积层和池化层之间存在一个激活函数，如ReLu层；该函数以元素为单位应用非饱和激活，即f(x)=max(0,x)<br> 阈值设为零。经过多个卷积层和池化层后，图像大小（特征图大小）被减小，并提取出更复杂的特征。</p>
+<p> 最终，当特征图足够小时，其内容会被压缩成一维向量，并输入到全连接的多层感知器（MLP）中进行处理。该全连接MLP的最后一层被视为输出层，它是一个损失层，用于指定网络训练如何惩罚预测标签与真实标签之间的偏差。<br>在开始之前，我们先来了解一下卷积和互相关的数学定义：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/05/01/cnn_backprogagation/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/25/yb-walk/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -888,87 +974,6 @@ Abstract. We describe a peer-to-peer distributed hash table with provable consis
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/18/%E6%A6%82%E7%8E%87-3-%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/header.jpg">
-      <meta itemprop="name" content="Shaoxin Yin">
-      <meta itemprop="description" content="A programmer's mind">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xin's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/18/%E6%A6%82%E7%8E%87-3-%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87/" class="post-title-link" itemprop="url">概率-条件概率</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-18 14:36:02" itemprop="dateCreated datePublished" datetime="2019-04-18T14:36:02+08:00">2019-04-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-02-07 11:03:44" itemprop="dateModified" datetime="2023-02-07T11:03:44+08:00">2023-02-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%A6%82%E7%8E%87/" itemprop="url" rel="index"><span itemprop="name">概率</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>生活中常常遇到很多事情已经发生，那么这些发生的事情对我们的决策有多少影响呢？<br>我们引入了条件概率。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/04/18/%E6%A6%82%E7%8E%87-3-%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1040,18 +1045,18 @@ Abstract. We describe a peer-to-peer distributed hash table with provable consis
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
